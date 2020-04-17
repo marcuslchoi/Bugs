@@ -14,7 +14,8 @@ class MasterViewController: UITableViewController {
     var objects = [Any]()
 
 
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         navigationItem.leftBarButtonItem = editButtonItem
@@ -25,6 +26,8 @@ class MasterViewController: UITableViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
+        
+        //let issue = Issue(type: IssueType.Bug) 
     }
 
     override func viewWillAppear(_ animated: Bool) {
