@@ -7,16 +7,41 @@
 //
 
 import UIKit
+import Firebase
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var emailTextField: UITextField!
+    
+    @IBOutlet weak var pwTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
     
-
+    @IBAction func loginPressed(_ sender: Any) {
+    }
+    
+    @IBAction func registerPressed(_ sender: Any)
+    {
+        if let email = emailTextField.text, let pw = pwTextField.text
+        {
+            Auth.auth().createUser(withEmail: email, password: pw)
+            {
+                authResult, error in
+                if error != nil
+                {
+                    print(error)
+                }
+                else
+                {
+                    self.performSegue(withIdentifier: "LoginToMaster", sender: self)
+                    print("registered! \(email)")
+                }
+            }
+        }
+    }
     /*
     // MARK: - Navigation
 
