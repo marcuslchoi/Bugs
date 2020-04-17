@@ -17,6 +17,7 @@
 		9B79F6CC24475B6600BFF9D6 /* BugTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B79F6CB24475B6600BFF9D6 /* BugTrackerTests.swift */; };
 		9B79F6D724475B6600BFF9D6 /* BugTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B79F6D624475B6600BFF9D6 /* BugTrackerUITests.swift */; };
 		9B79F6E82447612800BFF9D6 /* Issue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B79F6E72447612800BFF9D6 /* Issue.swift */; };
+		9B79F6EE244A61C300BFF9D6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B79F6ED244A61C300BFF9D6 /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		9B79F6D624475B6600BFF9D6 /* BugTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BugTrackerUITests.swift; sourceTree = "<group>"; };
 		9B79F6D824475B6600BFF9D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B79F6E72447612800BFF9D6 /* Issue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issue.swift; sourceTree = "<group>"; };
+		9B79F6ED244A61C300BFF9D6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 			children = (
 				9B79F6B624475B5F00BFF9D6 /* MasterViewController.swift */,
 				9B79F6B824475B5F00BFF9D6 /* DetailViewController.swift */,
+				9B79F6ED244A61C300BFF9D6 /* LoginViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B79F6EE244A61C300BFF9D6 /* LoginViewController.swift in Sources */,
 				9B79F6E82447612800BFF9D6 /* Issue.swift in Sources */,
 				9B79F6B324475B5F00BFF9D6 /* AppDelegate.swift in Sources */,
 				9B79F6B524475B5F00BFF9D6 /* SceneDelegate.swift in Sources */,
