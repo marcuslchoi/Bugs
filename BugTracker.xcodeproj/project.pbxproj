@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,6 +21,7 @@
 		9B79F6E82447612800BFF9D6 /* Issue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B79F6E72447612800BFF9D6 /* Issue.swift */; };
 		9B79F6EE244A61C300BFF9D6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B79F6ED244A61C300BFF9D6 /* LoginViewController.swift */; };
 		9B79F6F2244A696D00BFF9D6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9B79F6F1244A696D00BFF9D6 /* GoogleService-Info.plist */; };
+		9B79F6F4244AB5E800BFF9D6 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B79F6F3244AB5E800BFF9D6 /* Project.swift */; };
 		DBB401B9ED758544A44A5B04 /* Pods_BugTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6099D3F934B8F4654863894F /* Pods_BugTracker.framework */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +68,7 @@
 		9B79F6E72447612800BFF9D6 /* Issue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issue.swift; sourceTree = "<group>"; };
 		9B79F6ED244A61C300BFF9D6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		9B79F6F1244A696D00BFF9D6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9B79F6F3244AB5E800BFF9D6 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		CB40D8A33AF859C64D88DE53 /* Pods_BugTrackerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BugTrackerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5C65CBFDCDA825A678885BF /* Pods-BugTrackerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BugTrackerTests.release.xcconfig"; path = "Target Support Files/Pods-BugTrackerTests/Pods-BugTrackerTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -158,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				9B79F6E72447612800BFF9D6 /* Issue.swift */,
+				9B79F6F3244AB5E800BFF9D6 /* Project.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -191,7 +194,6 @@
 				8C28EAC3525033943981545A /* Pods-BugTrackerTests.debug.xcconfig */,
 				D5C65CBFDCDA825A678885BF /* Pods-BugTrackerTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -450,6 +452,7 @@
 				9B79F6B324475B5F00BFF9D6 /* AppDelegate.swift in Sources */,
 				9B79F6B524475B5F00BFF9D6 /* SceneDelegate.swift in Sources */,
 				9B79F6B724475B5F00BFF9D6 /* MasterViewController.swift in Sources */,
+				9B79F6F4244AB5E800BFF9D6 /* Project.swift in Sources */,
 				9B79F6B924475B5F00BFF9D6 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
