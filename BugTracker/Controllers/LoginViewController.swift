@@ -15,12 +15,31 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var pwTextField: UITextField!
     
+    @IBOutlet weak var errorLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func loginPressed(_ sender: Any) {
+    @IBAction func loginPressed(_ sender: Any)
+    {
+        if let email = emailTextField.text, let pw = pwTextField.text
+        {
+
+            Auth.auth().signIn(withEmail: email, password: pw)
+            { authResult, error in
+                if let e = error
+                {
+                    self.errorLabel.text = e.localizedDescription
+                }
+                else
+                {
+                    self.performSegue(withIdentifier: "LoginToMaster", sender: self)
+                }
+                
+            }
+        }
     }
     
     @IBAction func registerPressed(_ sender: Any)
@@ -30,9 +49,9 @@ class LoginViewController: UIViewController {
             Auth.auth().createUser(withEmail: email, password: pw)
             {
                 authResult, error in
-                if error != nil
+                if let e = error
                 {
-                    print(error)
+                    self.errorLabel.text = e.localizedDescription
                 }
                 else
                 {

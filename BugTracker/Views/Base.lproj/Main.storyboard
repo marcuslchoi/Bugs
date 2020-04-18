@@ -186,6 +186,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="error:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UEQ-Rf-Z9w">
+                                <rect key="frame" x="36" y="633" width="320" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="ZQe-CW-b0W"/>
@@ -193,13 +200,14 @@
                     <navigationItem key="navigationItem" id="yT4-E8-HKb"/>
                     <connections>
                         <outlet property="emailTextField" destination="Yk8-HH-KOO" id="GCF-sV-3GI"/>
+                        <outlet property="errorLabel" destination="UEQ-Rf-Z9w" id="NF7-Q0-Lif"/>
                         <outlet property="pwTextField" destination="1yg-oy-vAB" id="4mB-Wx-HNF"/>
                         <segue destination="H1p-Uh-vWS" kind="show" identifier="LoginToMaster" id="faI-f4-076"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EDH-PW-hG7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1672" y="-330"/>
+            <point key="canvasLocation" x="-1672.4637681159422" y="-330.13392857142856"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
