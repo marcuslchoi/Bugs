@@ -59,7 +59,7 @@ class CreateProjectViewController: UIViewController {
                 }
             }
         }
-        statusLabel.text = "please enter a project name"
+        statusLabel.text = status
     }
     
     /*
