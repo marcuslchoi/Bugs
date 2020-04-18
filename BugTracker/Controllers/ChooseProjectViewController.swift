@@ -12,32 +12,55 @@ import Firebase
 class ChooseProjectViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    
+    let db = Firestore.firestore()
     private var projects: [Project] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.delegate = self
         tableView.dataSource = self
         
-        
+        loadProjects()
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    private func loadProjects()
+    {
+        let collection = db.collection("Projects").order(by: "title")
+        //add a listener to the collection in case it gets updated elsewhere
+        collection.addSnapshotListener
+        { (querySnapshot, error) in
+            self.projects = []
+            if let e = error
+            {
+                print("Error getting docs! \(e)")
+            }
+            else
+            {
+                if let snapshotDocs = querySnapshot?.documents
+                {
+                    for doc in snapshotDocs
+                    {
+                        let data = doc.data() //dictionary
+                        let project = Project(id: data["id"] as! String, title: data["title"] as! String, users: ["todo"], modules: ["todo"])
+                        self.projects.append(project)
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                            let indexPath = IndexPath(row: self.projects.count - 1, section: 0)
+                            //self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+                        }
+                    }
+                }
+            }
+        }
     }
-    */
 }
 
 extension ChooseProjectViewController: UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        print(indexPath.row)
+        print("todo: go to issues for project \(projects[indexPath.row].title)")
     }
 }
 
