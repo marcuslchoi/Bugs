@@ -35,7 +35,7 @@ class LoginViewController: UIViewController {
                 }
                 else
                 {
-                    self.performSegue(withIdentifier: "LoginToMaster", sender: self)
+                    self.performSegue(withIdentifier: "LoginToCreateProject", sender: self)
                 }
                 
             }
@@ -55,7 +55,7 @@ class LoginViewController: UIViewController {
                 }
                 else
                 {
-                    self.performSegue(withIdentifier: "LoginToMaster", sender: self)
+                    self.performSegue(withIdentifier: "LoginToCreateProject", sender: self)
                     print("registered! \(email)")
                 }
             }

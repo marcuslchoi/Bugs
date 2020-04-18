@@ -11,6 +11,6 @@ struct Project
 {
     let id: String
     let title: String
-    let modules: [String]
     let users: [String]
+    let modules: [String]?
 }
