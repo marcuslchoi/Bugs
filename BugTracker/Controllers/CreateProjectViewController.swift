@@ -17,6 +17,8 @@ class CreateProjectViewController: UIViewController {
     @IBOutlet weak var modulesTextField: UITextField!
     @IBOutlet weak var statusLabel: UILabel!
     
+    let db = Firestore.firestore()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,23 +27,39 @@ class CreateProjectViewController: UIViewController {
     
     @IBAction func createButtonPress(_ sender: Any)
     {
+        var status = "please enter a project name"
         if let projName = projectNameTextField.text
         {
-            if projName == ""
+            if projName != ""
             {
-                statusLabel.text = "please enter a project name"
-            }
-            else
-            {
-                statusLabel.text = "Created \(projName)!"
-                let myEmail = Auth.auth().currentUser?.email
-                let project = Project(id: "testId", title: projName, users: [myEmail!], modules: ["test module"])
+                let currentUser = Auth.auth().currentUser
+                if currentUser == nil
+                {
+                    status = "current user is nil! todo login"
+                }
+                else
+                {
+                    let myEmail = currentUser!.email
+                    let project = Project(id: "testId", title: projName, users: [myEmail!], modules: ["test module"])
+                    
+                    let projectsColl = db.collection("Projects")
+                    //add the data to database collection
+                    projectsColl.addDocument(data: ["id": project.id, "title": project.title, "users": project.users, "modules": project.modules])
+                    {
+                        (error) in
+                        if let e = error
+                        {
+                            self.statusLabel.text = e.localizedDescription
+                        }
+                        else
+                        {
+                            self.statusLabel.text = "Created project \(projName)"
+                        }
+                    }
+                }
             }
         }
-        else
-        {
-            statusLabel.text = "please enter a project name"
-        }
+        statusLabel.text = "please enter a project name"
     }
     
     /*
