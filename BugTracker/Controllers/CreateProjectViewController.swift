@@ -62,6 +62,12 @@ class CreateProjectViewController: UIViewController {
         statusLabel.text = status
     }
     
+    
+    @IBAction func skipButtonPress(_ sender: Any)
+    {
+        performSegue(withIdentifier: "createProjectToProjects", sender: self)
+    }
+    
     /*
     // MARK: - Navigation
 
