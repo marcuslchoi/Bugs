@@ -306,7 +306,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XRP-X8-e02">
-                                <rect key="frame" x="0.0" y="166" width="414" height="730"/>
+                                <rect key="frame" x="0.0" y="166" width="414" height="676"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
@@ -327,6 +327,7 @@
                     <navigationItem key="navigationItem" id="pMO-sI-g7G"/>
                     <connections>
                         <outlet property="tableView" destination="XRP-X8-e02" id="6hi-tm-r5d"/>
+                        <segue destination="H1p-Uh-vWS" kind="show" identifier="ProjectsToMaster" id="EJg-Cm-vt8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jo7-eI-hza" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -336,5 +337,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Tll-UG-LXB"/>
+        <segue reference="EJg-Cm-vt8"/>
     </inferredMetricsTieBreakers>
 </document>

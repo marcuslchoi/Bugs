@@ -61,6 +61,7 @@ extension ChooseProjectViewController: UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         print("todo: go to issues for project \(projects[indexPath.row].title)")
+        performSegue(withIdentifier: "ProjectsToMaster", sender: self)
     }
 }
 

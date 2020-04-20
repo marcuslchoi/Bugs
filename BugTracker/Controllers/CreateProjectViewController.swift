@@ -25,6 +25,11 @@ class CreateProjectViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    func loadProjects()
+    {
+        
+    }
+    
     @IBAction func createButtonPress(_ sender: Any)
     {
         var status = "please enter a project name"
@@ -44,7 +49,8 @@ class CreateProjectViewController: UIViewController {
                     
                     let projectsColl = db.collection("Projects")
                     //add the data to database collection
-                    projectsColl.addDocument(data: ["id": project.id, "title": project.title, "users": project.users, "modules": project.modules])
+                    //projectsColl.addDocument(data: ["id": project.id, "title": project.title, "users": project.users, "modules": project.modules])
+                    projectsColl.document("test id").setData(["id": project.id, "title": project.title, "users": project.users, "modules": project.modules])
                     {
                         (error) in
                         if let e = error
