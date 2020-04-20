@@ -21,7 +21,7 @@ class CreateProjectViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        DbManager.instance.delegate = self
     }
     
     @IBAction func createButtonPress(_ sender: Any)
@@ -55,4 +55,17 @@ class CreateProjectViewController: UIViewController {
     }
     */
 
+}
+
+extension CreateProjectViewController: DbManagerDelegate
+{
+    func onCreateProjectError(description: String) {
+        statusLabel.text = description
+    }
+    
+    func onCreateProjectSuccess(projectName: String) {
+        statusLabel.text = "Created project: \(projectName)"
+    }
+    
+    
 }

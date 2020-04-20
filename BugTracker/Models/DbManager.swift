@@ -11,6 +11,7 @@ import Firebase
 
 class DbManager
 {
+    var delegate: DbManagerDelegate?
     private let db = Firestore.firestore()
     
     private var projects:[Project] = []
@@ -88,13 +89,12 @@ class DbManager
                         (error) in
                         if let e = error
                         {
-                            //todo use delegate
-                            print(e.localizedDescription)
+                            self.delegate?.onCreateProjectError(description: e.localizedDescription)
+                            //print(e.localizedDescription)
                         }
                         else
                         {
-                            //todo use delegate
-                            print("Created project \(projName)")
+                            self.delegate?.onCreateProjectSuccess(projectName: projName)
                         }
                     }
                 }
@@ -102,4 +102,10 @@ class DbManager
         }
         return status
     }
+}
+
+protocol DbManagerDelegate
+{
+    func onCreateProjectError(description: String)
+    func onCreateProjectSuccess(projectName: String)
 }
