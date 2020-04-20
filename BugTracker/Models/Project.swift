@@ -10,7 +10,6 @@ import Foundation
 struct Project
 {
     let id: String
-    let title: String
     let users: [String]
     let modules: [String]?
 }

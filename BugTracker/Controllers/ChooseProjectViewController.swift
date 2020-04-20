@@ -26,7 +26,7 @@ class ChooseProjectViewController: UIViewController {
     
     private func loadProjects()
     {
-        let collection = db.collection("Projects").order(by: "title")
+        let collection = db.collection("Projects")//.order(by: "title")
         //add a listener to the collection in case it gets updated elsewhere
         collection.addSnapshotListener
         { (querySnapshot, error) in
@@ -42,7 +42,7 @@ class ChooseProjectViewController: UIViewController {
                     for doc in snapshotDocs
                     {
                         let data = doc.data() //dictionary
-                        let project = Project(id: data["id"] as! String, title: data["title"] as! String, users: ["todo"], modules: ["todo"])
+                        let project = Project(id: data["id"] as! String, users: ["todo"], modules: ["todo"])
                         self.projects.append(project)
                         DispatchQueue.main.async {
                             self.tableView.reloadData()
@@ -60,7 +60,7 @@ extension ChooseProjectViewController: UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        print("todo: go to issues for project \(projects[indexPath.row].title)")
+        print("todo: go to issues for project \(projects[indexPath.row].id)")
         performSegue(withIdentifier: "ProjectsToMaster", sender: self)
     }
 }
@@ -76,7 +76,7 @@ extension ChooseProjectViewController: UITableViewDataSource
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "projectCell", for: indexPath)
         
-        cell.textLabel?.text = "\(project.id): \(project.title)"
+        cell.textLabel?.text = project.id
         return cell
     }
     

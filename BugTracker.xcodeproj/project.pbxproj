@@ -24,6 +24,7 @@
 		9B79F6F4244AB5E800BFF9D6 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B79F6F3244AB5E800BFF9D6 /* Project.swift */; };
 		9B79F6F6244ABA2A00BFF9D6 /* CreateProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B79F6F5244ABA2A00BFF9D6 /* CreateProjectViewController.swift */; };
 		9B79F6F8244B5FA200BFF9D6 /* ChooseProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B79F6F7244B5FA200BFF9D6 /* ChooseProjectViewController.swift */; };
+		9B9E69A7244E5E4D000256E2 /* DbManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9E69A6244E5E4D000256E2 /* DbManager.swift */; };
 		DBB401B9ED758544A44A5B04 /* Pods_BugTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6099D3F934B8F4654863894F /* Pods_BugTracker.framework */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +74,7 @@
 		9B79F6F3244AB5E800BFF9D6 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		9B79F6F5244ABA2A00BFF9D6 /* CreateProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectViewController.swift; sourceTree = "<group>"; };
 		9B79F6F7244B5FA200BFF9D6 /* ChooseProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseProjectViewController.swift; sourceTree = "<group>"; };
+		9B9E69A6244E5E4D000256E2 /* DbManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DbManager.swift; sourceTree = "<group>"; };
 		CB40D8A33AF859C64D88DE53 /* Pods_BugTrackerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BugTrackerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5C65CBFDCDA825A678885BF /* Pods-BugTrackerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BugTrackerTests.release.xcconfig"; path = "Target Support Files/Pods-BugTrackerTests/Pods-BugTrackerTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -165,6 +167,7 @@
 			children = (
 				9B79F6E72447612800BFF9D6 /* Issue.swift */,
 				9B79F6F3244AB5E800BFF9D6 /* Project.swift */,
+				9B9E69A6244E5E4D000256E2 /* DbManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -458,6 +461,7 @@
 				9B79F6E82447612800BFF9D6 /* Issue.swift in Sources */,
 				9B79F6F6244ABA2A00BFF9D6 /* CreateProjectViewController.swift in Sources */,
 				9B79F6B324475B5F00BFF9D6 /* AppDelegate.swift in Sources */,
+				9B9E69A7244E5E4D000256E2 /* DbManager.swift in Sources */,
 				9B79F6B524475B5F00BFF9D6 /* SceneDelegate.swift in Sources */,
 				9B79F6B724475B5F00BFF9D6 /* MasterViewController.swift in Sources */,
 				9B79F6F4244AB5E800BFF9D6 /* Project.swift in Sources */,

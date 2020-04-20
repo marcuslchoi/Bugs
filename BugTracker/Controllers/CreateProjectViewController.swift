@@ -29,48 +29,80 @@ class CreateProjectViewController: UIViewController {
     func loadProjects()
     {
         projects = []
+        let collection = db.collection("Projects")
         
-        db.collection("Projects").getDocuments() { (querySnapshot, err) in
-            if let err = err {
+        collection.addSnapshotListener { (querySnapshot, err) in
+            if let err = err
+            {
                 print("Error getting documents: \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-                    print("\(document.documentID) => \(document.data())")
+            }
+            else
+            {
+                for document in querySnapshot!.documents
+                {
+                    let id = document.documentID
+                    let data = document.data()
+                    let users = data["users"]
+                    let modules = data["modules"]
+                    
+                    let project = Project(id: id, users: ["todo"], modules: ["todo"])
+                    self.projects.append(project)
+                    //print("\(document.documentID) => \(document.data())")
                 }
             }
         }
     }
     
+    func checkIfUniqueProjectName(_ projectName: String) -> Bool
+    {
+        for project in projects
+        {
+            if project.id == projectName
+            {
+                return false
+            }
+        }
+        return true
+    }
+    
     @IBAction func createButtonPress(_ sender: Any)
     {
         var status = "please enter a project name"
+        
         if let projName = projectNameTextField.text
         {
             if projName != ""
             {
-                let currentUser = Auth.auth().currentUser
-                if currentUser == nil
+                if !checkIfUniqueProjectName(projName)
                 {
-                    status = "current user is nil! todo login"
+                    status = "please enter a unique project name"
                 }
                 else
                 {
-                    let myEmail = currentUser!.email
-                    let project = Project(id: "test-Id", title: projName, users: [myEmail!], modules: ["test module"])
-                    
-                    let projectsColl = db.collection("Projects")
-                    //add the data to database collection
-                    //projectsColl.addDocument(data: ["id": project.id, "title": project.title, "users": project.users, "modules": project.modules])
-                    projectsColl.document(project.id).setData(["title": project.title, "users": project.users, "modules": project.modules])
+                    let currentUser = Auth.auth().currentUser
+                    if currentUser == nil
                     {
-                        (error) in
-                        if let e = error
+                        status = "current user is nil! todo login"
+                    }
+                    else
+                    {
+                        let myEmail = currentUser!.email
+                        let project = Project(id: projName, users: [myEmail!], modules: ["test module"])
+                        
+                        let projectsColl = db.collection("Projects")
+                        //add the data to database collection
+                        //projectsColl.addDocument(data: ["id": project.id, "title": project.title, "users": project.users, "modules": project.modules])
+                        projectsColl.document(project.id).setData(["users": project.users, "modules": project.modules])
                         {
-                            self.statusLabel.text = e.localizedDescription
-                        }
-                        else
-                        {
-                            self.statusLabel.text = "Created project \(projName)"
+                            (error) in
+                            if let e = error
+                            {
+                                self.statusLabel.text = e.localizedDescription
+                            }
+                            else
+                            {
+                                self.statusLabel.text = "Created project \(projName)"
+                            }
                         }
                     }
                 }
