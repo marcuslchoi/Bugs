@@ -18,51 +18,11 @@ class CreateProjectViewController: UIViewController {
     @IBOutlet weak var statusLabel: UILabel!
     
     let db = Firestore.firestore()
-    var projects:[Project] = []
+    //var projects:[Project] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        loadProjects()
-    }
-    
-    func loadProjects()
-    {
-        projects = []
-        let collection = db.collection("Projects")
-        
-        collection.addSnapshotListener { (querySnapshot, err) in
-            if let err = err
-            {
-                print("Error getting documents: \(err)")
-            }
-            else
-            {
-                for document in querySnapshot!.documents
-                {
-                    let id = document.documentID
-                    let data = document.data()
-                    let users = data["users"]
-                    let modules = data["modules"]
-                    
-                    let project = Project(id: id, users: ["todo"], modules: ["todo"])
-                    self.projects.append(project)
-                    //print("\(document.documentID) => \(document.data())")
-                }
-            }
-        }
-    }
-    
-    func checkIfUniqueProjectName(_ projectName: String) -> Bool
-    {
-        for project in projects
-        {
-            if project.id == projectName
-            {
-                return false
-            }
-        }
-        return true
     }
     
     @IBAction func createButtonPress(_ sender: Any)
@@ -73,7 +33,7 @@ class CreateProjectViewController: UIViewController {
         {
             if projName != ""
             {
-                if !checkIfUniqueProjectName(projName)
+                if !DbManager.instance.checkIfUniqueProjectId(projName)
                 {
                     status = "please enter a unique project name"
                 }
