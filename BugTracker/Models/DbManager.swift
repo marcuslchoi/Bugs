@@ -58,4 +58,48 @@ class DbManager
         }
         return true
     }
+    
+    ///return status
+    func tryCreateProject(projName: String) -> String
+    {
+        var status = "please enter a project name"
+        if projName != ""
+        {
+            if !checkIfUniqueProjectId(projName)
+            {
+                status = "please enter a unique project name"
+            }
+            else //create the project
+            {
+                let currentUser = Auth.auth().currentUser
+                if currentUser == nil
+                {
+                    status = "current user is nil! todo login"
+                }
+                else
+                {
+                    let myEmail = currentUser!.email
+                    let project = Project(id: projName, users: [myEmail!], modules: ["test module"])
+                    
+                    let projectsColl = db.collection("Projects")
+                    //add the data to database collection
+                    projectsColl.document(project.id).setData(["users": project.users, "modules": project.modules])
+                    {
+                        (error) in
+                        if let e = error
+                        {
+                            //todo use delegate
+                            print(e.localizedDescription)
+                        }
+                        else
+                        {
+                            //todo use delegate
+                            print("Created project \(projName)")
+                        }
+                    }
+                }
+            }
+        }
+        return status
+    }
 }
