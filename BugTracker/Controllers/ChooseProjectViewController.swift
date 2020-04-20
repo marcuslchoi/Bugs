@@ -41,8 +41,9 @@ class ChooseProjectViewController: UIViewController {
                 {
                     for doc in snapshotDocs
                     {
+                        let projectId = doc.documentID
                         let data = doc.data() //dictionary
-                        let project = Project(id: data["id"] as! String, users: ["todo"], modules: ["todo"])
+                        let project = Project(id: projectId, users: ["todo"], modules: ["todo"])
                         self.projects.append(project)
                         DispatchQueue.main.async {
                             self.tableView.reloadData()

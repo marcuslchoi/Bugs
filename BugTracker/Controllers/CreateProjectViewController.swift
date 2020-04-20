@@ -16,8 +16,6 @@ class CreateProjectViewController: UIViewController {
     
     @IBOutlet weak var modulesTextField: UITextField!
     @IBOutlet weak var statusLabel: UILabel!
-    
-    let db = Firestore.firestore()
 
     override func viewDidLoad() {
         super.viewDidLoad()
