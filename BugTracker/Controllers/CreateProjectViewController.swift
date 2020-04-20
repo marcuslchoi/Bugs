@@ -18,16 +18,27 @@ class CreateProjectViewController: UIViewController {
     @IBOutlet weak var statusLabel: UILabel!
     
     let db = Firestore.firestore()
+    var projects:[Project] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        loadProjects()
     }
     
     func loadProjects()
     {
+        projects = []
         
+        db.collection("Projects").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    print("\(document.documentID) => \(document.data())")
+                }
+            }
+        }
     }
     
     @IBAction func createButtonPress(_ sender: Any)
@@ -45,12 +56,12 @@ class CreateProjectViewController: UIViewController {
                 else
                 {
                     let myEmail = currentUser!.email
-                    let project = Project(id: "testId", title: projName, users: [myEmail!], modules: ["test module"])
+                    let project = Project(id: "test-Id", title: projName, users: [myEmail!], modules: ["test module"])
                     
                     let projectsColl = db.collection("Projects")
                     //add the data to database collection
                     //projectsColl.addDocument(data: ["id": project.id, "title": project.title, "users": project.users, "modules": project.modules])
-                    projectsColl.document("test id").setData(["id": project.id, "title": project.title, "users": project.users, "modules": project.modules])
+                    projectsColl.document(project.id).setData(["title": project.title, "users": project.users, "modules": project.modules])
                     {
                         (error) in
                         if let e = error
