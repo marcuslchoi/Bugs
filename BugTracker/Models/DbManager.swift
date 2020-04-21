@@ -160,7 +160,7 @@ class DbManager
                         print("error! issue \(id) has a nil value")
                     }
                 }
-                //self.delegate?.onProjectsLoaded()
+                self.delegate?.onIssuesLoaded()
             }
         }
     }
@@ -183,6 +183,7 @@ protocol DbManagerDelegate
     func onCreateProjectError(description: String)
     func onCreateProjectSuccess(projectName: String)
     func onProjectsLoaded()
+    func onIssuesLoaded()
 }
 
 extension DbManagerDelegate
@@ -200,5 +201,10 @@ extension DbManagerDelegate
     func onProjectsLoaded()
     {
         print("default: onProjectsLoaded")
+    }
+    
+    func onIssuesLoaded()
+    {
+        print("default: onIssuesLoaded")
     }
 }

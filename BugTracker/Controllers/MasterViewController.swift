@@ -31,6 +31,7 @@ class MasterViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
+        DbManager.instance.delegate = self
         loadIssuesInTable()
     }
 
@@ -60,12 +61,19 @@ class MasterViewController: UITableViewController {
     private func loadIssuesInTable()
     {
         let issues = DbManager.instance.Issues
-        for i in 0...issues.count - 1
+        if issues.count > 0
         {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                let indexPath = IndexPath(row: i, section: 0)
+            for i in 0...issues.count - 1
+            {
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    let indexPath = IndexPath(row: i, section: 0)
+                }
             }
+        }
+        else
+        {
+            print("no issues for current project")
         }
     }
 
@@ -105,5 +113,13 @@ class MasterViewController: UITableViewController {
     }
 
 
+}
+
+extension MasterViewController: DbManagerDelegate
+{
+    func onIssuesLoaded() {
+        print("MasterViewController reloaded issues since they were updated")
+        loadIssuesInTable()
+    }
 }
 
