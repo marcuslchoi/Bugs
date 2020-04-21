@@ -12,48 +12,39 @@ import Firebase
 class ChooseProjectViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    let db = Firestore.firestore()
-    private var projects: [Project] = []
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.delegate = self
         tableView.dataSource = self
-        
-        loadProjects()
     }
     
-    private func loadProjects()
+    override func viewDidAppear(_ animated: Bool) {
+        DbManager.instance.delegate = self
+        loadProjectsInTable()
+    }
+    
+    private func loadProjectsInTable()
     {
-        let collection = db.collection("Projects")//.order(by: "title")
-        //add a listener to the collection in case it gets updated elsewhere
-        collection.addSnapshotListener
-        { (querySnapshot, error) in
-            self.projects = []
-            if let e = error
-            {
-                print("Error getting docs! \(e)")
-            }
-            else
-            {
-                if let snapshotDocs = querySnapshot?.documents
-                {
-                    for doc in snapshotDocs
-                    {
-                        let projectId = doc.documentID
-                        let data = doc.data() //dictionary
-                        let project = Project(id: projectId, users: ["todo"], modules: ["todo"])
-                        self.projects.append(project)
-                        DispatchQueue.main.async {
-                            self.tableView.reloadData()
-                            let indexPath = IndexPath(row: self.projects.count - 1, section: 0)
-                            //self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-                        }
-                    }
-                }
+        let projects = DbManager.instance.Projects
+        for i in 0...projects.count - 1
+        {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                let indexPath = IndexPath(row: i, section: 0)
+                //self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
             }
         }
+    }
+}
+
+//MARK: - DbManagerDelegate extension
+extension ChooseProjectViewController: DbManagerDelegate
+{
+    func onProjectsLoaded() {
+        loadProjectsInTable()
+        print("projects loaded!")
     }
 }
 
@@ -61,7 +52,7 @@ extension ChooseProjectViewController: UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        print("todo: go to issues for project \(projects[indexPath.row].id)")
+        print("todo: go to issues for project \(DbManager.instance.Projects[indexPath.row].id)")
         performSegue(withIdentifier: "ProjectsToMaster", sender: self)
     }
 }
@@ -69,17 +60,15 @@ extension ChooseProjectViewController: UITableViewDelegate
 extension ChooseProjectViewController: UITableViewDataSource
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return projects.count
+        return DbManager.instance.Projects.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let project = projects[indexPath.row]
-        
+        let project = DbManager.instance.Projects[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "projectCell", for: indexPath)
         
+        //populate the cell's text
         cell.textLabel?.text = project.id
         return cell
     }
-    
-    
 }

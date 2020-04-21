@@ -19,6 +19,10 @@ class CreateProjectViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //todo make sure this happens when nav back to this view
         DbManager.instance.delegate = self
     }
     

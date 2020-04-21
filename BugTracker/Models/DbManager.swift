@@ -13,8 +13,15 @@ class DbManager
 {
     var delegate: DbManagerDelegate?
     private let db = Firestore.firestore()
-    
+
     private var projects:[Project] = []
+    var Projects: [Project]
+    {
+        get
+        {
+            return projects
+        }
+    }
     
     static var instance = DbManager()
     private init()
@@ -22,7 +29,7 @@ class DbManager
         loadProjects()
     }
     
-    func loadProjects()
+    private func loadProjects()
     {
         let collection = db.collection("Projects")
         collection.addSnapshotListener { (querySnapshot, err) in
@@ -44,6 +51,7 @@ class DbManager
                     self.projects.append(project)
                     //print("\(document.documentID) => \(document.data())")
                 }
+                self.delegate?.onProjectsLoaded()
             }
         }
     }
@@ -108,4 +116,23 @@ protocol DbManagerDelegate
 {
     func onCreateProjectError(description: String)
     func onCreateProjectSuccess(projectName: String)
+    func onProjectsLoaded()
+}
+
+extension DbManagerDelegate
+{
+    func onCreateProjectError(description: String)
+    {
+        print("default: onCreateProjectError")
+    }
+    
+    func onCreateProjectSuccess(projectName: String)
+    {
+        print("default: onCreateProjectSuccess")
+    }
+    
+    func onProjectsLoaded()
+    {
+        print("default: onProjectsLoaded")
+    }
 }
