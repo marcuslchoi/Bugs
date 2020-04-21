@@ -25,6 +25,7 @@ class ChooseProjectViewController: UIViewController {
         loadProjectsInTable()
     }
     
+    //show the projects in the table
     private func loadProjectsInTable()
     {
         let projects = DbManager.instance.Projects
@@ -44,7 +45,7 @@ extension ChooseProjectViewController: DbManagerDelegate
 {
     func onProjectsLoaded() {
         loadProjectsInTable()
-        print("projects loaded!")
+        print("ChooseProjectViewController: projects loaded in table!")
     }
 }
 
@@ -52,8 +53,12 @@ extension ChooseProjectViewController: UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        print("todo: go to issues for project \(DbManager.instance.Projects[indexPath.row].id)")
-        performSegue(withIdentifier: "ProjectsToMaster", sender: self)
+        let projectId = DbManager.instance.Projects[indexPath.row].id
+        print("todo: go to issues for project \(projectId)")
+        
+        DbManager.instance.createTestBugs(projectId: projectId)
+        
+        //performSegue(withIdentifier: "ProjectsToMaster", sender: self)
     }
 }
 

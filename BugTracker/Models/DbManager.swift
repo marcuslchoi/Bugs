@@ -44,12 +44,18 @@ class DbManager
                 {
                     let id = document.documentID
                     let data = document.data()
-                    let users = data["users"]
-                    let modules = data["modules"]
+                    let users = data["users"] as? [String]
+                    let modules = data["modules"] as? [String]
                     
-                    let project = Project(id: id, users: ["todo"], modules: ["todo"])
-                    self.projects.append(project)
-                    //print("\(document.documentID) => \(document.data())")
+                    if let safeUsers = users, let safeModules = modules
+                    {
+                        let project = Project(id: id, users: safeUsers, modules: safeModules)
+                        self.projects.append(project)
+                    }
+                    else
+                    {
+                        print("load projects error: users or modules is not a [String]")
+                    }
                 }
                 self.delegate?.onProjectsLoaded()
             }
@@ -88,11 +94,11 @@ class DbManager
                 else
                 {
                     let myEmail = currentUser!.email
-                    let project = Project(id: projName, users: [myEmail!], modules: ["test module"])
+                    let project = Project(id: projName, users: [myEmail!, "another@eml.com"], modules: ["test module"])
                     
-                    let projectsColl = db.collection("Projects")
+                    let projectsRef = db.collection("Projects")
                     //add the data to database collection
-                    projectsColl.document(project.id).setData(["users": project.users, "modules": project.modules])
+                    projectsRef.document(project.id).setData(["users": project.users, "modules": project.modules])
                     {
                         (error) in
                         if let e = error
@@ -109,6 +115,15 @@ class DbManager
             }
         }
         return status
+    }
+    
+    func createTestBugs(projectId: String)
+    {
+        let projectRef = db.collection("Projects").document(projectId)
+        let issuesRef = projectRef.collection("Issues")
+        issuesRef.document("B-1").setData(["type": "bug", "description": "hi test bug"])
+        issuesRef.document("T-1").setData(["type": "task", "description": "hi test task"])
+        print("created test bugs for \(projectId)")
     }
 }
 
