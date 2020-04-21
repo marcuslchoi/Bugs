@@ -23,6 +23,15 @@ class DbManager
         }
     }
     
+    private var issues: [Issue] = []
+    var Issues: [Issue]
+    {
+        get
+        {
+            return issues
+        }
+    }
+    
     static var instance = DbManager()
     private init()
     {
@@ -117,12 +126,54 @@ class DbManager
         return status
     }
     
+    func getIssues(projectId: String)
+    {
+        let projectRef = db.collection("Projects").document(projectId)
+        let issuesRef = projectRef.collection("Issues")
+        issuesRef.addSnapshotListener { (querySnapshot, err) in
+            if let err = err
+            {
+                print("Error getting issues: \(err)")
+            }
+            else
+            {
+                self.issues = []
+                for document in querySnapshot!.documents
+                {
+                    let id = document.documentID
+                    let data = document.data()
+                    
+                    let type = data["type"] as? String
+                    let description = data["description"] as? String
+                    let title = data["title"] as? String
+                    let status = data["status"] as? String
+                    let assignedTo = data["assignedTo"] as? String
+                    let reporter = data["reporter"] as? String
+                    
+                    if let safeType = type, let safeStatus = status, let d = description, let t = title, let a = assignedTo, let r = reporter
+                    {
+                        let issue = Issue(id: id, reporter: r, assignedTo: a, status: IssueStatus(rawValue: safeStatus)!, type: IssueType(rawValue: safeType)!, title: t, description: d)
+                        self.issues.append(issue)
+                    }
+                    else
+                    {
+                        print("ERROR!!!!")
+                    }
+                }
+                //self.delegate?.onProjectsLoaded()
+            }
+        }
+    }
+    
     func createTestBugs(projectId: String)
     {
         let projectRef = db.collection("Projects").document(projectId)
         let issuesRef = projectRef.collection("Issues")
-        issuesRef.document("B-1").setData(["type": "bug", "description": "hi test bug"])
-        issuesRef.document("T-1").setData(["type": "task", "description": "hi test task"])
+        let me = Auth.auth().currentUser!.email!
+        
+        //issuesRef.document("B-1").setData(["reporter": me]) //"status": IssueStatus.Open as String, "type": IssueType.Bug as String
+        issuesRef.document("B-1").setData(["reporter": me, "assignedTo": "other", "title": "BugTitle!", "description": "hi test bug desc","status": IssueStatus.Open.rawValue, "type": IssueType.Bug.rawValue ])
+        //issuesRef.document("B-2").setData(["reporter": me, "assignedTo": "2other", "status": IssueStatus.InProgress, "type": IssueType.Task, "title": "BugTitle2!", "description": "hi test bug desc2" ])
         print("created test bugs for \(projectId)")
     }
 }

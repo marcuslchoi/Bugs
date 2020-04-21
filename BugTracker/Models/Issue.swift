@@ -7,14 +7,14 @@
 //
 
 import Foundation
-enum IssueType
+enum IssueType: String
 {
     case Bug
     case Task
     case Feature
 }
 
-enum IssueStatus
+enum IssueStatus: String
 {
     case Open
     case InProgress
@@ -25,14 +25,13 @@ struct Issue
 {
     let id: String
     let reporter: String
-    let dateAdded: Date
-    
+    var assignedTo: String
+    var status: IssueStatus
     let type: IssueType
     var title:String
     var description:String
-    let module: String
-    var assignedTo: String
-    var dueDate: Date
-    var comments: [String]
-    var status: IssueStatus
+
+//    let module: String
+//    var dueDate: Date
+//    var comments: [String]
 }
