@@ -152,12 +152,12 @@ class DbManager
                     
                     if let safeType = type, let safeStatus = status, let d = description, let t = title, let a = assignedTo, let r = reporter
                     {
-                        let issue = Issue(id: id, reporter: r, assignedTo: a, status: IssueStatus(rawValue: safeStatus)!, type: IssueType(rawValue: safeType)!, title: t, description: d)
+                        let issue = Issue(id: id, reporter: r, assignedTo: a, status: IssueStatus(rawValue: safeStatus) ?? IssueStatus.Open, type: IssueType(rawValue: safeType) ?? IssueType.Bug, title: t, description: d)
                         self.issues.append(issue)
                     }
                     else
                     {
-                        print("ERROR!!!!")
+                        print("error! issue \(id) has a nil value")
                     }
                 }
                 //self.delegate?.onProjectsLoaded()
