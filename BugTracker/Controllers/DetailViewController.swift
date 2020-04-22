@@ -12,6 +12,19 @@ class DetailViewController: UIViewController {
 
     @IBOutlet weak var detailDescriptionLabel: UILabel!
 
+    var issue: Issue?
+    {
+        didSet
+        {
+            refreshUI()
+        }
+    }
+    
+    private func refreshUI()
+    {
+        loadViewIfNeeded()
+        detailDescriptionLabel.text = issue?.title
+    }
 
     func configureView() {
         // Update the user interface for the detail item.
@@ -25,7 +38,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        configureView()
+        //configureView()
     }
 
     var detailItem: NSDate? {
@@ -34,7 +47,12 @@ class DetailViewController: UIViewController {
             configureView()
         }
     }
-
-
 }
 
+extension DetailViewController: IssueSelectionDelegate
+{
+    func onIssueSelected(selectedIssue: Issue) {
+        self.issue = selectedIssue
+        print("DetailViewController onIssueSelected \(issue?.title)")
+    }
+}

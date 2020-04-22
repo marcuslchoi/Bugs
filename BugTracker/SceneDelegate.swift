@@ -14,15 +14,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+        
+//        guard
+//        let splitViewController = window?.rootViewController as? UISplitViewController,
+//        let leftNavController = splitViewController.viewControllers.first
+//          as? UINavigationController,
+//        let masterViewController = leftNavController.viewControllers.first
+//          as? MasterViewController,
+//        let detailViewController = splitViewController.viewControllers.last
+//          as? DetailViewController
+//        else { fatalError() }
+        
         guard let window = window else { return }
         guard let splitViewController = window.rootViewController as? UISplitViewController else { return }
         guard let navigationController = splitViewController.viewControllers.last as? UINavigationController else { return }
         navigationController.topViewController?.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
         navigationController.topViewController?.navigationItem.leftItemsSupplementBackButton = true
         splitViewController.delegate = self
+        
+//        if let masterViewController = navigationController.topViewController as? MasterViewController,
+//            let detailViewController = navigationController as? DetailViewController
+//        {
+//            masterViewController.delegate = detailViewController
+//        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

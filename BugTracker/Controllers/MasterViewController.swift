@@ -12,7 +12,7 @@ class MasterViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
     var objects = [Any]()
-
+    var delegate: IssueSelectionDelegate?
 
     override func viewDidLoad()
     {
@@ -44,18 +44,20 @@ class MasterViewController: UITableViewController {
 
     // MARK: - Segues
 
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "showDetail" {
-//            if let indexPath = tableView.indexPathForSelectedRow {
-//                let object = objects[indexPath.row] as! NSDate
-//                let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-//                controller.detailItem = object
-//                controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-//                controller.navigationItem.leftItemsSupplementBackButton = true
-//                detailViewController = controller
-//            }
-//        }
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetail" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                //let object = objects[indexPath.row] as! NSDate
+                let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
+                //controller.detailItem = object
+                controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+                controller.navigationItem.leftItemsSupplementBackButton = true
+                detailViewController = controller
+                
+                delegate = detailViewController
+            }
+        }
+    }
     
     //show the issues in the table
     private func loadIssuesInTable()
@@ -78,7 +80,14 @@ class MasterViewController: UITableViewController {
     }
 
     // MARK: - Table View
-
+    
+    //on issue selected, call the delegate method for detail view to refresh
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let issues = DbManager.instance.Issues
+        let selectedIssue = issues[indexPath.row]
+        delegate?.onIssueSelected(selectedIssue: selectedIssue)
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -111,8 +120,6 @@ class MasterViewController: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
     }
-
-
 }
 
 extension MasterViewController: DbManagerDelegate
@@ -121,5 +128,10 @@ extension MasterViewController: DbManagerDelegate
         print("MasterViewController reloaded issues since they were updated")
         loadIssuesInTable()
     }
+}
+
+protocol IssueSelectionDelegate
+{
+    func onIssueSelected(selectedIssue: Issue)
 }
 
