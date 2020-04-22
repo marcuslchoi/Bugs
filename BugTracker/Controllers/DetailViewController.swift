@@ -10,8 +10,9 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-    @IBOutlet weak var detailDescriptionLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
 
+    @IBOutlet weak var descriptionTextView: UITextView!
     var issue: Issue?
     {
         didSet
@@ -23,30 +24,22 @@ class DetailViewController: UIViewController {
     private func refreshUI()
     {
         loadViewIfNeeded()
-        detailDescriptionLabel.text = issue?.title
+        titleLabel.text = issue?.title
     }
-
-//    func configureView() {
-//        // Update the user interface for the detail item.
-//        if let detail = detailItem {
-//            if let label = detailDescriptionLabel {
-//                label.text = detail.description
-//            }
-//        }
-//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         //configureView()
+        descriptionTextView.insertTextPlaceholder(with: CGSize())
     }
-
-//    var detailItem: NSDate? {
-//        didSet {
-//            // Update the view.
-//            configureView()
-//        }
-//    }
+    @IBAction func saveButtonPress(_ sender: Any)
+    {
+        if let issueId = issue?.id
+        {
+            DbManager.instance.updateIssue(issueId: issueId, title: titleLabel.text ?? "default title", description: descriptionTextView.text)
+        }
+    }
 }
 
 extension DetailViewController: IssueSelectionDelegate

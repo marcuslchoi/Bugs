@@ -227,6 +227,7 @@ class DbManager
             {
                 //add the issue
                 let id = createNextIssueId(for: type)
+                //todo error
                 issuesRef.document(id).setData(["reporter": safeEmail, "assignedTo": safeEmail, "title": title, "description": description,"status": IssueStatus.Open.rawValue, "type": type.rawValue ])
             }
             else
@@ -237,6 +238,17 @@ class DbManager
         else
         {
             print("addIssue error: currentProjectId is nil")
+        }
+    }
+    
+    func updateIssue(issueId: String, title: String, description: String)
+    {
+        if let projectId = currentProjectId
+        {
+            let projectRef = db.collection("Projects").document(projectId)
+            let issuesRef = projectRef.collection("Issues")
+            //todo error
+            issuesRef.document(issueId).updateData(["title": title, "description": description])
         }
     }
     
