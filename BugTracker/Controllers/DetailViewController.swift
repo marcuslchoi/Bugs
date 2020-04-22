@@ -25,13 +25,11 @@ class DetailViewController: UIViewController {
     {
         loadViewIfNeeded()
         titleLabel.text = issue?.title
+        descriptionTextView.text = issue?.description
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        //configureView()
-        descriptionTextView.text = issue?.description
     }
     @IBAction func saveButtonPress(_ sender: Any)
     {

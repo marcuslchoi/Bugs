@@ -81,6 +81,7 @@ class MasterViewController: UITableViewController {
         super.viewWillAppear(animated)
         DbManager.instance.delegate = self
         loadIssuesInTable()
+        title = DbManager.instance.getCurrentProjectId()
     }
 
 //    @objc

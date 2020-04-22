@@ -60,7 +60,7 @@
                         <viewLayoutGuide key="safeArea" id="VUw-jc-0yf"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Detail" id="mOI-FS-AaM"/>
+                    <navigationItem key="navigationItem" title="Issue id" id="mOI-FS-AaM"/>
                     <connections>
                         <outlet property="descriptionTextView" destination="2cM-80-plc" id="zzR-RN-RKj"/>
                         <outlet property="titleLabel" destination="0XM-y9-sOw" id="deQ-Na-JPF"/>
@@ -121,7 +121,7 @@
                             <outlet property="delegate" destination="7bK-jq-Zjz" id="RA6-mI-bju"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Master" id="Zdf-7t-Un8">
+                    <navigationItem key="navigationItem" title="Issues" id="Zdf-7t-Un8">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="MB0-9S-hM3">
                             <connections>
                                 <action selector="addButtonPress:" destination="7bK-jq-Zjz" id="FHm-cz-Vnx"/>

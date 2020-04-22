@@ -134,6 +134,11 @@ class DbManager
         currentProjectId = projectId
     }
     
+    func getCurrentProjectId() -> String?
+    {
+        return currentProjectId 
+    }
+    
     func getIssues(for projectId: String)
     {
         let projectRef = db.collection("Projects").document(projectId)
