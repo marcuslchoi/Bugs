@@ -7,16 +7,16 @@
 //
 
 import Foundation
-enum IssueType: String
+enum IssueType: String, CaseIterable
 {
     case Bug
     case Task
     case Feature
 }
 
-enum IssueStatus: String
+enum IssueStatus: String, CaseIterable
 {
-    case Open
+    case Open 
     case InProgress
     case Closed
 }

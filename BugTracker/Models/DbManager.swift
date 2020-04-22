@@ -136,7 +136,7 @@ class DbManager
     
     func getCurrentProjectId() -> String?
     {
-        return currentProjectId 
+        return currentProjectId
     }
     
     func getIssues(for projectId: String)
@@ -246,14 +246,14 @@ class DbManager
         }
     }
     
-    func updateIssue(issueId: String, title: String, description: String)
+    func updateIssue(issueId: String, title: String, description: String, statusString: String)
     {
         if let projectId = currentProjectId
         {
             let projectRef = db.collection("Projects").document(projectId)
             let issuesRef = projectRef.collection("Issues")
             //todo error
-            issuesRef.document(issueId).updateData(["title": title, "description": description])
+            issuesRef.document(issueId).updateData(["title": title, "description": description, "status": statusString])
         }
     }
     

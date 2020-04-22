@@ -20,8 +20,6 @@ class MasterViewController: UITableViewController {
         // Do any additional setup after loading the view.
         navigationItem.leftBarButtonItem = editButtonItem
 
-//        let addButton = UIBarButtonItem(//UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
-//        navigationItem.rightBarButtonItem = addButton
         if let split = splitViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
@@ -83,13 +81,6 @@ class MasterViewController: UITableViewController {
         loadIssuesInTable()
         title = DbManager.instance.getCurrentProjectId()
     }
-
-//    @objc
-//    func insertNewObject(_ sender: Any) {
-//        objects.insert(NSDate(), at: 0)
-//        let indexPath = IndexPath(row: 0, section: 0)
-//        tableView.insertRows(at: [indexPath], with: .automatic)
-//    }
 
     // MARK: - Segues
 
