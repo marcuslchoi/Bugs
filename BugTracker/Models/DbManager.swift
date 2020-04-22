@@ -87,7 +87,7 @@ class DbManager
     }
     
     ///return status
-    func tryCreateProject(projName: String) -> String
+    func tryCreateProject(projName: String, additionalUsers: String?) -> String
     {
         var status = "please enter a project name"
         if projName != ""
@@ -106,7 +106,15 @@ class DbManager
                 else
                 {
                     let myEmail = currentUser!.email
-                    let project = Project(id: projName, users: [myEmail!, "another@eml.com"], modules: ["test module"])
+                    var users = [myEmail!]
+                    
+                    //todo comma separated? or update UI
+                    if let moreUsers = additionalUsers
+                    {
+                        users.append(moreUsers)
+                    }
+                    
+                    let project = Project(id: projName, users: users, modules: ["test module"])
                     
                     let projectsRef = db.collection("Projects")
                     //add the data to database collection

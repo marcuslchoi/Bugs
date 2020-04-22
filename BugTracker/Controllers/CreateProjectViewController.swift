@@ -19,10 +19,6 @@ class CreateProjectViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         statusLabel.text = ""
-        if let myEmail = Auth.auth().currentUser?.email
-        {
-            usersTextField.text = myEmail + ", "
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -35,7 +31,8 @@ class CreateProjectViewController: UIViewController {
         var status: String
         if let projName = projectNameTextField.text
         {
-            status = DbManager.instance.tryCreateProject(projName: projName)
+            
+            status = DbManager.instance.tryCreateProject(projName: projName, additionalUsers: usersTextField.text)
         }
         else
         {
