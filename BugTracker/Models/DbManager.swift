@@ -23,6 +23,9 @@ class DbManager
         }
     }
     
+    //this is the project that the user has chosen
+    private var currentProjectId: String?
+    
     private var issues: [Issue] = []
     var Issues: [Issue]
     {
@@ -126,7 +129,12 @@ class DbManager
         return status
     }
     
-    func getIssues(projectId: String)
+    func setCurrentProjectId(to projectId: String)
+    {
+        currentProjectId = projectId
+    }
+    
+    func getIssues(for projectId: String)
     {
         let projectRef = db.collection("Projects").document(projectId)
         let issuesRef = projectRef.collection("Issues")
@@ -162,6 +170,36 @@ class DbManager
                 }
                 self.delegate?.onIssuesLoaded()
             }
+        }
+    }
+    
+    private func getNextIssueId(for type: IssueType) -> String
+    {
+        return "B-3"
+    }
+    
+    func addIssue(_ title: String, _ description: String, _ type: IssueType)
+    {
+        if let projectId = currentProjectId
+        {
+            let projectRef = db.collection("Projects").document(projectId)
+            let issuesRef = projectRef.collection("Issues")
+            let myEmail = Auth.auth().currentUser?.email
+            
+            if let safeEmail = myEmail
+            {
+                //add the issue
+                let id = getNextIssueId(for: type)
+                issuesRef.document(id).setData(["reporter": safeEmail, "assignedTo": safeEmail, "title": title, "description": description,"status": IssueStatus.Open.rawValue, "type": type.rawValue ])
+            }
+            else
+            {
+                print("addIssue error: current user is nil")
+            }
+        }
+        else
+        {
+            print("addIssue error: currentProjectId is nil")
         }
     }
     

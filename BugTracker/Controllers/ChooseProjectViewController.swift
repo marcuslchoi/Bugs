@@ -54,10 +54,12 @@ extension ChooseProjectViewController: UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         let projectId = DbManager.instance.Projects[indexPath.row].id
-        print("todo: go to issues for project \(projectId)")
+        print("going to issues for project \(projectId)")
         
-        //DbManager.instance.createTestBugs(projectId: projectId)
-        DbManager.instance.getIssues(projectId: projectId)
+        let dbManager = DbManager.instance
+        dbManager.setCurrentProjectId(to: projectId)
+        //dbManager.createTestBugs(projectId: projectId)
+        dbManager.getIssues(for: projectId)
         
         performSegue(withIdentifier: "ProjectsToMaster", sender: self)
     }
