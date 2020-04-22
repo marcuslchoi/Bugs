@@ -16,7 +16,9 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var statusPickerView: UIPickerView!
     
-    var statusPickerData: [String] = []
+    let statusPickerData: [String] = K.getIssueStatuses()
+    
+    //the issue is set when the user selects it from the master view controller
     var issue: Issue?
     {
         didSet
@@ -24,19 +26,35 @@ class DetailViewController: UIViewController {
             refreshUI()
         }
     }
-    
+
     private func refreshUI()
     {
-        loadViewIfNeeded()
-        title = issue?.id
-        titleLabel.text = issue?.title
-        descriptionTextView.text = issue?.description
+        if let safeIssue = issue
+        {
+            loadViewIfNeeded()
+            title = safeIssue.id
+            titleLabel.text = safeIssue.title
+            descriptionTextView.text = safeIssue.description
+            setStatusPickerInitialSelection(issue: safeIssue)
+        }
+    }
+    
+    //the status picker selection on entering the view
+    //equals the status of the issue in the db
+    private func setStatusPickerInitialSelection(issue: Issue)
+    {
+        let status = issue.status
+        let statusIndex = statusPickerData.firstIndex(of: status.rawValue)
+        if let safeIndex = statusIndex
+        {
+            statusPickerView.selectRow(safeIndex, inComponent: 0, animated: true)
+        }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        statusPickerData = K.getIssueStatuses()
     }
+    
     @IBAction func saveButtonPress(_ sender: Any)
     {
         if let issueId = issue?.id

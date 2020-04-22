@@ -31,7 +31,6 @@ class CreateProjectViewController: UIViewController {
         var status: String
         if let projName = projectNameTextField.text
         {
-            
             status = DbManager.instance.tryCreateProject(projName: projName, additionalUsers: usersTextField.text)
         }
         else
