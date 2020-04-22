@@ -26,14 +26,14 @@ class DetailViewController: UIViewController {
         detailDescriptionLabel.text = issue?.title
     }
 
-    func configureView() {
-        // Update the user interface for the detail item.
-        if let detail = detailItem {
-            if let label = detailDescriptionLabel {
-                label.text = detail.description
-            }
-        }
-    }
+//    func configureView() {
+//        // Update the user interface for the detail item.
+//        if let detail = detailItem {
+//            if let label = detailDescriptionLabel {
+//                label.text = detail.description
+//            }
+//        }
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,12 +41,12 @@ class DetailViewController: UIViewController {
         //configureView()
     }
 
-    var detailItem: NSDate? {
-        didSet {
-            // Update the view.
-            configureView()
-        }
-    }
+//    var detailItem: NSDate? {
+//        didSet {
+//            // Update the view.
+//            configureView()
+//        }
+//    }
 }
 
 extension DetailViewController: IssueSelectionDelegate
