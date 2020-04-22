@@ -31,7 +31,7 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         //configureView()
-        descriptionTextView.insertTextPlaceholder(with: CGSize())
+        descriptionTextView.text = issue?.description
     }
     @IBAction func saveButtonPress(_ sender: Any)
     {
