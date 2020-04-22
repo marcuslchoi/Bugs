@@ -66,6 +66,12 @@ class MasterViewController: UITableViewController {
             descTextfield.placeholder = "Description"
         }
         
+        //todo add a picker for issue type:
+        //austinvanalfen.wixsite.com/iosdeveloper/single-post/2016/11/22/UIPicker-inside-an-UIAlertController
+//        alert.addTextField { (textField) in
+//            textField.inputView = UIPickerView()
+//        }
+        
         present(alert, animated: true, completion: nil)
     }
     

@@ -173,9 +173,46 @@ class DbManager
         }
     }
     
-    private func getNextIssueId(for type: IssueType) -> String
+    //create a new id for the issue being added
+    private func createNextIssueId(for type: IssueType) -> String
     {
-        return "B-3"
+        var searchString = ""
+        switch(type)
+        {
+            case IssueType.Bug:
+                searchString = "B-"
+                break;
+            case IssueType.Task:
+                searchString = "T-"
+                break;
+            case IssueType.Feature:
+                searchString = "F-"
+                break;
+            default:
+                print("error: issue type doesn't exist!")
+                break;
+        }
+        
+        var idNumbers: [Int] = []
+        for issue in issues
+        {
+            let id = issue.id
+            if id.contains(searchString)
+            {
+                let strings = id.components(separatedBy: "-")
+                let num = Int(strings.last!)
+                idNumbers.append(num!)
+            }
+        }
+        
+        var newNum = 1
+        if(idNumbers.count > 0)
+        {
+            idNumbers.sort()
+            newNum = idNumbers.last! + 1
+        }
+        
+        return searchString + String(newNum)
     }
     
     func addIssue(_ title: String, _ description: String, _ type: IssueType)
@@ -189,7 +226,7 @@ class DbManager
             if let safeEmail = myEmail
             {
                 //add the issue
-                let id = getNextIssueId(for: type)
+                let id = createNextIssueId(for: type)
                 issuesRef.document(id).setData(["reporter": safeEmail, "assignedTo": safeEmail, "title": title, "description": description,"status": IssueStatus.Open.rawValue, "type": type.rawValue ])
             }
             else
