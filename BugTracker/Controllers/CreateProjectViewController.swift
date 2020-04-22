@@ -14,11 +14,15 @@ class CreateProjectViewController: UIViewController {
     
     @IBOutlet weak var usersTextField: UITextField!
     
-    @IBOutlet weak var modulesTextField: UITextField!
     @IBOutlet weak var statusLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        statusLabel.text = ""
+        if let myEmail = Auth.auth().currentUser?.email
+        {
+            usersTextField.text = myEmail + ", "
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -40,23 +44,11 @@ class CreateProjectViewController: UIViewController {
 
         statusLabel.text = status
     }
-    
-    
+
     @IBAction func skipButtonPress(_ sender: Any)
     {
         performSegue(withIdentifier: "createProjectToProjects", sender: self)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension CreateProjectViewController: DbManagerDelegate
