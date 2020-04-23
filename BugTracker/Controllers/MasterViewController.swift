@@ -140,10 +140,8 @@ class MasterViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "issueCell", for: indexPath)
         
         let issues = DbManager.instance.Issues
-        let issue = issues[indexPath.row] as! Issue
-        cell.textLabel!.text = issue.title
-        //let object = objects[indexPath.row] as! NSDate
-        //cell.textLabel!.text = object.description
+        let issue = issues[indexPath.row]
+        cell.textLabel!.text = "\(issue.id): \(issue.title)"
         return cell
     }
 
