@@ -123,7 +123,6 @@ class DbManager
                         if let e = error
                         {
                             self.delegate?.onCreateProjectError(description: e.localizedDescription)
-                            //print(e.localizedDescription)
                         }
                         else
                         {
@@ -239,8 +238,18 @@ class DbManager
             {
                 //add the issue
                 let id = createNextIssueId(for: type)
-                //todo error
+                //todo error UI
                 issuesRef.document(id).setData(["reporter": safeEmail, "assignedTo": safeEmail, "title": title, "description": description,"status": IssueStatus.Open.rawValue, "type": type.rawValue ])
+                { (error) in
+                    if let e = error
+                    {
+                        print("addIssue error for \(title): \(e.localizedDescription)")
+                    }
+                    else
+                    {
+                        print("addIssue success: \(title) added")
+                    }
+                }
             }
             else
             {
@@ -253,14 +262,24 @@ class DbManager
         }
     }
     
+    //on save in detail view
     func updateIssue(issueId: String, title: String, description: String, statusString: String)
     {
         if let projectId = currentProjectId
         {
             let projectRef = db.collection("Projects").document(projectId)
             let issuesRef = projectRef.collection("Issues")
-            //todo error
-            issuesRef.document(issueId).updateData(["title": title, "description": description, "status": statusString])
+            //todo error UI
+            issuesRef.document(issueId).updateData(["title": title, "description": description, "status": statusString]) { (error) in
+                if let e = error
+                {
+                    print("updateIssue error for \(title): \(e.localizedDescription)")
+                }
+                else
+                {
+                    print("updateIssue success: \(title) updated")
+                }
+            }
         }
     }
     
