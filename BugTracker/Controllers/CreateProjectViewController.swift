@@ -28,17 +28,14 @@ class CreateProjectViewController: UIViewController {
     
     @IBAction func createButtonPress(_ sender: Any)
     {
-        var status: String
         if let projName = projectNameTextField.text
         {
-            status = DbManager.instance.tryCreateProject(projName: projName, additionalUsers: usersTextField.text)
+            statusLabel.text = DbManager.instance.tryCreateProject(projName: projName, additionalUsers: usersTextField.text)
         }
         else
         {
-            status = "please enter a project name"
+            print("error: projectNameTextField.text is nil")
         }
-
-        statusLabel.text = status
     }
 
     @IBAction func skipButtonPress(_ sender: Any)

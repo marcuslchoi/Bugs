@@ -88,12 +88,16 @@ class DbManager
     ///return status
     func tryCreateProject(projName: String, additionalUsers: String?) -> String
     {
-        var status = "please enter a project name"
-        if projName != ""
+        var status = ""
+        if projName == ""
+        {
+            status = "Please enter a project name"
+        }
+        else
         {
             if !checkIfUniqueProjectId(projName)
             {
-                status = "please enter a unique project name"
+                status = "\(projName) already exists"
             }
             else //create the project
             {
