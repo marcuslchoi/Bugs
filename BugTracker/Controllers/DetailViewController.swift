@@ -44,6 +44,7 @@ class DetailViewController: UIViewController {
             titleLabel.text = safeIssue.title
             descriptionTextView.text = safeIssue.description
             setStatusPickerInitialSelection(issue: safeIssue)
+            reporterLabel.text = "Reporter: \(safeIssue.reporter)"
         }
     }
     
