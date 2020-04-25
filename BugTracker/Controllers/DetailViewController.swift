@@ -42,10 +42,18 @@ class DetailViewController: UIViewController {
             loadViewIfNeeded()
             title = safeIssue.id
             titleLabel.text = safeIssue.title
+            reporterLabel.text = "Reporter: \(safeIssue.reporter)"
             descriptionTextView.text = safeIssue.description
             setStatusPickerInitialSelection(issue: safeIssue)
-            reporterLabel.text = "Reporter: \(safeIssue.reporter)"
+            setDueDatePickerInitialSelection(issue: safeIssue)
         }
+    }
+    
+    //the due date picker selection on entering the view
+    //equals the due date of the issue in the db
+    private func setDueDatePickerInitialSelection(issue: Issue)
+    {
+        dueDatePicker.setDate(issue.dueDate, animated: true)
     }
     
     //the status picker selection on entering the view
@@ -71,7 +79,7 @@ class DetailViewController: UIViewController {
             let statusSelectedRow = statusPickerView.selectedRow(inComponent: 0)
             let status = statusPickerData[statusSelectedRow]
             
-            let dateSelected = getFormattedDate()
+            let dateSelected = K.convertDateToString(date: dueDatePicker.date)
             
             DbManager.instance.updateIssue(issueId: issueId, title: titleLabel.text ?? "default title", description: descriptionTextView.text, statusString: status, dueDate: dateSelected)
         }
@@ -79,16 +87,6 @@ class DetailViewController: UIViewController {
         {
             print("saveButtonPress error: issue id is nil!")
         }
-    }
-    
-    private func getFormattedDate() -> String
-    {
-        let dateFormatter = DateFormatter()
-
-        dateFormatter.dateStyle = DateFormatter.Style.short
-        //dateFormatter.timeStyle = DateFormatter.Style.short
-
-        return dateFormatter.string(from: dueDatePicker.date)
     }
 }
 

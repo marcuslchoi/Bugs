@@ -10,6 +10,7 @@ import Foundation
 
 struct K
 {
+    static let dateFormat = "MM-dd-yyyy"
     static func getIssueStatuses() -> [String]
     {
         var statuses: [String] = []
@@ -18,5 +19,19 @@ struct K
             statuses.append(status.rawValue)
         }
         return statuses
+    }
+    
+    static func convertDateToString(date: Date) -> String
+    {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = dateFormat
+        return dateFormatter.string(from: date)
+    }
+    
+    static func convertStringToDate(dateStr: String) -> Date?
+    {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = dateFormat
+        return dateFormatter.date(from: dateStr)
     }
 }

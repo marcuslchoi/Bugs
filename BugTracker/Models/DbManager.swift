@@ -173,9 +173,17 @@ class DbManager
                     let assignedTo = data["assignedTo"] as? String
                     let reporter = data["reporter"] as? String
                     
-                    if let safeType = type, let safeStatus = status, let d = description, let t = title, let a = assignedTo, let r = reporter
+                    //get the due date
+                    let dueDateStr = data["dueDate"] as? String
+                    var date: Date? = nil
+                    if let dateStr = dueDateStr
                     {
-                        let issue = Issue(id: id, reporter: r, assignedTo: a, status: IssueStatus(rawValue: safeStatus) ?? IssueStatus.Open, type: IssueType(rawValue: safeType) ?? IssueType.Bug, title: t, description: d)
+                        date = K.convertStringToDate(dateStr: dateStr)
+                    }
+                    
+                    if let safeType = type, let safeStatus = status, let d = description, let t = title, let a = assignedTo, let r = reporter //, let safeDate = dueDateStr
+                    {
+                        let issue = Issue(id: id, reporter: r, assignedTo: a, status: IssueStatus(rawValue: safeStatus) ?? IssueStatus.Open, type: IssueType(rawValue: safeType) ?? IssueType.Bug, title: t, description: d, dueDate: date ?? Date())
                         self.issues.append(issue)
                     }
                     else
