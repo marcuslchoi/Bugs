@@ -16,6 +16,14 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var statusPickerView: UIPickerView!
     
+    @IBOutlet weak var assigneePickerView: UIPickerView!
+    
+    
+    @IBOutlet weak var reporterLabel: UILabel!
+    
+    @IBOutlet weak var dueDatePicker: UIDatePicker!
+    
+    
     let statusPickerData: [String] = K.getIssueStatuses()
     
     //the issue is set when the user selects it from the master view controller
@@ -61,11 +69,29 @@ class DetailViewController: UIViewController {
         {
             let statusSelectedRow = statusPickerView.selectedRow(inComponent: 0)
             let status = statusPickerData[statusSelectedRow]
-            DbManager.instance.updateIssue(issueId: issueId, title: titleLabel.text ?? "default title", description: descriptionTextView.text, statusString: status)
+            
+            let dateSelected = getFormattedDate()
+            
+            DbManager.instance.updateIssue(issueId: issueId, title: titleLabel.text ?? "default title", description: descriptionTextView.text, statusString: status, dueDate: dateSelected)
         }
+        else
+        {
+            print("saveButtonPress error: issue id is nil!")
+        }
+    }
+    
+    private func getFormattedDate() -> String
+    {
+        let dateFormatter = DateFormatter()
+
+        dateFormatter.dateStyle = DateFormatter.Style.short
+        //dateFormatter.timeStyle = DateFormatter.Style.short
+
+        return dateFormatter.string(from: dueDatePicker.date)
     }
 }
 
+//MARK: - Extensions
 extension DetailViewController: IssueSelectionDelegate
 {
     func onIssueSelected(selectedIssue: Issue) {
