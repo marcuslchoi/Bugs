@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		123704F21EDD4B0683A8534F /* Pods_BugTracker_BugTrackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3D397D716AF36FEB5B94E4 /* Pods_BugTracker_BugTrackerUITests.framework */; };
 		7A22D64F9D8BD2E58148C641 /* Pods_BugTrackerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB40D8A33AF859C64D88DE53 /* Pods_BugTrackerTests.framework */; };
+		9B4E18B624560F14004C68AF /* ProjectSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4E18B524560F14004C68AF /* ProjectSettingsViewController.swift */; };
 		9B79F6B324475B5F00BFF9D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B79F6B224475B5F00BFF9D6 /* AppDelegate.swift */; };
 		9B79F6B524475B5F00BFF9D6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B79F6B424475B5F00BFF9D6 /* SceneDelegate.swift */; };
 		9B79F6B724475B5F00BFF9D6 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B79F6B624475B5F00BFF9D6 /* MasterViewController.swift */; };
@@ -54,6 +55,7 @@
 		7F25C05B8A09487995652AD6 /* Pods-BugTracker-BugTrackerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BugTracker-BugTrackerUITests.debug.xcconfig"; path = "Target Support Files/Pods-BugTracker-BugTrackerUITests/Pods-BugTracker-BugTrackerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7F574DA39155C985AB6A988B /* Pods-BugTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BugTracker.debug.xcconfig"; path = "Target Support Files/Pods-BugTracker/Pods-BugTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		8C28EAC3525033943981545A /* Pods-BugTrackerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BugTrackerTests.debug.xcconfig"; path = "Target Support Files/Pods-BugTrackerTests/Pods-BugTrackerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9B4E18B524560F14004C68AF /* ProjectSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSettingsViewController.swift; sourceTree = "<group>"; };
 		9B79F6AF24475B5F00BFF9D6 /* BugTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BugTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B79F6B224475B5F00BFF9D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B79F6B424475B5F00BFF9D6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 			children = (
 				9B79F6ED244A61C300BFF9D6 /* LoginViewController.swift */,
 				9B79F6F5244ABA2A00BFF9D6 /* CreateProjectViewController.swift */,
+				9B4E18B524560F14004C68AF /* ProjectSettingsViewController.swift */,
 				9B79F6F7244B5FA200BFF9D6 /* ChooseProjectViewController.swift */,
 				9B79F6B624475B5F00BFF9D6 /* MasterViewController.swift */,
 				9B79F6B824475B5F00BFF9D6 /* DetailViewController.swift */,
@@ -464,6 +467,7 @@
 				9B79F6EE244A61C300BFF9D6 /* LoginViewController.swift in Sources */,
 				9B79F6E82447612800BFF9D6 /* Issue.swift in Sources */,
 				9B79F6F6244ABA2A00BFF9D6 /* CreateProjectViewController.swift in Sources */,
+				9B4E18B624560F14004C68AF /* ProjectSettingsViewController.swift in Sources */,
 				9B79F6B324475B5F00BFF9D6 /* AppDelegate.swift in Sources */,
 				9B9E69A7244E5E4D000256E2 /* DbManager.swift in Sources */,
 				9B79F6B524475B5F00BFF9D6 /* SceneDelegate.swift in Sources */,

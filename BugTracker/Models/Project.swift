@@ -10,6 +10,7 @@ import Foundation
 struct Project
 {
     let id: String
-    let users: [String]
+    var description: String
+    var users: [String]
     //let modules: [String]?
 }

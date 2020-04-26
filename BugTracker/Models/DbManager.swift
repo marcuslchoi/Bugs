@@ -57,10 +57,11 @@ class DbManager
                     let id = document.documentID
                     let data = document.data()
                     let users = data["users"] as? [String]
+                    let desc = data["description"] as? String
                     
                     if let safeUsers = users
                     {
-                        let project = Project(id: id, users: safeUsers)
+                        let project = Project(id: id, description: desc ?? "", users: safeUsers)
                         self.projects.append(project)
                     }
                     else
@@ -117,7 +118,7 @@ class DbManager
                         users.append(moreUsers)
                     }
                     
-                    let project = Project(id: projName, users: users) //, modules: ["test module"])
+                    let project = Project(id: projName, description: "", users: users)
                     
                     let projectsRef = db.collection("Projects")
                     //add the data to database collection
