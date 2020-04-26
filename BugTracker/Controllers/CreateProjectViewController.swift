@@ -11,9 +11,7 @@ import Firebase
 class CreateProjectViewController: UIViewController {
 
     @IBOutlet weak var projectNameTextField: UITextField!
-    
-    @IBOutlet weak var usersTextField: UITextField!
-    
+
     @IBOutlet weak var statusLabel: UILabel!
 
     override func viewDidLoad() {
@@ -30,7 +28,7 @@ class CreateProjectViewController: UIViewController {
     {
         if let projName = projectNameTextField.text
         {
-            statusLabel.text = DbManager.instance.tryCreateProject(projName: projName, additionalUsers: usersTextField.text)
+            statusLabel.text = DbManager.instance.tryCreateProject(projName: projName, additionalUsers: nil)
         }
         else
         {
@@ -51,8 +49,19 @@ extension CreateProjectViewController: DbManagerDelegate
     }
     
     func onCreateProjectSuccess(projectName: String) {
-        statusLabel.text = "Created project: \(projectName)"
+        //statusLabel.text = "Created project: \(projectName)"
+        showAddIssueAlert(for: projectName)
     }
     
-    
+    private func showAddIssueAlert(for projectName: String)
+    {
+        let alert = UIAlertController(title: "\(projectName) Created", message: "Please add some project settings.", preferredStyle: .alert)
+        
+        let addAction = UIAlertAction(title: "Go to Settings", style: .default) { (action) in
+            
+            self.performSegue(withIdentifier: "CreateToProjectSettings", sender: self)
+        }
+        alert.addAction(addAction)
+        present(alert, animated: true, completion: nil)
+    }
 }

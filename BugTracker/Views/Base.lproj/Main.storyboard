@@ -381,19 +381,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YR0-2b-Apr">
-                                <rect key="frame" x="134" y="357" width="241" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add Users:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p8F-Db-igZ">
-                                <rect key="frame" x="20" y="362" width="85" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5GS-t0-mhz">
                                 <rect key="frame" x="20" y="449" width="99" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -432,7 +419,6 @@
                     <connections>
                         <outlet property="projectNameTextField" destination="J5G-wJ-6zB" id="lRt-YL-GEk"/>
                         <outlet property="statusLabel" destination="8bY-0c-rs4" id="tJZ-JG-R1S"/>
-                        <outlet property="usersTextField" destination="YR0-2b-Apr" id="FVP-4H-pBH"/>
                         <segue destination="fvL-IS-nIt" kind="show" identifier="createProjectToProjects" id="IOA-Tq-53f"/>
                         <segue destination="bgX-a9-YuU" kind="show" identifier="CreateToProjectSettings" id="Frd-WK-SBK"/>
                     </connections>
@@ -487,7 +473,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="q32-ar-RP3"/>
+        <segue reference="IOA-Tq-53f"/>
         <segue reference="6S0-TO-JiA"/>
         <segue reference="EJg-Cm-vt8"/>
     </inferredMetricsTieBreakers>
