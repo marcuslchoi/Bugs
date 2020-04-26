@@ -25,6 +25,7 @@ class DetailViewController: UIViewController {
     
     
     let statusPickerData: [String] = K.getIssueStatuses()
+    var assigneePickerData: [String] = []
     
     //the issue is set when the user selects it from the master view controller
     var issue: Issue?
@@ -70,6 +71,16 @@ class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setAssigneePickerData()
+    }
+    
+    private func setAssigneePickerData()
+    {
+        let dbManager = DbManager.instance
+        if let users = dbManager.getCurrentProject()?.users
+        {
+            assigneePickerData = users
+        }
     }
     
     @IBAction func saveButtonPress(_ sender: Any)
@@ -91,6 +102,7 @@ class DetailViewController: UIViewController {
 }
 
 //MARK: - Extensions
+//IssueSelectionDelegate is a delegate of MasterViewController
 extension DetailViewController: IssueSelectionDelegate
 {
     func onIssueSelected(selectedIssue: Issue) {
@@ -111,11 +123,34 @@ extension DetailViewController: UIPickerViewDataSource
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return statusPickerData.count
+        if pickerView.tag == 0
+        {
+            return statusPickerData.count
+        }
+        else if pickerView.tag == 1
+        {
+            return assigneePickerData.count
+        }
+        else
+        {
+            return 0
+        }
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        statusPickerData[row]
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
+    {
+        if pickerView.tag == 0
+        {
+            return statusPickerData[row]
+        }
+        else if pickerView.tag == 1
+        {
+            return assigneePickerData[row]
+        }
+        else
+        {
+            return nil
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {

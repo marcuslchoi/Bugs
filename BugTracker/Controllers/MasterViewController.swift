@@ -8,6 +8,7 @@
 
 import UIKit
 
+//this view shows the issues for the currently selected project
 class MasterViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
@@ -77,9 +78,18 @@ class MasterViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
-        DbManager.instance.delegate = self
+        let dbManager = DbManager.instance
+        dbManager.delegate = self
         loadIssuesInTable()
-        title = DbManager.instance.getCurrentProjectId()
+        if let currentProject = dbManager.getCurrentProject()
+        {
+            title = currentProject.id
+        }
+        else
+        {
+            title = ""
+            print("Error: current project is nil!")
+        }
     }
 
     // MARK: - Segues

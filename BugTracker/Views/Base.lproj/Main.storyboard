@@ -69,9 +69,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="85h-Q8-Vz9">
+                            <pickerView tag="1" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="85h-Q8-Vz9">
                                 <rect key="frame" x="194" y="425" width="187" height="113"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="JEX-9P-axG" id="dXp-Tl-wQ5"/>
+                                    <outlet property="delegate" destination="JEX-9P-axG" id="i2V-Qd-t48"/>
+                                </connections>
                             </pickerView>
                             <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="zkr-hL-tzU">
                                 <rect key="frame" x="117" y="546" width="260" height="129"/>

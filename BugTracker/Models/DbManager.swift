@@ -144,9 +144,13 @@ class DbManager
         currentProjectId = projectId
     }
     
-    func getCurrentProjectId() -> String?
+    func getCurrentProject() -> Project?
     {
-        return currentProjectId
+        if let index = projects.firstIndex(where: { $0.id == currentProjectId })
+        {
+            return projects[index]
+        }
+        return nil
     }
     
     func getIssues(for projectId: String)
