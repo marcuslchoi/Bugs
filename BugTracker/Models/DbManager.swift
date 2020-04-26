@@ -280,14 +280,15 @@ class DbManager
     
     //on save in detail view
     func updateIssue(issueId: String, title: String,
-                     description: String, statusString: String, dueDate: String)
+                     description: String, statusString: String,
+                     assignee: String, dueDate: String)
     {
         if let projectId = currentProjectId
         {
             let projectRef = db.collection("Projects").document(projectId)
             let issuesRef = projectRef.collection("Issues")
             //todo error UI
-            issuesRef.document(issueId).updateData(["title": title, "description": description, "status": statusString, "dueDate": dueDate]) { (error) in
+            issuesRef.document(issueId).updateData(["title": title, "description": description, "status": statusString, "assignedTo": assignee, "dueDate": dueDate]) { (error) in
                 if let e = error
                 {
                     print("updateIssue error for \(title): \(e.localizedDescription)")

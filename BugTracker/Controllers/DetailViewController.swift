@@ -22,8 +22,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var reporterLabel: UILabel!
     
     @IBOutlet weak var dueDatePicker: UIDatePicker!
-    
-    
+        
     let statusPickerData: [String] = K.getIssueStatuses()
     var assigneePickerData: [String] = []
     
@@ -46,15 +45,9 @@ class DetailViewController: UIViewController {
             reporterLabel.text = "Reporter: \(safeIssue.reporter)"
             descriptionTextView.text = safeIssue.description
             setStatusPickerInitialSelection(issue: safeIssue)
+            setAssigneePickerInitialSelection(issue: safeIssue)
             setDueDatePickerInitialSelection(issue: safeIssue)
         }
-    }
-    
-    //the due date picker selection on entering the view
-    //equals the due date of the issue in the db
-    private func setDueDatePickerInitialSelection(issue: Issue)
-    {
-        dueDatePicker.setDate(issue.dueDate, animated: true)
     }
     
     //the status picker selection on entering the view
@@ -67,6 +60,25 @@ class DetailViewController: UIViewController {
         {
             statusPickerView.selectRow(safeIndex, inComponent: 0, animated: true)
         }
+    }
+    
+    //the assignee picker selection on entering the view
+    //equals the assignedTo of the issue in the db
+    private func setAssigneePickerInitialSelection(issue: Issue)
+    {
+        let assignee = issue.assignedTo
+        let index = assigneePickerData.firstIndex(of: assignee)
+        if let safeIndex = index
+        {
+            assigneePickerView.selectRow(safeIndex, inComponent: 0, animated: true)
+        }
+    }
+    
+    //the due date picker selection on entering the view
+    //equals the due date of the issue in the db
+    private func setDueDatePickerInitialSelection(issue: Issue)
+    {
+        dueDatePicker.setDate(issue.dueDate, animated: true)
     }
 
     override func viewDidLoad() {
@@ -90,9 +102,12 @@ class DetailViewController: UIViewController {
             let statusSelectedRow = statusPickerView.selectedRow(inComponent: 0)
             let status = statusPickerData[statusSelectedRow]
             
+            let assigneeSelectedRow = assigneePickerView.selectedRow(inComponent: 0)
+            let assignee = assigneePickerData[assigneeSelectedRow]
+            
             let dateSelected = K.convertDateToString(date: dueDatePicker.date)
             
-            DbManager.instance.updateIssue(issueId: issueId, title: titleLabel.text ?? "default title", description: descriptionTextView.text, statusString: status, dueDate: dateSelected)
+            DbManager.instance.updateIssue(issueId: issueId, title: titleLabel.text ?? "default title", description: descriptionTextView.text, statusString: status, assignee: assignee, dueDate: dateSelected)
         }
         else
         {
