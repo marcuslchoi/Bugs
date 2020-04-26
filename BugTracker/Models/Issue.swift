@@ -18,6 +18,7 @@ enum IssueStatus: String, CaseIterable
 {
     case Open 
     case InProgress
+    case InReview
     case Closed
 }
 
