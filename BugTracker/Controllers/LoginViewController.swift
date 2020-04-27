@@ -17,47 +17,45 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var errorLabel: UILabel!
     
+    let authManager = AuthManager.instance
     override func viewDidLoad() {
         super.viewDidLoad()
+        authManager.delegate = self
         errorLabel.text = ""
     }
     
     @IBAction func loginPressed(_ sender: Any)
     {
-        if let email = emailTextField.text, let pw = pwTextField.text
+        if let email = emailTextField.text, let password = pwTextField.text
         {
-            Auth.auth().signIn(withEmail: email, password: pw)
-            { authResult, error in
-                if let e = error
-                {
-                    self.errorLabel.text = e.localizedDescription
-                }
-                else
-                {
-                    self.performSegue(withIdentifier: "LoginToCreateProject", sender: self)
-                }
-            }
+            authManager.login(email: email, pw: password)
         }
     }
     
     @IBAction func registerPressed(_ sender: Any)
     {
-        if let email = emailTextField.text, let pw = pwTextField.text
+        if let email = emailTextField.text, let password = pwTextField.text
         {
-            Auth.auth().createUser(withEmail: email, password: pw)
-            {
-                authResult, error in
-                if let e = error
-                {
-                    self.errorLabel.text = e.localizedDescription
-                }
-                else
-                {
-                    print("registered! \(email)")
-                    self.performSegue(withIdentifier: "LoginToCreateProject", sender: self)
-                    DbManager.instance.addUserToMyDb(email: email)
-                }
-            }
+            authManager.register(email: email, pw: password)
         }
+    }
+}
+
+extension LoginViewController: AuthManagerDelegate
+{
+    func onLoginSuccess() {
+        self.performSegue(withIdentifier: "LoginToCreateProject", sender: self)
+    }
+    
+    func onLoginFail(error: String) {
+        self.errorLabel.text = error
+    }
+    
+    func onRegisterSuccess() {
+        self.performSegue(withIdentifier: "LoginToCreateProject", sender: self)
+    }
+    
+    func onRegisterFail(error: String) {
+        self.errorLabel.text = error
     }
 }
