@@ -302,6 +302,22 @@ class DbManager
         }
     }
     
+    func updateProject(projectId: String, description: String)
+    {
+        let projectRef = db.collection("Projects").document(projectId)
+        //todo error UI
+        projectRef.updateData(["description": description]) { (error) in
+            if let e = error
+            {
+                print("updateProject error for \(projectId): \(e.localizedDescription)")
+            }
+            else
+            {
+                print("updateProject success: \(projectId) updated")
+            }
+        }
+    }
+    
     func createTestBugs(projectId: String)
     {
         let projectRef = db.collection("Projects").document(projectId)

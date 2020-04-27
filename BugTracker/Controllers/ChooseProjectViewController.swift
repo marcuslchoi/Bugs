@@ -58,7 +58,6 @@ extension ChooseProjectViewController: UITableViewDelegate
         
         let dbManager = DbManager.instance
         dbManager.setCurrentProjectId(to: projectId)
-        //dbManager.createTestBugs(projectId: projectId)
         dbManager.getIssues(for: projectId)
         
         performSegue(withIdentifier: "ProjectsToMaster", sender: self)

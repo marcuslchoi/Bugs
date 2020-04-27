@@ -341,20 +341,36 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iuv-BP-dQB">
                                 <rect key="frame" x="350" y="518" width="25" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="addUserButtonPress:" destination="bgX-a9-YuU" eventType="touchUpInside" id="aj4-8b-pay"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nsU-8e-bDy">
                                 <rect key="frame" x="40" y="645" width="42" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="OK -&gt;"/>
                                 <connections>
+                                    <action selector="okButtonPress:" destination="bgX-a9-YuU" eventType="touchUpInside" id="Q6P-fn-Nmu"/>
                                     <segue destination="fvL-IS-nIt" kind="show" id="q32-ar-RP3"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current users: todo " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCT-iN-cza">
+                                <rect key="frame" x="40" y="564" width="153" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="1Bs-6V-Z1t"/>
                     </view>
                     <navigationItem key="navigationItem" id="oCc-gf-F8h"/>
+                    <connections>
+                        <outlet property="addUserTextField" destination="bQj-kc-XLX" id="Fep-sL-ii6"/>
+                        <outlet property="currentUsersLabel" destination="dCT-iN-cza" id="dR4-oR-Dj0"/>
+                        <outlet property="descriptionTextView" destination="ByK-Vg-zIA" id="c7T-Tp-v2R"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oDi-iJ-doJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -473,7 +489,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="IOA-Tq-53f"/>
+        <segue reference="q32-ar-RP3"/>
         <segue reference="6S0-TO-JiA"/>
         <segue reference="EJg-Cm-vt8"/>
     </inferredMetricsTieBreakers>

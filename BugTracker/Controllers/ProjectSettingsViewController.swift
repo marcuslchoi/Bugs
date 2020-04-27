@@ -10,21 +10,30 @@ import UIKit
 
 class ProjectSettingsViewController: UIViewController {
 
+    @IBOutlet weak var descriptionTextView: UITextView!
+    
+    @IBOutlet weak var addUserTextField: UITextField!
+    
+    @IBOutlet weak var currentUsersLabel: UILabel!
+    var currentProjectId: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func okButtonPress(_ sender: Any)
+    {
+        if let projectId = currentProjectId
+        {
+            let dbManager = DbManager.instance
+            dbManager.updateProject(projectId: projectId, description: descriptionTextView.text)
+        }
     }
-    */
-
+    
+    @IBAction func addUserButtonPress(_ sender: Any)
+    {
+    
+    }
 }

@@ -14,6 +14,8 @@ class CreateProjectViewController: UIViewController {
 
     @IBOutlet weak var statusLabel: UILabel!
 
+    private var createdProjectId: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         statusLabel.text = ""
@@ -40,18 +42,6 @@ class CreateProjectViewController: UIViewController {
     {
         performSegue(withIdentifier: "createProjectToProjects", sender: self)
     }
-}
-
-extension CreateProjectViewController: DbManagerDelegate
-{
-    func onCreateProjectError(description: String) {
-        statusLabel.text = description
-    }
-    
-    func onCreateProjectSuccess(projectName: String) {
-        //statusLabel.text = "Created project: \(projectName)"
-        showAddIssueAlert(for: projectName)
-    }
     
     private func showAddIssueAlert(for projectName: String)
     {
@@ -63,5 +53,27 @@ extension CreateProjectViewController: DbManagerDelegate
         }
         alert.addAction(addAction)
         present(alert, animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "CreateToProjectSettings"
+        {
+            if let settingsVC = segue.destination as? ProjectSettingsViewController
+            {
+                settingsVC.currentProjectId = createdProjectId
+            }
+        }
+    }
+}
+
+extension CreateProjectViewController: DbManagerDelegate
+{
+    func onCreateProjectError(description: String) {
+        statusLabel.text = description
+    }
+    
+    func onCreateProjectSuccess(projectName: String) {
+        createdProjectId = projectName
+        showAddIssueAlert(for: projectName)
     }
 }
