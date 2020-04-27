@@ -187,12 +187,20 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Issues" id="Zdf-7t-Un8">
+                        <barButtonItem key="leftBarButtonItem" systemItem="camera" id="MwO-wK-0xt">
+                            <connections>
+                                <action selector="settingsButtonPress:" destination="7bK-jq-Zjz" id="0FT-rc-s0e"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="MB0-9S-hM3">
                             <connections>
                                 <action selector="addButtonPress:" destination="7bK-jq-Zjz" id="FHm-cz-Vnx"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="bgX-a9-YuU" kind="presentation" identifier="IssuesToSettings" id="Xp2-ds-dqD"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
             </objects>
@@ -304,7 +312,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Project Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SRX-bl-OEI">
-                                <rect key="frame" x="124" y="164" width="166" height="27"/>
+                                <rect key="frame" x="124" y="96" width="166" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <nil key="textColor"/>
@@ -376,6 +384,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Project Id: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MtA-Gk-h7a">
+                                <rect key="frame" x="40" y="179" width="335" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="1Bs-6V-Z1t"/>
@@ -386,11 +401,12 @@
                         <outlet property="currentUsersTextView" destination="2Rk-VG-eWl" id="ydw-5s-RsY"/>
                         <outlet property="descriptionTextView" destination="ByK-Vg-zIA" id="c7T-Tp-v2R"/>
                         <outlet property="errorLabel" destination="O1P-nm-cEC" id="6kc-S4-jEj"/>
+                        <outlet property="projectIdLabel" destination="MtA-Gk-h7a" id="F5T-pP-6S2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oDi-iJ-doJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1739.1304347826087" y="1165.8482142857142"/>
+            <point key="canvasLocation" x="-878.26086956521749" y="-1014.5089285714286"/>
         </scene>
         <!--Create Project-->
         <scene sceneID="6rg-v5-jha">
@@ -506,7 +522,8 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="q32-ar-RP3"/>
+        <segue reference="Xp2-ds-dqD"/>
         <segue reference="6S0-TO-JiA"/>
-        <segue reference="faI-f4-076"/>
+        <segue reference="EJg-Cm-vt8"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -9,7 +9,8 @@
 import UIKit
 
 class ProjectSettingsViewController: UIViewController {
-
+    @IBOutlet weak var projectIdLabel: UILabel!
+    
     @IBOutlet weak var descriptionTextView: UITextView!
     
     @IBOutlet weak var addUserTextField: UITextField!
@@ -32,7 +33,7 @@ class ProjectSettingsViewController: UIViewController {
         //get the project's current users
         if let project = dbManager.getCurrentProject()
         {
-            title = project.id
+            projectIdLabel.text = "Project Id: \(project.id)"
             let users = project.users
             for user in users
             {

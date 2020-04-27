@@ -19,7 +19,7 @@ class MasterViewController: UITableViewController {
     {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        navigationItem.leftBarButtonItem = editButtonItem
+//        navigationItem.leftBarButtonItem = editButtonItem
 
         if let split = splitViewController {
             let controllers = split.viewControllers
@@ -31,7 +31,10 @@ class MasterViewController: UITableViewController {
     {
         showAddIssueAlert()
     }
-    
+
+    @IBAction func settingsButtonPress(_ sender: Any) {
+        performSegue(withIdentifier: "IssuesToSettings", sender: self)
+    }
     private func showAddIssueAlert()
     {
         let alert = UIAlertController(title: "Add Issue", message: "", preferredStyle: .alert)
