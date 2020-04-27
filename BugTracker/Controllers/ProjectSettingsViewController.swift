@@ -13,6 +13,7 @@ class ProjectSettingsViewController: UIViewController {
     @IBOutlet weak var descriptionTextView: UITextView!
     
     @IBOutlet weak var addUserTextField: UITextField!
+    @IBOutlet weak var errorLabel: UILabel!
     
     @IBOutlet weak var currentUsersTextView: UITextView!
 
@@ -22,14 +23,16 @@ class ProjectSettingsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let dbManager = DbManager.instance
         
+        errorLabel.text = ""
+        let dbManager = DbManager.instance
         //to get notified if added user email is valid
         dbManager.delegate = self
         
         //get the project's current users
         if let project = dbManager.getCurrentProject()
         {
+            title = project.id
             let users = project.users
             for user in users
             {
@@ -54,24 +57,24 @@ class ProjectSettingsViewController: UIViewController {
         {
             if email == ""
             {
-                //todo errorLabel
+                errorLabel.text = "Error: Please add a user email."
             }
             else
             {
                 dbManager.tryAddEmailUserToProject(to: project.id, with: email)
             }
         }
-        
     }
 }
 
 extension ProjectSettingsViewController: DbManagerDelegate
 {
     func onAddEmailUserToProjectSuccess(email: String) {
-        print("\(email) added!!")
+        errorLabel.text = "\(email) added to project."
     }
     
     func onAddEmailUserToProjectError(email: String, errorStr: String) {
+        errorLabel.text = "Error with \(email): \(errorStr)"
         print("Error with \(email): \(errorStr)")
     }
 }

@@ -361,9 +361,29 @@ class DbManager
         }
     }
     
+    private func checkIfUserOnProject(_ projectId: String, _ email: String) -> Bool
+    {
+        let project = getProject(with: projectId)
+        if let p = project
+        {
+            let users = p.users
+            if let index = users.firstIndex(where: { $0 == email })
+            {
+                return true
+            }
+        }
+        return false
+    }
+    
     //check AllUsers db collection for the user, if it exists, add it to project
     func tryAddEmailUserToProject(to projectId: String, with email: String)
     {
+        if checkIfUserOnProject(projectId, email)
+        {
+            self.delegate?.onAddEmailUserToProjectError(email: email, errorStr: "\(email) is already on this project.")
+            return;
+        }
+        
         let allUsers = db.collection("AllUsers")
         let userRef = allUsers.document(email)
         userRef.getDocument { (doc, error) in
