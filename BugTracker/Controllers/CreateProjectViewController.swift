@@ -12,11 +12,11 @@ class CreateProjectViewController: UIViewController {
 
     @IBOutlet weak var projectNameTextField: UITextField!
 
-    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var errorLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        statusLabel.text = ""
+        errorLabel.text = ""
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -28,7 +28,7 @@ class CreateProjectViewController: UIViewController {
     {
         if let projName = projectNameTextField.text
         {
-            statusLabel.text = DbManager.instance.tryCreateProject(projName: projName, additionalUsers: nil)
+            errorLabel.text = DbManager.instance.tryCreateProject(projName: projName, additionalUsers: nil)
         }
         else
         {
@@ -57,7 +57,7 @@ class CreateProjectViewController: UIViewController {
 extension CreateProjectViewController: DbManagerDelegate
 {
     func onCreateProjectError(description: String) {
-        statusLabel.text = description
+        errorLabel.text = description
     }
     
     func onCreateProjectSuccess(projectName: String) {

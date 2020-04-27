@@ -23,6 +23,11 @@ class ProjectSettingsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let dbManager = DbManager.instance
+        
+        //to get notified if added user email is valid
+        dbManager.delegate = self
+        
+        //get the project's current users
         if let project = dbManager.getCurrentProject()
         {
             let users = project.users
@@ -44,6 +49,29 @@ class ProjectSettingsViewController: UIViewController {
     
     @IBAction func addUserButtonPress(_ sender: Any)
     {
+        let dbManager = DbManager.instance
+        if let email = addUserTextField.text, let project = dbManager.getCurrentProject()
+        {
+            if email == ""
+            {
+                //todo errorLabel
+            }
+            else
+            {
+                dbManager.tryAddEmailUser(to: project.id, with: email)
+            }
+        }
+        
+    }
+}
+
+extension ProjectSettingsViewController: DbManagerDelegate
+{
+    func onAddEmailUserToProjectSuccess(email: String) {
+        print("\(email) added!!")
+    }
     
+    func onAddEmailUserToProjectError(email: String, errorStr: String) {
+        print("Error with \(email): \(errorStr)")
     }
 }

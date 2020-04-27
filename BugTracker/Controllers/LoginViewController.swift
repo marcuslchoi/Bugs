@@ -26,7 +26,6 @@ class LoginViewController: UIViewController {
     {
         if let email = emailTextField.text, let pw = pwTextField.text
         {
-
             Auth.auth().signIn(withEmail: email, password: pw)
             { authResult, error in
                 if let e = error

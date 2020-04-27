@@ -41,6 +41,12 @@ class DbManager
         loadProjects()
     }
     
+    //add a user to a self-managed Firestore db
+    func addUserToMyDb(email: String)
+    {
+        
+    }
+    
     private func loadProjects()
     {
         let collection = db.collection("Projects")
@@ -326,6 +332,37 @@ class DbManager
             }
         }
     }
+    
+    private func updateProjectAddUser(projectId: String, email: String)
+    {
+        let projectRef = db.collection("Projects").document(projectId)
+        //todo error UI
+        projectRef.updateData(["users": FieldValue.arrayUnion([email])]) { (error) in
+            if let e = error
+            {
+                self.delegate?.onAddEmailUserToProjectError(email: email, errorStr: e.localizedDescription)
+            }
+            else
+            {
+                self.delegate?.onAddEmailUserToProjectSuccess(email: email)
+            }
+        }
+    }
+    
+    func tryAddEmailUser(to projectId: String, with email: String)
+    {
+        Auth.auth().fetchSignInMethods(forEmail: email)
+        { signInMethods, error in
+            if let e = error
+            {
+                self.delegate?.onAddEmailUserToProjectError(email: email, errorStr: e.localizedDescription)
+            }
+            else
+            {
+                self.updateProjectAddUser(projectId: projectId, email: email)
+            }
+        }
+    }
 }
 
 protocol DbManagerDelegate
@@ -334,6 +371,8 @@ protocol DbManagerDelegate
     func onCreateProjectSuccess(projectName: String)
     func onProjectsLoaded()
     func onIssuesLoaded()
+    func onAddEmailUserToProjectSuccess(email: String)
+    func onAddEmailUserToProjectError(email: String, errorStr: String)
 }
 
 extension DbManagerDelegate
@@ -356,5 +395,15 @@ extension DbManagerDelegate
     func onIssuesLoaded()
     {
         print("default: onIssuesLoaded")
+    }
+    
+    func onAddEmailUserToProjectSuccess(email: String)
+    {
+        print("default: onEmailUserExists")
+    }
+    
+    func onAddEmailUserToProjectError(email: String, errorStr: String)
+    {
+        print("default: onEmailUserDoesNotExist")
     }
 }
