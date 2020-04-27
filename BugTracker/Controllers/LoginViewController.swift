@@ -55,10 +55,7 @@ class LoginViewController: UIViewController {
                 {
                     print("registered! \(email)")
                     self.performSegue(withIdentifier: "LoginToCreateProject", sender: self)
-                    if let currUser = Auth.auth().currentUser
-                    {
-                        DbManager.instance.addUserToMyDb(id: currUser.uid, email: currUser.email!)
-                    }
+                    DbManager.instance.addUserToMyDb(email: email)
                 }
             }
         }
