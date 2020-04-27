@@ -58,7 +58,7 @@ class ProjectSettingsViewController: UIViewController {
             }
             else
             {
-                dbManager.tryAddEmailUser(to: project.id, with: email)
+                dbManager.tryAddEmailUserToProject(to: project.id, with: email)
             }
         }
         

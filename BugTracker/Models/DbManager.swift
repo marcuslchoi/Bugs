@@ -361,17 +361,25 @@ class DbManager
         }
     }
     
-    func tryAddEmailUser(to projectId: String, with email: String)
+    //check AllUsers db collection for the user, if it exists, add it to project
+    func tryAddEmailUserToProject(to projectId: String, with email: String)
     {
-        Auth.auth().fetchSignInMethods(forEmail: email)
-        { signInMethods, error in
+        let allUsers = db.collection("AllUsers")
+        let userRef = allUsers.document(email)
+        userRef.getDocument { (doc, error) in
             if let e = error
             {
                 self.delegate?.onAddEmailUserToProjectError(email: email, errorStr: e.localizedDescription)
             }
+            else if let safeDoc = doc, safeDoc.exists
+            {
+                let dataDescription = safeDoc.data().map(String.init(describing:)) ?? "nil"
+                print("tryAddEmailUserToProject: \(dataDescription) user exists in my db")
+                self.updateProjectAddUser(projectId: projectId, email: email)
+            }
             else
             {
-                self.updateProjectAddUser(projectId: projectId, email: email)
+                self.delegate?.onAddEmailUserToProjectError(email: email, errorStr: "\(email) not found")
             }
         }
     }
