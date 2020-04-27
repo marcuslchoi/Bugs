@@ -38,7 +38,7 @@ class CreateProjectViewController: UIViewController {
 
     @IBAction func skipButtonPress(_ sender: Any)
     {
-        performSegue(withIdentifier: "createProjectToProjects", sender: self)
+        performSegue(withIdentifier: "CreateProjectToProjects", sender: self)
     }
     
     private func showAddIssueAlert(for projectName: String)

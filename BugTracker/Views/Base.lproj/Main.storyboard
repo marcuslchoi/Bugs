@@ -467,7 +467,7 @@
                     <connections>
                         <outlet property="errorLabel" destination="8bY-0c-rs4" id="tJZ-JG-R1S"/>
                         <outlet property="projectNameTextField" destination="J5G-wJ-6zB" id="lRt-YL-GEk"/>
-                        <segue destination="fvL-IS-nIt" kind="show" identifier="createProjectToProjects" id="IOA-Tq-53f"/>
+                        <segue destination="fvL-IS-nIt" kind="show" identifier="CreateProjectToProjects" id="IOA-Tq-53f"/>
                         <segue destination="bgX-a9-YuU" kind="show" identifier="CreateToProjectSettings" id="Frd-WK-SBK"/>
                     </connections>
                 </viewController>
@@ -521,7 +521,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="q32-ar-RP3"/>
+        <segue reference="IOA-Tq-53f"/>
         <segue reference="Xp2-ds-dqD"/>
         <segue reference="6S0-TO-JiA"/>
         <segue reference="EJg-Cm-vt8"/>
