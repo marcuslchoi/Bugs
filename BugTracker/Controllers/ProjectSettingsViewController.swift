@@ -15,33 +15,29 @@ class ProjectSettingsViewController: UIViewController {
     @IBOutlet weak var addUserTextField: UITextField!
     
     @IBOutlet weak var currentUsersTextView: UITextView!
-    
-    var currentProjectId: String?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let projectId = currentProjectId
+        let dbManager = DbManager.instance
+        if let project = dbManager.getCurrentProject()
         {
-            let dbManager = DbManager.instance
-            if let users = dbManager.getProject(with: projectId)?.users
+            let users = project.users
+            for user in users
             {
-                for user in users
-                {
-                    currentUsersTextView.text += "\(user), "
-                }
+                currentUsersTextView.text += "\(user), "
             }
         }
     }
     
     @IBAction func okButtonPress(_ sender: Any)
     {
-        if let projectId = currentProjectId
+        let dbManager = DbManager.instance
+        if let projectId = dbManager.getCurrentProject()?.id
         {
-            let dbManager = DbManager.instance
             dbManager.updateProject(projectId: projectId, description: descriptionTextView.text)
         }
     }

@@ -14,8 +14,6 @@ class CreateProjectViewController: UIViewController {
 
     @IBOutlet weak var statusLabel: UILabel!
 
-    private var createdProjectId: String?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         statusLabel.text = ""
@@ -54,16 +52,6 @@ class CreateProjectViewController: UIViewController {
         alert.addAction(addAction)
         present(alert, animated: true, completion: nil)
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "CreateToProjectSettings"
-        {
-            if let settingsVC = segue.destination as? ProjectSettingsViewController
-            {
-                settingsVC.currentProjectId = createdProjectId
-            }
-        }
-    }
 }
 
 extension CreateProjectViewController: DbManagerDelegate
@@ -73,7 +61,8 @@ extension CreateProjectViewController: DbManagerDelegate
     }
     
     func onCreateProjectSuccess(projectName: String) {
-        createdProjectId = projectName
+        //set the dbmanager current project so that we can add some properties to it in next view
+        DbManager.instance.setCurrentProjectId(to: projectName)
         showAddIssueAlert(for: projectName)
     }
 }
