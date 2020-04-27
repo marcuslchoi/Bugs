@@ -34,10 +34,24 @@ class ProjectSettingsViewController: UIViewController {
         if let project = dbManager.getCurrentProject()
         {
             projectIdLabel.text = "Project Id: \(project.id)"
-            let users = project.users
-            for user in users
+            showUsersInUI()
+        }
+    }
+    
+    private func showUsersInUI()
+    {
+        let dbManager = DbManager.instance
+        if let users = dbManager.getCurrentProject()?.users
+        {
+            currentUsersTextView.text = ""
+            for i in 0...users.count - 1//user in users
             {
-                currentUsersTextView.text += "\(user), "
+                var userStr = "\(users[i]), "
+                if i == users.count - 1
+                {
+                    userStr = users[i]
+                }
+                currentUsersTextView.text += userStr
             }
         }
     }
@@ -72,6 +86,8 @@ extension ProjectSettingsViewController: DbManagerDelegate
 {
     func onAddEmailUserToProjectSuccess(email: String) {
         errorLabel.text = "\(email) added to project."
+        addUserTextField.text = ""
+        showUsersInUI()
     }
     
     func onAddEmailUserToProjectError(email: String, errorStr: String) {
