@@ -345,8 +345,23 @@
                                     <action selector="addUserButtonPress:" destination="bgX-a9-YuU" eventType="touchUpInside" id="aj4-8b-pay"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current users:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zae-af-Y1V">
+                                <rect key="frame" x="40" y="559" width="109" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Rk-VG-eWl">
+                                <rect key="frame" x="40" y="588" width="335" height="81"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nsU-8e-bDy">
-                                <rect key="frame" x="40" y="645" width="42" height="30"/>
+                                <rect key="frame" x="40" y="686" width="42" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="OK -&gt;"/>
                                 <connections>
@@ -354,13 +369,6 @@
                                     <segue destination="fvL-IS-nIt" kind="show" id="q32-ar-RP3"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current users: todo " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCT-iN-cza">
-                                <rect key="frame" x="40" y="564" width="153" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="1Bs-6V-Z1t"/>
@@ -368,13 +376,13 @@
                     <navigationItem key="navigationItem" id="oCc-gf-F8h"/>
                     <connections>
                         <outlet property="addUserTextField" destination="bQj-kc-XLX" id="Fep-sL-ii6"/>
-                        <outlet property="currentUsersLabel" destination="dCT-iN-cza" id="dR4-oR-Dj0"/>
+                        <outlet property="currentUsersTextView" destination="2Rk-VG-eWl" id="ydw-5s-RsY"/>
                         <outlet property="descriptionTextView" destination="ByK-Vg-zIA" id="c7T-Tp-v2R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oDi-iJ-doJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1739" y="1166"/>
+            <point key="canvasLocation" x="-1739.1304347826087" y="1165.8482142857142"/>
         </scene>
         <!--Create Project-->
         <scene sceneID="6rg-v5-jha">

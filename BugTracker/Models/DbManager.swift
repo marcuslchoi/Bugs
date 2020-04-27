@@ -147,7 +147,16 @@ class DbManager
     
     func getCurrentProject() -> Project?
     {
-        if let index = projects.firstIndex(where: { $0.id == currentProjectId })
+        if let projectId = currentProjectId
+        {
+            return getProject(with: projectId)
+        }
+        return nil
+    }
+    
+    func getProject(with projectId: String) -> Project?
+    {
+        if let index = projects.firstIndex(where: { $0.id == projectId })
         {
             return projects[index]
         }
@@ -316,18 +325,6 @@ class DbManager
                 print("updateProject success: \(projectId) updated")
             }
         }
-    }
-    
-    func createTestBugs(projectId: String)
-    {
-        let projectRef = db.collection("Projects").document(projectId)
-        let issuesRef = projectRef.collection("Issues")
-        let me = Auth.auth().currentUser!.email!
-        
-        //issuesRef.document("B-1").setData(["reporter": me]) //"status": IssueStatus.Open as String, "type": IssueType.Bug as String
-        issuesRef.document("B-1").setData(["reporter": me, "assignedTo": "other", "title": "BugTitle!", "description": "hi test bug desc","status": IssueStatus.Open.rawValue, "type": IssueType.Bug.rawValue ])
-        //issuesRef.document("B-2").setData(["reporter": me, "assignedTo": "2other", "status": IssueStatus.InProgress, "type": IssueType.Task, "title": "BugTitle2!", "description": "hi test bug desc2" ])
-        print("created test bugs for \(projectId)")
     }
 }
 
