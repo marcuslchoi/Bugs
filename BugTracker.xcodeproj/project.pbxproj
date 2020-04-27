@@ -10,6 +10,7 @@
 		123704F21EDD4B0683A8534F /* Pods_BugTracker_BugTrackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3D397D716AF36FEB5B94E4 /* Pods_BugTracker_BugTrackerUITests.framework */; };
 		7A22D64F9D8BD2E58148C641 /* Pods_BugTrackerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB40D8A33AF859C64D88DE53 /* Pods_BugTrackerTests.framework */; };
 		9B4E18B624560F14004C68AF /* ProjectSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4E18B524560F14004C68AF /* ProjectSettingsViewController.swift */; };
+		9B4E18B8245753C0004C68AF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4E18B7245753C0004C68AF /* User.swift */; };
 		9B79F6B324475B5F00BFF9D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B79F6B224475B5F00BFF9D6 /* AppDelegate.swift */; };
 		9B79F6B524475B5F00BFF9D6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B79F6B424475B5F00BFF9D6 /* SceneDelegate.swift */; };
 		9B79F6B724475B5F00BFF9D6 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B79F6B624475B5F00BFF9D6 /* MasterViewController.swift */; };
@@ -56,6 +57,7 @@
 		7F574DA39155C985AB6A988B /* Pods-BugTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BugTracker.debug.xcconfig"; path = "Target Support Files/Pods-BugTracker/Pods-BugTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		8C28EAC3525033943981545A /* Pods-BugTrackerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BugTrackerTests.debug.xcconfig"; path = "Target Support Files/Pods-BugTrackerTests/Pods-BugTrackerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9B4E18B524560F14004C68AF /* ProjectSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSettingsViewController.swift; sourceTree = "<group>"; };
+		9B4E18B7245753C0004C68AF /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9B79F6AF24475B5F00BFF9D6 /* BugTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BugTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B79F6B224475B5F00BFF9D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B79F6B424475B5F00BFF9D6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 		9B79F6E424475BFD00BFF9D6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9B4E18B7245753C0004C68AF /* User.swift */,
 				9B79F6E72447612800BFF9D6 /* Issue.swift */,
 				9B79F6F3244AB5E800BFF9D6 /* Project.swift */,
 				9B9E69A6244E5E4D000256E2 /* DbManager.swift */,
@@ -462,6 +465,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B4E18B8245753C0004C68AF /* User.swift in Sources */,
 				9B79F6F8244B5FA200BFF9D6 /* ChooseProjectViewController.swift in Sources */,
 				9B9E69D12450D686000256E2 /* Constants.swift in Sources */,
 				9B79F6EE244A61C300BFF9D6 /* LoginViewController.swift in Sources */,

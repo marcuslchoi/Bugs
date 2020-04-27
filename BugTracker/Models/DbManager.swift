@@ -42,9 +42,22 @@ class DbManager
     }
     
     //add a user to a self-managed Firestore db
-    func addUserToMyDb(email: String)
+    //the id matches the uid of the user in Firebase auth
+    func addUserToMyDb(id: String, email: String)
     {
-        
+        let user = User(email: email)
+        let allUsers = db.collection("AllUsers")
+        let userRef = allUsers.document(id)
+        userRef.setData(["email": user.email]) { (error) in
+            if let e = error
+            {
+                print("error adding user to my db: \(email), \(e.localizedDescription)")
+            }
+            else
+            {
+                print("user added to my db: \(email)")
+            }
+        }
     }
     
     private func loadProjects()

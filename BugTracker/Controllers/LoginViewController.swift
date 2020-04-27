@@ -36,7 +36,6 @@ class LoginViewController: UIViewController {
                 {
                     self.performSegue(withIdentifier: "LoginToCreateProject", sender: self)
                 }
-                
             }
         }
     }
@@ -54,8 +53,12 @@ class LoginViewController: UIViewController {
                 }
                 else
                 {
-                    self.performSegue(withIdentifier: "LoginToCreateProject", sender: self)
                     print("registered! \(email)")
+                    self.performSegue(withIdentifier: "LoginToCreateProject", sender: self)
+                    if let currUser = Auth.auth().currentUser
+                    {
+                        DbManager.instance.addUserToMyDb(id: currUser.uid, email: currUser.email!)
+                    }
                 }
             }
         }
