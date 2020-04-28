@@ -66,12 +66,12 @@ class DbManager
         }
     }
 
-    //load current user's projects, listen for any project added that user is asssigned to
-    func loadProjects()
+    //get current user's projects from db, listen for any projects changes that user is assigned to
+    func getProjects()
     {
         if let myEmail = auth.currentUser?.email
         {
-            print("loadProjects for \(myEmail)")
+            print("getProjects for \(myEmail)")
             let collection = db.collection("Projects")
             
             collection.whereField("users", arrayContains: myEmail).addSnapshotListener { (querySnapshot, err) in
@@ -105,7 +105,7 @@ class DbManager
         }
         else
         {
-            print("loadProjects error: currentUser is nil!")
+            print("getProjects error: currentUser is nil!")
         }
     }
     
@@ -189,6 +189,7 @@ class DbManager
         return nil
     }
     
+    //get the issues from db for the projectId, and add listener for any project-specific issue updates
     func getIssues(for projectId: String)
     {
         let projectRef = db.collection("Projects").document(projectId)
@@ -221,7 +222,7 @@ class DbManager
                         date = K.convertStringToDate(dateStr: dateStr)
                     }
                     
-                    if let safeType = type, let safeStatus = status, let d = description, let t = title, let a = assignedTo, let r = reporter //, let safeDate = dueDateStr
+                    if let safeType = type, let safeStatus = status, let d = description, let t = title, let a = assignedTo, let r = reporter
                     {
                         let issue = Issue(id: id, reporter: r, assignedTo: a, status: IssueStatus(rawValue: safeStatus) ?? IssueStatus.Open, type: IssueType(rawValue: safeType) ?? IssueType.Bug, title: t, description: d, dueDate: date ?? Date())
                         self.issues.append(issue)

@@ -59,7 +59,7 @@ class AuthManager
         {
             dbManager.addUserToMyDb(email: email)
         }
-        dbManager.loadProjects()
+        dbManager.getProjects()
     }
 }
 
