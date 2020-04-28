@@ -37,10 +37,7 @@ class DbManager
     }
     
     static var instance = DbManager()
-    private init()
-    {
-        //loadProjects()
-    }
+    private init() { }
     
     //add a user to a self-managed Firestore db
     func addUserToMyDb(email: String)
@@ -59,8 +56,8 @@ class DbManager
             }
         }
     }
-    
-    //todo: only load projects that current user is assigned to
+
+    //load current user's projects, listen for any project added that user is asssigned to
     func loadProjects()
     {
         if let myEmail = auth.currentUser?.email
