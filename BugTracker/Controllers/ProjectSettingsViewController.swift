@@ -17,6 +17,8 @@ class ProjectSettingsViewController: UIViewController {
     @IBOutlet weak var errorLabel: UILabel!
     
     @IBOutlet weak var currentUsersTextView: UITextView!
+    
+    let dbManager = DbManager.instance
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +28,6 @@ class ProjectSettingsViewController: UIViewController {
         super.viewWillAppear(animated)
         
         errorLabel.text = ""
-        let dbManager = DbManager.instance
         //to get notified if added user email is valid
         dbManager.delegate = self
         
@@ -40,7 +41,6 @@ class ProjectSettingsViewController: UIViewController {
     
     private func showUsersInUI()
     {
-        let dbManager = DbManager.instance
         if let users = dbManager.getCurrentProject()?.users
         {
             currentUsersTextView.text = ""
@@ -58,7 +58,6 @@ class ProjectSettingsViewController: UIViewController {
     
     @IBAction func okButtonPress(_ sender: Any)
     {
-        let dbManager = DbManager.instance
         if let projectId = dbManager.getCurrentProject()?.id
         {
             dbManager.updateProject(projectId: projectId, description: descriptionTextView.text)
@@ -67,7 +66,6 @@ class ProjectSettingsViewController: UIViewController {
     
     @IBAction func addUserButtonPress(_ sender: Any)
     {
-        let dbManager = DbManager.instance
         if let email = addUserTextField.text, let project = dbManager.getCurrentProject()
         {
             if email == ""
