@@ -89,7 +89,7 @@ class DetailViewController: UIViewController {
     private func setAssigneePickerData()
     {
         let dbManager = DbManager.instance
-        if let users = dbManager.getCurrentProject()?.users
+        if let users = dbManager.CurrentProject?.users
         {
             assigneePickerData = users
         }

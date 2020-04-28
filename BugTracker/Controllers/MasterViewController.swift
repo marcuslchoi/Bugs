@@ -84,7 +84,7 @@ class MasterViewController: UITableViewController {
         let dbManager = DbManager.instance
         dbManager.delegate = self
         loadIssuesInTable()
-        if let currentProject = dbManager.getCurrentProject()
+        if let currentProject = dbManager.CurrentProject
         {
             title = currentProject.id
         }

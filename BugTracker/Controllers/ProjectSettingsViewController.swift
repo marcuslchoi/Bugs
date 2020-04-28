@@ -32,7 +32,7 @@ class ProjectSettingsViewController: UIViewController {
         dbManager.delegate = self
         
         //get the project's current users
-        if let project = dbManager.getCurrentProject()
+        if let project = dbManager.CurrentProject
         {
             projectIdLabel.text = "Project Id: \(project.id)"
             showUsersInUI()
@@ -41,7 +41,7 @@ class ProjectSettingsViewController: UIViewController {
     
     private func showUsersInUI()
     {
-        if let users = dbManager.getCurrentProject()?.users
+        if let users = dbManager.CurrentProject?.users
         {
             currentUsersTextView.text = ""
             for i in 0...users.count - 1//user in users
@@ -58,7 +58,7 @@ class ProjectSettingsViewController: UIViewController {
     
     @IBAction func okButtonPress(_ sender: Any)
     {
-        if let projectId = dbManager.getCurrentProject()?.id
+        if let projectId = dbManager.CurrentProject?.id
         {
             dbManager.updateProject(projectId: projectId, description: descriptionTextView.text)
         }
@@ -66,7 +66,7 @@ class ProjectSettingsViewController: UIViewController {
     
     @IBAction func addUserButtonPress(_ sender: Any)
     {
-        if let email = addUserTextField.text, let project = dbManager.getCurrentProject()
+        if let email = addUserTextField.text, let project = dbManager.CurrentProject
         {
             if email == ""
             {

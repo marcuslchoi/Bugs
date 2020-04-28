@@ -25,8 +25,15 @@ class DbManager
     }
     
     //this is the project that the user has chosen
-    private var currentProjectId: String?
-    
+    private var currentProject: Project?
+    var CurrentProject: Project?
+    {
+        get
+        {
+            return currentProject
+        }
+    }
+ 
     private var issues: [Issue] = []
     var Issues: [Issue]
     {
@@ -166,20 +173,11 @@ class DbManager
         return status
     }
     
-    func setCurrentProjectId(to projectId: String)
+    func setCurrentProject(to projectId: String)
     {
-        currentProjectId = projectId
+        currentProject = getProject(with: projectId)
     }
-    
-    func getCurrentProject() -> Project?
-    {
-        if let projectId = currentProjectId
-        {
-            return getProject(with: projectId)
-        }
-        return nil
-    }
-    
+
     func getProject(with projectId: String) -> Project?
     {
         if let index = projects.firstIndex(where: { $0.id == projectId })
@@ -280,7 +278,7 @@ class DbManager
     
     func addIssue(_ title: String, _ description: String, _ type: IssueType)
     {
-        if let projectId = currentProjectId
+        if let projectId = currentProject?.id //currentProjectId
         {
             let projectRef = db.collection("Projects").document(projectId)
             let issuesRef = projectRef.collection("Issues")
@@ -319,7 +317,7 @@ class DbManager
                      description: String, statusString: String,
                      assignee: String, dueDate: String)
     {
-        if let projectId = currentProjectId
+        if let projectId = currentProject?.id //currentProjectId
         {
             let projectRef = db.collection("Projects").document(projectId)
             let issuesRef = projectRef.collection("Issues")
