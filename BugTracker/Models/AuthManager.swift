@@ -14,10 +14,7 @@ class AuthManager
     var delegate: AuthManagerDelegate?
     private let auth = Auth.auth()
     static var instance = AuthManager()
-    private init()
-    {
-        
-    }
+    private init() { }
     
     func login(email: String, pw: String)
     {
@@ -25,13 +22,13 @@ class AuthManager
         { authResult, error in
             if let e = error
             {
-                //self.errorLabel.text = e.localizedDescription
                 self.delegate?.onLoginFail(error: e.localizedDescription)
             }
             else
             {
-                //self.performSegue(withIdentifier: "LoginToCreateProject", sender: self)
+                print("logged in! \(email)")
                 self.delegate?.onLoginSuccess()
+                self.onUserAuthenticated(justRegistered: false, email: email)
             }
         }
     }
@@ -49,9 +46,20 @@ class AuthManager
             {
                 print("registered! \(email)")
                 self.delegate?.onRegisterSuccess()
-                DbManager.instance.addUserToMyDb(email: email)
+                self.onUserAuthenticated(justRegistered: true, email: email)
             }
         }
+    }
+    
+    //load user's projects. If just registered, add user to AllUsers collection
+    private func onUserAuthenticated(justRegistered: Bool, email: String)
+    {
+        let dbManager = DbManager.instance
+        if(justRegistered)
+        {
+            dbManager.addUserToMyDb(email: email)
+        }
+        dbManager.loadProjects()
     }
 }
 

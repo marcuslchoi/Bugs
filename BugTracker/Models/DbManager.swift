@@ -13,6 +13,7 @@ class DbManager
 {
     var delegate: DbManagerDelegate?
     private let db = Firestore.firestore()
+    private let auth = Auth.auth()
 
     private var projects:[Project] = []
     var Projects: [Project]
@@ -38,7 +39,7 @@ class DbManager
     static var instance = DbManager()
     private init()
     {
-        loadProjects()
+        //loadProjects()
     }
     
     //add a user to a self-managed Firestore db
@@ -59,40 +60,50 @@ class DbManager
         }
     }
     
-    private func loadProjects()
+    //todo: only load projects that current user is assigned to
+    func loadProjects()
     {
-        let collection = db.collection("Projects")
-        collection.addSnapshotListener { (querySnapshot, err) in
-            if let err = err
-            {
-                print("Error getting documents: \(err)")
-            }
-            else
-            {
-                self.projects = []
-                for document in querySnapshot!.documents
+        if let myEmail = auth.currentUser?.email
+        {
+            print("loadProjects for \(myEmail)")
+            let collection = db.collection("Projects")
+            
+            collection.whereField("users", arrayContains: myEmail).addSnapshotListener { (querySnapshot, err) in
+                if let err = err
                 {
-                    let id = document.documentID
-                    let data = document.data()
-                    let users = data["users"] as? [String]
-                    let desc = data["description"] as? String
-                    
-                    if let safeUsers = users
-                    {
-                        let project = Project(id: id, description: desc ?? "", users: safeUsers)
-                        self.projects.append(project)
-                    }
-                    else
-                    {
-                        print("load projects error: users or modules is not a [String]")
-                    }
+                    print("Error getting documents: \(err)")
                 }
-                self.delegate?.onProjectsLoaded()
+                else
+                {
+                    self.projects = []
+                    for document in querySnapshot!.documents
+                    {
+                        let id = document.documentID
+                        let data = document.data()
+                        let users = data["users"] as? [String]
+                        let desc = data["description"] as? String
+                        
+                        if let safeUsers = users
+                        {
+                            let project = Project(id: id, description: desc ?? "", users: safeUsers)
+                            self.projects.append(project)
+                        }
+                        else
+                        {
+                            print("load projects error: users or modules is not a [String]")
+                        }
+                    }
+                    self.delegate?.onProjectsLoaded()
+                }
             }
+        }
+        else
+        {
+            print("loadProjects error: currentUser is nil!")
         }
     }
     
-    func checkIfUniqueProjectId(_ projectId: String) -> Bool
+    private func checkIfUniqueProjectId(_ projectId: String) -> Bool
     {
         for project in projects
         {
