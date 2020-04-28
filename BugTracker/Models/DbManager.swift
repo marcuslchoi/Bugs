@@ -32,7 +32,11 @@ class DbManager
         {
             if let id = currentProjectId
             {
-                return getProject(with: id)
+                if var currProject = getProject(with: id)
+                {
+                    currProject.issues = issues
+                    return currProject
+                }
             }
             return nil
         }
@@ -40,13 +44,6 @@ class DbManager
  
     //todo move issues to current project
     var issues: [Issue] = []
-//    var issues: [Issue]
-//    {
-//        get
-//        {
-//            return CurrentProject?.issues
-//        }
-//    }
     
     static var instance = DbManager()
     private init() { }

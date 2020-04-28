@@ -12,5 +12,5 @@ struct Project
     let id: String
     var description: String
     var users: [String]
-    var issues: [Issue] = []
+    var issues: [Issue]?
 }
