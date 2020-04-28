@@ -62,7 +62,7 @@ extension CreateProjectViewController: DbManagerDelegate
     
     func onCreateProjectSuccess(projectName: String) {
         //set the dbmanager current project so that we can add some properties to it in next view
-        DbManager.instance.setCurrentProject(to: projectName)
+        DbManager.instance.setCurrentProjectId(to: projectName)
         showAddIssueAlert(for: projectName)
     }
 }

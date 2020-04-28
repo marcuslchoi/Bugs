@@ -115,7 +115,7 @@ class MasterViewController: UITableViewController {
     //show the issues in the table
     private func loadIssuesInTable()
     {
-        let issues = DbManager.instance.Issues
+        let issues = DbManager.instance.issues
         if issues.count > 0
         {
             for i in 0...issues.count - 1
@@ -136,7 +136,7 @@ class MasterViewController: UITableViewController {
     
     //on issue selected, call the delegate method for detail view to refresh
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let issues = DbManager.instance.Issues
+        let issues = DbManager.instance.issues
         let selectedIssue = issues[indexPath.row]
         delegate?.onIssueSelected(selectedIssue: selectedIssue)
     }
@@ -146,13 +146,13 @@ class MasterViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return DbManager.instance.Issues.count
+        return DbManager.instance.issues.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "issueCell", for: indexPath)
         
-        let issues = DbManager.instance.Issues
+        let issues = DbManager.instance.issues
         let issue = issues[indexPath.row]
         cell.textLabel!.text = "\(issue.id): \(issue.title)"
         return cell

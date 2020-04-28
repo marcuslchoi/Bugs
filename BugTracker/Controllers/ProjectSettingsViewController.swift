@@ -35,8 +35,14 @@ class ProjectSettingsViewController: UIViewController {
         if let project = dbManager.CurrentProject
         {
             projectIdLabel.text = "Project Id: \(project.id)"
-            showUsersInUI()
+            onEnterUpdateUI(project: project)
         }
+    }
+    
+    private func onEnterUpdateUI(project: Project)
+    {
+        descriptionTextView.text = project.description
+        showUsersInUI()
     }
     
     private func showUsersInUI()

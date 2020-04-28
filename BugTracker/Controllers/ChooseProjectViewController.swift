@@ -57,7 +57,7 @@ extension ChooseProjectViewController: UITableViewDelegate
         print("going to issues for project \(projectId)")
         
         let dbManager = DbManager.instance
-        dbManager.setCurrentProject(to: projectId)
+        dbManager.setCurrentProjectId(to: projectId)
         dbManager.getIssues(for: projectId)
         
         performSegue(withIdentifier: "ProjectsToMaster", sender: self)
