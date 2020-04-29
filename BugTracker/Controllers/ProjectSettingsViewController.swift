@@ -64,7 +64,11 @@ class ProjectSettingsViewController: UIViewController {
     
     @IBAction func okButtonPress(_ sender: Any)
     {
-        if let project = dbManager.CurrentProject
+        if let addUserText = addUserTextField.text, addUserText != ""
+        {
+            showMustAddUserAlert()
+        }
+        else if let project = dbManager.CurrentProject
         {
             dbManager.updateProject(project: project, description: descriptionTextView.text)
         }
@@ -83,6 +87,16 @@ class ProjectSettingsViewController: UIViewController {
                 dbManager.tryAddEmailUserToProject(to: project.id, with: email)
             }
         }
+    }
+    
+    private func showMustAddUserAlert()
+    {
+        let alert = UIAlertController(title: "Did you want to add the user?", message: "Please press the 'Add User' button, or clear the field to continue.", preferredStyle: .alert)
+        
+        let addAction = UIAlertAction(title: "OK", style: .default) { (action) in
+        }
+        alert.addAction(addAction)
+        present(alert, animated: true, completion: nil)
     }
 }
 
