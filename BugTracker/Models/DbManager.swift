@@ -17,15 +17,11 @@ class DbManager
 
     private var projects:[Project] = []
     var Projects: [Project]
-    {
-        get
-        {
-            return projects
-        }
-    }
+    { get { return projects } }
     
     //this is the project that the user has chosen
     private var currentProjectId: String?
+    //return the project with id == currentProjectId
     var CurrentProject: Project?
     {
         get
@@ -41,31 +37,14 @@ class DbManager
             return nil
         }
     }
- 
-    //todo move issues to current project
+    
     var issues: [Issue] = []
     
+    //singleton
     static var instance = DbManager()
     private init() { }
-    
-    //add a user to a self-managed Firestore db
-    func addUserToMyDb(email: String)
-    {
-        let user = User(email: email)
-        let allUsers = db.collection("AllUsers")
-        let userRef = allUsers.document(email)
-        userRef.setData(["email": user.email]) { (error) in
-            if let e = error
-            {
-                print("error adding user to my db: \(email), \(e.localizedDescription)")
-            }
-            else
-            {
-                print("user added to my db: \(email)")
-            }
-        }
-    }
 
+    //MARK: - projects
     //get current user's projects from db, listen for any projects changes that user is assigned to
     func getProjects()
     {
@@ -111,6 +90,7 @@ class DbManager
         }
     }
     
+    //check if user is already assigned to a project with the same name
     private func checkIfUniqueProjectName(_ name: String) -> Bool
     {
         for project in projects
@@ -123,7 +103,7 @@ class DbManager
         return true
     }
     
-    ///return status
+    //try to create a project in the db, return status
     func tryCreateProject(projName: String, additionalUsers: String?) -> String
     {
         var status = ""
@@ -192,6 +172,7 @@ class DbManager
         }
     }
 
+    //get the project with id from the projects array
     func getProject(with projectId: String) -> Project?
     {
         if let index = projects.firstIndex(where: { $0.id == projectId })
@@ -200,7 +181,28 @@ class DbManager
         }
         return nil
     }
-    
+
+    //update project's data in db
+    func updateProject(project: Project, description: String)
+    {
+        let projectRef = db.collection("Projects").document(project.id)
+        //todo error UI
+        projectRef.updateData(["description": description]) { (error) in
+            if let e = error
+            {
+                print("updateProject error for \(project.name): \(e.localizedDescription)")
+            }
+            else
+            {
+                print("updateProject success: \(project.name) updated")
+            }
+        }
+    }
+}
+
+//MARK: - issues
+extension DbManager
+{
     //get the issues from db for the projectId, and add listener for any project-specific issue updates
     func getIssues(for projectId: String)
     {
@@ -287,6 +289,7 @@ class DbManager
         return searchString + String(count + 1)
     }
     
+    //add a new issue to the db
     func addIssue(_ title: String, _ description: String, _ type: IssueType)
     {
         if let projectId = currentProjectId
@@ -323,7 +326,7 @@ class DbManager
         }
     }
     
-    //on save in detail view
+    //on save in detail view, update issue on db
     func updateIssue(issueId: String, title: String,
                      description: String, statusString: String,
                      assignee: String, dueDate: String)
@@ -345,39 +348,30 @@ class DbManager
             }
         }
     }
-    
-    func updateProject(project: Project, description: String)
+}
+
+//MARK: - users
+extension DbManager
+{
+    //add a user to a self-managed Firestore db
+    func addUserToMyDb(email: String)
     {
-        let projectRef = db.collection("Projects").document(project.id)
-        //todo error UI
-        projectRef.updateData(["description": description]) { (error) in
+        let user = User(email: email)
+        let allUsers = db.collection("AllUsers")
+        let userRef = allUsers.document(email)
+        userRef.setData(["email": user.email]) { (error) in
             if let e = error
             {
-                print("updateProject error for \(project.name): \(e.localizedDescription)")
+                print("error adding user to my db: \(email), \(e.localizedDescription)")
             }
             else
             {
-                print("updateProject success: \(project.name) updated")
+                print("user added to my db: \(email)")
             }
         }
     }
-    
-    private func updateProjectAddUser(projectId: String, email: String)
-    {
-        let projectRef = db.collection("Projects").document(projectId)
-        //todo error UI
-        projectRef.updateData(["users": FieldValue.arrayUnion([email])]) { (error) in
-            if let e = error
-            {
-                self.delegate?.onAddEmailUserToProjectError(email: email, errorStr: e.localizedDescription)
-            }
-            else
-            {
-                self.delegate?.onAddEmailUserToProjectSuccess(email: email)
-            }
-        }
-    }
-    
+
+    //check if user is already on the project
     private func checkIfUserOnProject(_ projectId: String, _ email: String) -> Bool
     {
         let project = getProject(with: projectId)
@@ -420,8 +414,26 @@ class DbManager
             }
         }
     }
+    
+    //add the user to the project in db
+    private func updateProjectAddUser(projectId: String, email: String)
+    {
+        let projectRef = db.collection("Projects").document(projectId)
+        //todo error UI
+        projectRef.updateData(["users": FieldValue.arrayUnion([email])]) { (error) in
+            if let e = error
+            {
+                self.delegate?.onAddEmailUserToProjectError(email: email, errorStr: e.localizedDescription)
+            }
+            else
+            {
+                self.delegate?.onAddEmailUserToProjectSuccess(email: email)
+            }
+        }
+    }
 }
 
+//MARK: - DbManager delegate
 protocol DbManagerDelegate
 {
     func onCreateProjectError(description: String)
@@ -432,6 +444,7 @@ protocol DbManagerDelegate
     func onAddEmailUserToProjectError(email: String, errorStr: String)
 }
 
+//delegate default methods
 extension DbManagerDelegate
 {
     func onCreateProjectError(description: String)
