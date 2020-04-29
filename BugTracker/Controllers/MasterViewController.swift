@@ -41,13 +41,29 @@ class MasterViewController: UITableViewController {
         
         var titleTextfield = UITextField()
         var descTextfield = UITextField()
+        var issueTypeTextField = UITextField()
         
         let addAction = UIAlertAction(title: "Add", style: .default) { (action) in
             
             if let title = titleTextfield.text
             {
                 let description = descTextfield.text ?? ""
-                DbManager.instance.addIssue(title, description, IssueType.Bug)
+                let issueTypeStr = issueTypeTextField.text ?? ""
+                var issueType: IssueType
+                if issueTypeStr == "t"
+                {
+                    issueType = IssueType.Task
+                }
+                else if issueTypeStr == "f"
+                {
+                    issueType = IssueType.Feature
+                }
+                else
+                {
+                    issueType = IssueType.Bug
+                }
+                
+                DbManager.instance.addIssue(title, description, issueType)
             }
         }
         
@@ -68,6 +84,11 @@ class MasterViewController: UITableViewController {
             descTextfield.placeholder = "Description"
         }
         
+        alert.addTextField { (textField) in
+            issueTypeTextField = textField
+            issueTypeTextField.placeholder = "Issue type"
+        }
+        
         //todo add a picker for issue type:
         //austinvanalfen.wixsite.com/iosdeveloper/single-post/2016/11/22/UIPicker-inside-an-UIAlertController
 //        alert.addTextField { (textField) in
@@ -86,7 +107,7 @@ class MasterViewController: UITableViewController {
         loadIssuesInTable()
         if let currentProject = dbManager.CurrentProject
         {
-            title = currentProject.id
+            title = currentProject.name
         }
         else
         {

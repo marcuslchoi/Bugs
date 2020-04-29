@@ -10,6 +10,7 @@ import Foundation
 struct Project
 {
     let id: String
+    let name: String
     var description: String
     var users: [String]
     var issues: [Issue]?

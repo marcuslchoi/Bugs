@@ -19,7 +19,8 @@ class CreateProjectViewController: UIViewController {
         errorLabel.text = ""
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         //todo make sure this happens when nav back to this view
         DbManager.instance.delegate = self
     }
@@ -41,7 +42,7 @@ class CreateProjectViewController: UIViewController {
         performSegue(withIdentifier: "CreateProjectToProjects", sender: self)
     }
     
-    private func showAddIssueAlert(for projectName: String)
+    private func showProjectAddedGoToSettingsAlert(for projectName: String)
     {
         let alert = UIAlertController(title: "\(projectName) Created", message: "Please add some project settings.", preferredStyle: .alert)
         
@@ -62,7 +63,7 @@ extension CreateProjectViewController: DbManagerDelegate
     
     func onCreateProjectSuccess(projectName: String) {
         //set the dbmanager current project so that we can add some properties to it in next view
-        DbManager.instance.setCurrentProjectId(to: projectName)
-        showAddIssueAlert(for: projectName)
+        DbManager.instance.setCurrentProjectIdWithName(projectName: projectName)
+        showProjectAddedGoToSettingsAlert(for: projectName)
     }
 }

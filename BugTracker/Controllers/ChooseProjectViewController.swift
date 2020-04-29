@@ -29,13 +29,20 @@ class ChooseProjectViewController: UIViewController {
     private func loadProjectsInTable()
     {
         let projects = DbManager.instance.Projects
-        for i in 0...projects.count - 1
+        if !projects.isEmpty
         {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                let indexPath = IndexPath(row: i, section: 0)
-                //self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+            for i in 0...projects.count - 1
+            {
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    let indexPath = IndexPath(row: i, section: 0)
+                    //self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+                }
             }
+        }
+        else
+        {
+            print("loadProjectsInTable: no projects to load!")
         }
     }
 }
@@ -53,12 +60,13 @@ extension ChooseProjectViewController: UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        let projectId = DbManager.instance.Projects[indexPath.row].id
-        print("going to issues for project \(projectId)")
-        
         let dbManager = DbManager.instance
-        dbManager.setCurrentProjectId(to: projectId)
-        dbManager.getIssues(for: projectId)
+        let project = dbManager.Projects[indexPath.row]
+        //let projectName = project.namo
+        //print("going to issues for project \(projectName)")
+        
+        dbManager.setCurrentProjectId(id: project.id)
+        dbManager.getIssues(for: project.id)
         
         performSegue(withIdentifier: "ProjectsToMaster", sender: self)
     }
@@ -75,7 +83,7 @@ extension ChooseProjectViewController: UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: "projectCell", for: indexPath)
         
         //populate the cell's text
-        cell.textLabel?.text = project.id
+        cell.textLabel?.text = project.name
         return cell
     }
 }

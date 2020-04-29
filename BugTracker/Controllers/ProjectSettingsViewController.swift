@@ -34,7 +34,7 @@ class ProjectSettingsViewController: UIViewController {
         //get the project's current users
         if let project = dbManager.CurrentProject
         {
-            projectIdLabel.text = "Project Id: \(project.id)"
+            projectIdLabel.text = "Project: \(project.name)"
             onEnterUpdateUI(project: project)
         }
     }
@@ -64,9 +64,9 @@ class ProjectSettingsViewController: UIViewController {
     
     @IBAction func okButtonPress(_ sender: Any)
     {
-        if let projectId = dbManager.CurrentProject?.id
+        if let project = dbManager.CurrentProject
         {
-            dbManager.updateProject(projectId: projectId, description: descriptionTextView.text)
+            dbManager.updateProject(project: project, description: descriptionTextView.text)
         }
     }
     

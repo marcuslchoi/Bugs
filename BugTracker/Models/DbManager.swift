@@ -74,7 +74,7 @@ class DbManager
             print("getProjects for \(myEmail)")
             let collection = db.collection("Projects")
             
-            collection.whereField("users", arrayContains: myEmail).addSnapshotListener { (querySnapshot, err) in
+            collection.whereField("users", arrayContains: myEmail).order(by: "name", descending: false).addSnapshotListener { (querySnapshot, err) in
                 if let err = err
                 {
                     print("Error getting documents: \(err)")
@@ -86,12 +86,13 @@ class DbManager
                     {
                         let id = document.documentID
                         let data = document.data()
+                        let name = data["name"] as? String
                         let users = data["users"] as? [String]
                         let desc = data["description"] as? String
                         
                         if let safeUsers = users
                         {
-                            let project = Project(id: id, description: desc ?? "", users: safeUsers)
+                            let project = Project(id: id, name: name ?? "default name", description: desc ?? "", users: safeUsers)
                             self.projects.append(project)
                         }
                         else
@@ -109,11 +110,11 @@ class DbManager
         }
     }
     
-    private func checkIfUniqueProjectId(_ projectId: String) -> Bool
+    private func checkIfUniqueProjectName(_ name: String) -> Bool
     {
         for project in projects
         {
-            if project.id == projectId
+            if project.name == name
             {
                 return false
             }
@@ -131,7 +132,7 @@ class DbManager
         }
         else
         {
-            if !checkIfUniqueProjectId(projName)
+            if !checkIfUniqueProjectName(projName)
             {
                 status = "\(projName) already exists"
             }
@@ -153,11 +154,9 @@ class DbManager
                         users.append(moreUsers)
                     }
                     
-                    let project = Project(id: projName, description: "", users: users)
-                    
                     let projectsRef = db.collection("Projects")
                     //add the data to database collection
-                    projectsRef.document(project.id).setData(["users": project.users])
+                    projectsRef.document().setData(["name": projName, "users": users])
                     {
                         (error) in
                         if let e = error
@@ -175,9 +174,21 @@ class DbManager
         return status
     }
     
-    func setCurrentProjectId(to projectId: String)
+    func setCurrentProjectId(id: String)
     {
-        currentProjectId = projectId
+        currentProjectId = id
+    }
+    
+    //note: use this method only after creating a new project,
+    //since we don't yet have access to its id,
+    //and user can't create another project with same name
+    func setCurrentProjectIdWithName(projectName: String)
+    {
+        let index = projects.firstIndex(where: {$0.name == projectName})
+        if let i = index
+        {
+            currentProjectId = projects[i].id
+        }
     }
 
     func getProject(with projectId: String) -> Project?
@@ -338,18 +349,18 @@ class DbManager
         }
     }
     
-    func updateProject(projectId: String, description: String)
+    func updateProject(project: Project, description: String)
     {
-        let projectRef = db.collection("Projects").document(projectId)
+        let projectRef = db.collection("Projects").document(project.id)
         //todo error UI
         projectRef.updateData(["description": description]) { (error) in
             if let e = error
             {
-                print("updateProject error for \(projectId): \(e.localizedDescription)")
+                print("updateProject error for \(project.name): \(e.localizedDescription)")
             }
             else
             {
-                print("updateProject success: \(projectId) updated")
+                print("updateProject success: \(project.name) updated")
             }
         }
     }
