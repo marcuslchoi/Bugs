@@ -74,6 +74,7 @@ class DbManager
             print("getProjects for \(myEmail)")
             let collection = db.collection("Projects")
             
+            //note: this required a composite index with fields indexed: users Arrays name Ascending
             collection.whereField("users", arrayContains: myEmail).order(by: "name", descending: false).addSnapshotListener { (querySnapshot, err) in
                 if let err = err
                 {
@@ -92,7 +93,7 @@ class DbManager
                         
                         if let safeUsers = users
                         {
-                            let project = Project(id: id, name: name ?? "default name", description: desc ?? "", users: safeUsers)
+                            let project = Project(id: id, name: name ?? "default name", description: desc ?? "default description", users: safeUsers)
                             self.projects.append(project)
                         }
                         else

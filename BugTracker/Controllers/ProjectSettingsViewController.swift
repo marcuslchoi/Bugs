@@ -34,13 +34,13 @@ class ProjectSettingsViewController: UIViewController {
         //get the project's current users
         if let project = dbManager.CurrentProject
         {
-            projectIdLabel.text = "Project: \(project.name)"
             onEnterUpdateUI(project: project)
         }
     }
     
     private func onEnterUpdateUI(project: Project)
     {
+        projectIdLabel.text = "Project: \(project.name)"
         descriptionTextView.text = project.description
         showUsersInUI()
     }
