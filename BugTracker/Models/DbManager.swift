@@ -264,31 +264,27 @@ class DbManager
             case IssueType.Feature:
                 searchString = "F-"
                 break;
+            case IssueType.Improvement:
+                searchString = "I-"
+                break;
+            case IssueType.Epic:
+                searchString = "E-"
+                break;
             default:
                 print("error: issue type doesn't exist!")
                 break;
         }
-        
-        var idNumbers: [Int] = []
+
+        var count = 0
         for issue in issues
         {
             let id = issue.id
             if id.contains(searchString)
             {
-                let strings = id.components(separatedBy: "-")
-                let num = Int(strings.last!)
-                idNumbers.append(num!)
+                count += 1
             }
         }
-        
-        var newNum = 1
-        if(idNumbers.count > 0)
-        {
-            idNumbers.sort()
-            newNum = idNumbers.last! + 1
-        }
-        
-        return searchString + String(newNum)
+        return searchString + String(count + 1)
     }
     
     func addIssue(_ title: String, _ description: String, _ type: IssueType)

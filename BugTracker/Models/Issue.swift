@@ -12,6 +12,8 @@ enum IssueType: String, CaseIterable
     case Bug
     case Task
     case Feature
+    case Improvement
+    case Epic
 }
 
 enum IssueStatus: String, CaseIterable

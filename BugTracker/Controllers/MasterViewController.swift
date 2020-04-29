@@ -48,20 +48,10 @@ class MasterViewController: UITableViewController {
             if let title = titleTextfield.text
             {
                 let description = descTextfield.text ?? ""
+                
+                //temp code: a way to test different issue types
                 let issueTypeStr = issueTypeTextField.text ?? ""
-                var issueType: IssueType
-                if issueTypeStr == "t"
-                {
-                    issueType = IssueType.Task
-                }
-                else if issueTypeStr == "f"
-                {
-                    issueType = IssueType.Feature
-                }
-                else
-                {
-                    issueType = IssueType.Bug
-                }
+                let issueType = self.tempGetIssueType(issueTypeStr)
                 
                 DbManager.instance.addIssue(title, description, issueType)
             }
@@ -98,6 +88,32 @@ class MasterViewController: UITableViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    //temp code: a way to test different issue types
+    private func tempGetIssueType(_ issueTypeStr: String) -> IssueType
+    {
+        var issueType: IssueType
+        if issueTypeStr == "t"
+        {
+            issueType = IssueType.Task
+        }
+        else if issueTypeStr == "f"
+        {
+            issueType = IssueType.Feature
+        }
+        else if issueTypeStr == "i"
+        {
+            issueType = IssueType.Improvement
+        }
+        else if issueTypeStr == "e"
+        {
+            issueType = IssueType.Epic
+        }
+        else
+        {
+            issueType = IssueType.Bug
+        }
+        return issueType
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
