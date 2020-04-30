@@ -393,6 +393,7 @@
                         <outlet property="currentUsersTextView" destination="2Rk-VG-eWl" id="ydw-5s-RsY"/>
                         <outlet property="descriptionTextView" destination="ByK-Vg-zIA" id="c7T-Tp-v2R"/>
                         <outlet property="errorLabel" destination="O1P-nm-cEC" id="6kc-S4-jEj"/>
+                        <outlet property="okButton" destination="nsU-8e-bDy" id="Yac-0L-cG5"/>
                         <outlet property="projectIdLabel" destination="MtA-Gk-h7a" id="F5T-pP-6S2"/>
                     </connections>
                 </viewController>

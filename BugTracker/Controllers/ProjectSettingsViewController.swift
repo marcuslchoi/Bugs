@@ -18,6 +18,9 @@ class ProjectSettingsViewController: UIViewController {
     
     @IBOutlet weak var currentUsersTextView: UITextView!
     
+    @IBOutlet weak var okButton: UIButton!
+    
+    var cameFromIssues: Bool = false
     let dbManager = DbManager.instance
 
     override func viewDidLoad() {
@@ -26,6 +29,11 @@ class ProjectSettingsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if cameFromIssues
+        {
+            okButton.isHidden = true
+        }
         
         errorLabel.text = ""
         //to get notified if added user email is valid
@@ -36,6 +44,12 @@ class ProjectSettingsViewController: UIViewController {
         {
             onEnterUpdateUI(project: project)
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        //save the project description on navigating away
+        updateProjectDescription()
     }
     
     private func onEnterUpdateUI(project: Project)
@@ -50,7 +64,7 @@ class ProjectSettingsViewController: UIViewController {
         if let users = dbManager.CurrentProject?.users
         {
             currentUsersTextView.text = ""
-            for i in 0...users.count - 1//user in users
+            for i in 0...users.count - 1
             {
                 var userStr = "\(users[i]), "
                 if i == users.count - 1
@@ -62,15 +76,24 @@ class ProjectSettingsViewController: UIViewController {
         }
     }
     
+    //segues to projects vc
     @IBAction func okButtonPress(_ sender: Any)
     {
         if let addUserText = addUserTextField.text, addUserText != ""
         {
             showMustAddUserAlert()
         }
-        else if let project = dbManager.CurrentProject
+    }
+    
+    private func updateProjectDescription()
+    {
+        if let project = dbManager.CurrentProject
         {
             dbManager.updateProject(project: project, description: descriptionTextView.text)
+        }
+        else
+        {
+            print("updateProjectDescription error: current project is nil")
         }
     }
     

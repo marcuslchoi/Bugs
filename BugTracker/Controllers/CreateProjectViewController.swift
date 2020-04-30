@@ -17,6 +17,7 @@ class CreateProjectViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         errorLabel.text = ""
+        navigationItem.hidesBackButton = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
