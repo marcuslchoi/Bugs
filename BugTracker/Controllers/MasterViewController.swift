@@ -35,6 +35,7 @@ class MasterViewController: UITableViewController {
     @IBAction func settingsButtonPress(_ sender: Any) {
         performSegue(withIdentifier: "IssuesToSettings", sender: self)
     }
+    
     private func showAddIssueAlert()
     {
         let alert = UIAlertController(title: "Add Issue", message: "", preferredStyle: .alert)
@@ -135,8 +136,10 @@ class MasterViewController: UITableViewController {
     // MARK: - Segues
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetail" {
-            if let indexPath = tableView.indexPathForSelectedRow {
+        if segue.identifier == "showDetail"
+        {
+            if let indexPath = tableView.indexPathForSelectedRow
+            {
                 //let object = objects[indexPath.row] as! NSDate
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
                 //controller.detailItem = object
@@ -145,6 +148,13 @@ class MasterViewController: UITableViewController {
                 detailViewController = controller
                 
                 delegate = detailViewController
+            }
+        }
+        else if segue.identifier == "IssuesToSettings"
+        {
+            if let settingsVC = segue.destination as? ProjectSettingsViewController
+            {
+                settingsVC.cameFromIssues = true
             }
         }
     }
