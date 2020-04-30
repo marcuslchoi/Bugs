@@ -70,9 +70,9 @@ class DbManager
                         let users = data["users"] as? [String]
                         let desc = data["description"] as? String
                         
-                        if let safeUsers = users
+                        if let safeUsers = users, let safeName = name
                         {
-                            let project = Project(id: id, name: name ?? "default name", description: desc ?? "default description", users: safeUsers)
+                            let project = Project(id: id, name: safeName, description: desc ?? "", users: safeUsers)
                             self.projects.append(project)
                         }
                         else
