@@ -16,6 +16,7 @@ class ChooseProjectViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        title = "Projects"
         tableView.delegate = self
         tableView.dataSource = self
     }
