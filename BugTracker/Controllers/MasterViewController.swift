@@ -26,6 +26,23 @@ class MasterViewController: UITableViewController {
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
+        super.viewWillAppear(animated)
+        let dbManager = DbManager.instance
+        dbManager.delegate = self
+        loadIssuesInTable()
+        if let currentProject = dbManager.CurrentProject
+        {
+            title = "Issues for \(currentProject.name)"
+        }
+        else
+        {
+            title = ""
+            print("Error: current project is nil!")
+        }
+    }
 
     @IBAction func addButtonPress(_ sender: UIBarButtonItem)
     {
@@ -114,23 +131,6 @@ class MasterViewController: UITableViewController {
             issueType = IssueType.Bug
         }
         return issueType
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
-        super.viewWillAppear(animated)
-        let dbManager = DbManager.instance
-        dbManager.delegate = self
-        loadIssuesInTable()
-        if let currentProject = dbManager.CurrentProject
-        {
-            title = currentProject.name
-        }
-        else
-        {
-            title = ""
-            print("Error: current project is nil!")
-        }
     }
 
     // MARK: - Segues
