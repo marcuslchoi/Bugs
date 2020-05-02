@@ -9,9 +9,8 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-
-    @IBOutlet weak var titleLabel: UILabel!
-
+    @IBOutlet weak var titleTextField: UITextField!
+    
     @IBOutlet weak var descriptionTextView: UITextView!
     
     @IBOutlet weak var statusPickerView: UIPickerView!
@@ -34,6 +33,16 @@ class DetailViewController: UIViewController {
             refreshUI()
         }
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setAssigneePickerData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        save()
+    }
 
     private func refreshUI()
     {
@@ -41,7 +50,7 @@ class DetailViewController: UIViewController {
         {
             loadViewIfNeeded()
             title = safeIssue.id
-            titleLabel.text = safeIssue.title
+            titleTextField.text = safeIssue.title
             reporterLabel.text = "Reporter: \(safeIssue.reporter)"
             descriptionTextView.text = safeIssue.description
             setStatusPickerInitialSelection(issue: safeIssue)
@@ -81,11 +90,6 @@ class DetailViewController: UIViewController {
         dueDatePicker.setDate(issue.dueDate, animated: true)
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setAssigneePickerData()
-    }
-    
     private func setAssigneePickerData()
     {
         let dbManager = DbManager.instance
@@ -95,7 +99,7 @@ class DetailViewController: UIViewController {
         }
     }
     
-    @IBAction func saveButtonPress(_ sender: Any)
+    private func save()
     {
         if let issueId = issue?.id
         {
@@ -106,8 +110,11 @@ class DetailViewController: UIViewController {
             let assignee = assigneePickerData[assigneeSelectedRow]
             
             let dateSelected = K.convertDateToString(date: dueDatePicker.date)
-            
-            DbManager.instance.updateIssue(issueId: issueId, title: titleLabel.text ?? "default title", description: descriptionTextView.text, statusString: status, assignee: assignee, dueDate: dateSelected)
+
+            if let title = titleTextField.text
+            {
+                DbManager.instance.updateIssue(issueId: issueId, title: title, description: descriptionTextView.text, statusString: status, assignee: assignee, dueDate: dateSelected)
+            }
         }
         else
         {
