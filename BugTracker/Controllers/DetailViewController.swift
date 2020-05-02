@@ -22,8 +22,12 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var dueDatePicker: UIDatePicker!
         
+    let dbManager = DbManager.instance
+    
     let statusPickerData: [String] = K.getIssueStatuses()
     var assigneePickerData: [String] = []
+    //these are the roles of the users assigned to this project
+    var assigneeRoles: [String] = []
     
     //the issue is set when the user selects it from the master view controller
     var issue: Issue?
@@ -37,6 +41,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setAssigneePickerData()
+        setAssigneeRoles()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -80,6 +85,7 @@ class DetailViewController: UIViewController {
         if let safeIndex = index
         {
             assigneePickerView.selectRow(safeIndex, inComponent: 0, animated: true)
+            assigneePickerView.selectRow(safeIndex, inComponent: 1, animated: true)
         }
     }
     
@@ -92,10 +98,17 @@ class DetailViewController: UIViewController {
 
     private func setAssigneePickerData()
     {
-        let dbManager = DbManager.instance
         if let users = dbManager.CurrentProject?.users
         {
             assigneePickerData = users
+        }
+    }
+    
+    private func setAssigneeRoles()
+    {
+        if let roles = dbManager.CurrentProject?.roles
+        {
+            assigneeRoles = roles
         }
     }
     
@@ -118,7 +131,7 @@ class DetailViewController: UIViewController {
         }
         else
         {
-            print("saveButtonPress error: issue id is nil!")
+            print("save error: issue id is nil!")
         }
     }
 }
@@ -141,16 +154,19 @@ extension DetailViewController: UIPickerViewDelegate
 extension DetailViewController: UIPickerViewDataSource
 {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        if pickerView.tag == K.assigneePickerTag
+        {
+            return 2
+        }
         return 1
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        //todo set tag info in Constants file
-        if pickerView.tag == 0
+        if pickerView.tag == K.statusPickerTag
         {
             return statusPickerData.count
         }
-        else if pickerView.tag == 1
+        else if pickerView.tag == K.assigneePickerTag
         {
             return assigneePickerData.count
         }
@@ -162,13 +178,20 @@ extension DetailViewController: UIPickerViewDataSource
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
     {
-        if pickerView.tag == 0
+        if pickerView.tag == K.statusPickerTag
         {
             return statusPickerData[row]
         }
-        else if pickerView.tag == 1
+        else if pickerView.tag == K.assigneePickerTag
         {
-            return assigneePickerData[row]
+            if component == 0 //users
+            {
+                return assigneePickerData[row]
+            }
+            else //roles
+            {
+                return assigneeRoles[row]
+            }
         }
         else
         {
@@ -177,6 +200,18 @@ extension DetailViewController: UIPickerViewDataSource
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
+        if pickerView.tag == K.assigneePickerTag
+        {
+            if component == 0
+            {
+                pickerView.selectRow(row, inComponent: 1, animated: true)
+            }
+            else
+            {
+                pickerView.selectRow(row, inComponent: 0, animated: true)
+            }
+        }
     }
+    
+    
 }

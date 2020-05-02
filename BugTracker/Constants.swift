@@ -10,6 +10,9 @@ import Foundation
 
 struct K
 {
+    static let statusPickerTag = 0
+    static let assigneePickerTag = 1
+    
     static let dateFormat = "MM-dd-yyyy"
     static func getIssueStatuses() -> [String]
     {

@@ -68,11 +68,12 @@ class DbManager
                         let data = document.data()
                         let name = data["name"] as? String
                         let users = data["users"] as? [String]
+                        let roles = data["roles"] as? [String]
                         let desc = data["description"] as? String
                         
-                        if let safeUsers = users, let safeName = name
+                        if let safeUsers = users, let safeRoles = roles, let safeName = name
                         {
-                            let project = Project(id: id, name: safeName, description: desc ?? "", users: safeUsers)
+                            let project = Project(id: id, name: safeName, description: desc ?? "", users: safeUsers, roles: safeRoles)
                             self.projects.append(project)
                         }
                         else

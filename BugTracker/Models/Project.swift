@@ -13,5 +13,7 @@ struct Project
     let name: String
     var description: String
     var users: [String]
+    //var usersDict:  [String: String]
+    var roles: [String]
     var issues: [Issue]?
 }

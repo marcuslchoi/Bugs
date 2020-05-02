@@ -92,7 +92,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mTv-EK-Y7Z">
-                                                <rect key="frame" x="120" y="0.0" width="274" height="177"/>
+                                                <rect key="frame" x="120" y="0.0" width="274" height="177.5"/>
                                                 <connections>
                                                     <outlet property="dataSource" destination="JEX-9P-axG" id="ajJ-eb-a7d"/>
                                                     <outlet property="delegate" destination="JEX-9P-axG" id="m4s-kL-LD8"/>
@@ -113,7 +113,7 @@
                                         <rect key="frame" x="0.0" y="357.5" width="414" height="178"/>
                                         <subviews>
                                             <pickerView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="85h-Q8-Vz9">
-                                                <rect key="frame" x="120" y="0.0" width="274" height="178"/>
+                                                <rect key="frame" x="20" y="0.0" width="374" height="178"/>
                                                 <connections>
                                                     <outlet property="dataSource" destination="JEX-9P-axG" id="dXp-Tl-wQ5"/>
                                                     <outlet property="delegate" destination="JEX-9P-axG" id="i2V-Qd-t48"/>
@@ -132,9 +132,9 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="85h-Q8-Vz9" secondAttribute="trailing" constant="20" id="Fkv-HG-F4h"/>
+                                            <constraint firstItem="85h-Q8-Vz9" firstAttribute="leading" secondItem="Dzc-Xh-ebA" secondAttribute="leading" constant="20" id="KAw-pU-eFa"/>
                                             <constraint firstAttribute="bottom" secondItem="85h-Q8-Vz9" secondAttribute="bottom" id="Sh2-Jr-ULt"/>
                                             <constraint firstItem="aLr-d6-BDd" firstAttribute="top" secondItem="Dzc-Xh-ebA" secondAttribute="top" constant="10" id="Zvc-vv-GH5"/>
-                                            <constraint firstItem="85h-Q8-Vz9" firstAttribute="leading" secondItem="aLr-d6-BDd" secondAttribute="trailing" constant="20" id="b7q-hU-fTQ"/>
                                             <constraint firstItem="85h-Q8-Vz9" firstAttribute="top" secondItem="Dzc-Xh-ebA" secondAttribute="top" id="iOx-rV-xHG"/>
                                             <constraint firstItem="aLr-d6-BDd" firstAttribute="leading" secondItem="Dzc-Xh-ebA" secondAttribute="leading" constant="20" id="p8V-LW-gTp"/>
                                         </constraints>
@@ -143,7 +143,7 @@
                                         <rect key="frame" x="0.0" y="536.5" width="414" height="177.5"/>
                                         <subviews>
                                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="zkr-hL-tzU">
-                                                <rect key="frame" x="120" y="0.0" width="274" height="178"/>
+                                                <rect key="frame" x="120" y="0.0" width="274" height="177.5"/>
                                             </datePicker>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DOa-bI-Yjg">
                                                 <rect key="frame" x="20" y="10" width="80" height="20.5"/>
