@@ -13,6 +13,9 @@ class CreateProjectViewController: UIViewController {
     @IBOutlet weak var projectNameTextField: UITextField!
 
     @IBOutlet weak var errorLabel: UILabel!
+    
+    @IBOutlet weak var userRolePickerView: UIPickerView!
+    let userRolePickerDataSource: [String] = K.getUserRoles()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +33,9 @@ class CreateProjectViewController: UIViewController {
     {
         if let projName = projectNameTextField.text
         {
-            errorLabel.text = DbManager.instance.tryCreateProject(projName: projName, additionalUsers: nil)
+            let roleIndex = userRolePickerView.selectedRow(inComponent: 0)
+            let myRole = userRolePickerDataSource[roleIndex]
+            errorLabel.text = DbManager.instance.tryCreateProject(projName: projName, additionalUsers: nil, myRoleStr: myRole)
         }
         else
         {
@@ -56,6 +61,7 @@ class CreateProjectViewController: UIViewController {
     }
 }
 
+//MARK: - Extensions
 extension CreateProjectViewController: DbManagerDelegate
 {
     func onCreateProjectError(description: String) {
@@ -66,5 +72,26 @@ extension CreateProjectViewController: DbManagerDelegate
         //set the dbmanager current project so that we can add some properties to it in next view
         DbManager.instance.setCurrentProjectIdWithName(projectName: projectName)
         showProjectAddedGoToSettingsAlert(for: projectName)
+    }
+}
+
+extension CreateProjectViewController: UIPickerViewDelegate
+{
+    
+}
+
+extension CreateProjectViewController: UIPickerViewDataSource
+{
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
+    {
+        return userRolePickerDataSource[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return userRolePickerDataSource.count
     }
 }

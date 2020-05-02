@@ -104,7 +104,7 @@ class DbManager
     }
     
     //try to create a project in the db, return status
-    func tryCreateProject(projName: String, additionalUsers: String?) -> String
+    func tryCreateProject(projName: String, additionalUsers: String?, myRoleStr: String) -> String
     {
         var status = ""
         if projName == ""
@@ -127,7 +127,7 @@ class DbManager
                 else
                 {
                     let myEmail = currentUser!.email
-                    var users = [myEmail!]
+                    var users = ["\(myEmail!):\(myRoleStr)"]
                     
                     //todo comma separated? or update UI
                     if let moreUsers = additionalUsers
