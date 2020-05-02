@@ -8,6 +8,14 @@
 
 import Foundation
 
+enum UserRole: String, CaseIterable
+{
+    case ProjectLead
+    case DBA
+    case Developer
+    case Tester
+}
+
 struct User
 {
     let email: String

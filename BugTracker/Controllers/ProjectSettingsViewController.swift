@@ -20,6 +20,9 @@ class ProjectSettingsViewController: UIViewController {
     
     @IBOutlet weak var okButton: UIButton!
     
+    @IBOutlet weak var userRolePickerView: UIPickerView!
+    
+    let userRolePickerData: [String] = K.getUserRoles()
     var cameFromIssues: Bool = false
     let dbManager = DbManager.instance
 
@@ -127,6 +130,7 @@ class ProjectSettingsViewController: UIViewController {
     }
 }
 
+//MARK: - extensions
 extension ProjectSettingsViewController: DbManagerDelegate
 {
     func onAddEmailUserToProjectSuccess(email: String) {
@@ -139,4 +143,26 @@ extension ProjectSettingsViewController: DbManagerDelegate
         errorLabel.text = "Error with \(email): \(errorStr)"
         print("Error with \(email): \(errorStr)")
     }
+}
+
+extension ProjectSettingsViewController: UIPickerViewDelegate
+{
+    
+}
+
+extension ProjectSettingsViewController: UIPickerViewDataSource
+{
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return userRolePickerData[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return userRolePickerData.count
+    }
+    
+    
 }

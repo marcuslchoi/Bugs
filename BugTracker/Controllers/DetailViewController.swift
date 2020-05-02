@@ -145,6 +145,7 @@ extension DetailViewController: UIPickerViewDataSource
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        //todo set tag info in Constants file
         if pickerView.tag == 0
         {
             return statusPickerData.count

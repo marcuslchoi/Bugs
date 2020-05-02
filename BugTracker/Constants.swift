@@ -21,6 +21,16 @@ struct K
         return statuses
     }
     
+    static func getUserRoles() -> [String]
+    {
+        var roles: [String] = []
+        for role in UserRole.allCases
+        {
+            roles.append(role.rawValue)
+        }
+        return roles
+    }
+    
     static func convertDateToString(date: Date) -> String
     {
         let dateFormatter = DateFormatter()
