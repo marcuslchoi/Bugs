@@ -104,7 +104,7 @@ class DbManager
     }
     
     //try to create a project in the db, return status
-    func tryCreateProject(projName: String, additionalUsers: String?, myRoleStr: String) -> String
+    func tryCreateProject(projName: String, myRoleStr: String) -> String
     {
         var status = ""
         if projName == ""
@@ -126,18 +126,13 @@ class DbManager
                 }
                 else
                 {
-                    let myEmail = currentUser!.email
-                    var users = ["\(myEmail!):\(myRoleStr)"]
-                    
-                    //todo comma separated? or update UI
-                    if let moreUsers = additionalUsers
-                    {
-                        users.append(moreUsers)
-                    }
+                    let myEmail = currentUser!.email!
+                    let users = [myEmail]
+                    let roles = [myRoleStr]
                     
                     let projectsRef = db.collection("Projects")
                     //add the data to database collection
-                    projectsRef.document().setData(["name": projName, "users": users])
+                    projectsRef.document().setData(["name": projName, "users": users, "roles": roles])
                     {
                         (error) in
                         if let e = error
@@ -420,7 +415,7 @@ extension DbManager
     {
         let projectRef = db.collection("Projects").document(projectId)
         //todo error UI
-        projectRef.updateData(["users": FieldValue.arrayUnion(["\(email):\(roleStr)"])]) { (error) in
+        projectRef.updateData(["users": FieldValue.arrayUnion([email]), "roles": FieldValue.arrayUnion([roleStr])]) { (error) in
             if let e = error
             {
                 self.delegate?.onAddEmailUserToProjectError(email: email, errorStr: e.localizedDescription)

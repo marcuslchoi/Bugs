@@ -51,6 +51,10 @@ class ProjectSettingsViewController: UIViewController {
         {
             onEnterUpdateUI(project: project)
         }
+        else
+        {
+            projectIdLabel.text = "Error: current project not set"
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

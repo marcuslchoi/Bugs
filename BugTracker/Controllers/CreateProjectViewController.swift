@@ -35,7 +35,7 @@ class CreateProjectViewController: UIViewController {
         {
             let roleIndex = userRolePickerView.selectedRow(inComponent: 0)
             let myRole = userRolePickerDataSource[roleIndex]
-            errorLabel.text = DbManager.instance.tryCreateProject(projName: projName, additionalUsers: nil, myRoleStr: myRole)
+            errorLabel.text = DbManager.instance.tryCreateProject(projName: projName, myRoleStr: myRole)
         }
         else
         {
