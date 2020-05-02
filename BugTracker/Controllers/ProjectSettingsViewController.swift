@@ -30,9 +30,13 @@ class ProjectSettingsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if cameFromIssues
+        if cameFromIssues //came from issues (master) view
         {
             okButton.isHidden = true
+        }
+        else //came from create project
+        {
+            navigationItem.hidesBackButton = true
         }
         
         errorLabel.text = ""
