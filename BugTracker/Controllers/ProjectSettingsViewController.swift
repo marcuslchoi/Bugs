@@ -114,7 +114,9 @@ class ProjectSettingsViewController: UIViewController {
             }
             else
             {
-                dbManager.tryAddEmailUserToProject(to: project.id, with: email)
+                let roleIndex = userRolePickerView.selectedRow(inComponent: 0)
+                let role = userRolePickerData[roleIndex]
+                dbManager.tryAddEmailUserToProject(to: project.id, with: email, roleStr: role)
             }
         }
     }

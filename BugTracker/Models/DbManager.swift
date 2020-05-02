@@ -387,7 +387,7 @@ extension DbManager
     }
     
     //check AllUsers db collection for the user, if it exists, add it to project
-    func tryAddEmailUserToProject(to projectId: String, with email: String)
+    func tryAddEmailUserToProject(to projectId: String, with email: String, roleStr: String)
     {
         if checkIfUserOnProject(projectId, email)
         {
@@ -406,7 +406,7 @@ extension DbManager
             {
                 let dataDescription = safeDoc.data().map(String.init(describing:)) ?? "nil"
                 print("tryAddEmailUserToProject: \(dataDescription) user exists in my db")
-                self.updateProjectAddUser(projectId: projectId, email: email)
+                self.updateProjectAddUser(projectId: projectId, email: email, roleStr: roleStr)
             }
             else
             {
@@ -416,11 +416,11 @@ extension DbManager
     }
     
     //add the user to the project in db
-    private func updateProjectAddUser(projectId: String, email: String)
+    private func updateProjectAddUser(projectId: String, email: String, roleStr: String)
     {
         let projectRef = db.collection("Projects").document(projectId)
         //todo error UI
-        projectRef.updateData(["users": FieldValue.arrayUnion([email])]) { (error) in
+        projectRef.updateData(["users": FieldValue.arrayUnion(["\(email):\(roleStr)"])]) { (error) in
             if let e = error
             {
                 self.delegate?.onAddEmailUserToProjectError(email: email, errorStr: e.localizedDescription)
