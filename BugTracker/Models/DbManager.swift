@@ -416,15 +416,24 @@ extension DbManager
     {
         let projectRef = db.collection("Projects").document(projectId)
         //todo error UI
-        projectRef.updateData(["users": FieldValue.arrayUnion([email]), "roles": FieldValue.arrayUnion([roleStr])]) { (error) in
-            if let e = error
-            {
-                self.delegate?.onAddEmailUserToProjectError(email: email, errorStr: e.localizedDescription)
+        if var roles = getProject(with: projectId)?.roles
+        {
+            //note: can't use arrayUnion for roles because it only adds unique values
+            roles.append(roleStr)
+            projectRef.updateData(["users": FieldValue.arrayUnion([email]), "roles": roles]) { (error) in
+                if let e = error
+                {
+                    self.delegate?.onAddEmailUserToProjectError(email: email, errorStr: e.localizedDescription)
+                }
+                else
+                {
+                    self.delegate?.onAddEmailUserToProjectSuccess(email: email)
+                }
             }
-            else
-            {
-                self.delegate?.onAddEmailUserToProjectSuccess(email: email)
-            }
+        }
+        else
+        {
+            print("updateProjectAddUser error: project with id \(projectId) does not exist")
         }
     }
 }
