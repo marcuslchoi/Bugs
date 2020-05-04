@@ -15,21 +15,22 @@ class MasterViewController: UITableViewController {
     var detailViewController: DetailViewController? = nil
     var objects = [Any]()
     var delegate: IssueSelectionDelegate?
-    let searchController = UISearchController(searchResultsController: nil)
-    var filteredIssues: [Issue] = []
     
-    var isSearchBarEmpty: Bool
+    private let searchController = UISearchController(searchResultsController: nil)
+    private var filteredIssues: [Issue] = []
+    
+    private var isSearchBarEmpty: Bool
     {
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
-    var isFiltering: Bool
+    private var isFiltering: Bool
     {
         let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
         return searchController.isActive && (!isSearchBarEmpty || searchBarScopeIsFiltering)
     }
 
-    func filterContentForSearchText(_ searchText: String, user: String? = nil)
+    private func filterContentForSearchText(_ searchText: String, user: String? = nil)
     {
         filteredIssues = dbManager.issues.filter
         { (issue: Issue) -> Bool in
@@ -238,7 +239,8 @@ class MasterViewController: UITableViewController {
     // MARK: - Table View
     
     //on issue selected, call the delegate method for detail view to refresh
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
         let selectedIssue: Issue
         if isFiltering
         {
