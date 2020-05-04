@@ -64,6 +64,23 @@ class MasterViewController: UITableViewController {
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
+        super.viewWillAppear(animated)
+        dbManager.delegate = self
+        loadIssuesInTable()
+        if let currentProject = dbManager.CurrentProject
+        {
+            title = "Issues for \(currentProject.name)"
+        }
+        else
+        {
+            title = ""
+            print("Error: current project is nil!")
+        }
+        setSearchControllerProps()
+    }
     
     private func setSearchControllerProps()
     {
@@ -81,23 +98,6 @@ class MasterViewController: UITableViewController {
             searchController.searchBar.scopeButtonTitles = scopeButtonTitles
             searchController.searchBar.delegate = self
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
-        super.viewWillAppear(animated)
-        dbManager.delegate = self
-        loadIssuesInTable()
-        if let currentProject = dbManager.CurrentProject
-        {
-            title = "Issues for \(currentProject.name)"
-        }
-        else
-        {
-            title = ""
-            print("Error: current project is nil!")
-        }
-        setSearchControllerProps()
     }
 
     @IBAction func addButtonPress(_ sender: UIBarButtonItem)
