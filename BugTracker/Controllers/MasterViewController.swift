@@ -32,7 +32,7 @@ class MasterViewController: UITableViewController {
 
     private func filterContentForSearchText(_ searchText: String, user: String? = nil)
     {
-        filteredIssues = dbManager.issues.filter
+        filteredIssues = dbManager.Issues.filter
         { (issue: Issue) -> Bool in
             let isUserMatch = issue.assignedTo == user || user == "All"
             if isSearchBarEmpty
@@ -219,7 +219,7 @@ class MasterViewController: UITableViewController {
     //show the issues in the table
     private func loadIssuesInTable()
     {
-        let issues = dbManager.issues
+        let issues = dbManager.Issues
         if issues.count > 0
         {
             for i in 0...issues.count - 1
@@ -248,7 +248,7 @@ class MasterViewController: UITableViewController {
         }
         else
         {
-            let issues = dbManager.issues
+            let issues = dbManager.Issues
             selectedIssue = issues[indexPath.row]
         }
         delegate?.onIssueSelected(selectedIssue: selectedIssue)
@@ -264,7 +264,7 @@ class MasterViewController: UITableViewController {
             return filteredIssues.count
         }
         
-        return dbManager.issues.count
+        return dbManager.Issues.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -277,7 +277,7 @@ class MasterViewController: UITableViewController {
         }
         else
         {
-            let issues = dbManager.issues
+            let issues = dbManager.Issues
             issue = issues[indexPath.row]
         }
         cell.textLabel?.text = "\(issue.id): \(issue.title)"

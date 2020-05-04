@@ -38,7 +38,14 @@ class DbManager
         }
     }
     
-    var issues: [Issue] = []
+    private var issues: [Issue] = []
+    var Issues: [Issue]
+    {
+        get
+        {
+            return issues
+        }
+    }
     
     //singleton
     static var instance = DbManager()
