@@ -45,7 +45,7 @@ class MasterViewController: UITableViewController {
                     isUserMatch &&
                     (issue.title.lowercased().contains(txt) ||
                     issue.description.lowercased().contains(txt) ||
-                    //issue.assignedTo.lowercased().contains(txt) ||
+                    issue.status.rawValue.lowercased().contains(txt) ||
                     issue.type.rawValue.lowercased().contains(txt))
             }
 

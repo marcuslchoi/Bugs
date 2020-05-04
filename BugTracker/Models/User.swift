@@ -8,12 +8,39 @@
 
 import Foundation
 
-enum UserRole: String, CaseIterable
+enum UserRole: CaseIterable
 {
     case ProjectLead
     case Developer
     case DBA
     case Tester
+}
+
+extension UserRole: RawRepresentable
+{
+    typealias RawValue = String
+    init?(rawValue: RawValue)
+    {
+        switch rawValue
+        {
+            case "Project Lead": self = .ProjectLead
+            case "Developer": self = .Developer
+            case "DBA": self = .DBA
+            case "Tester": self = .Tester
+            default: return nil
+        }
+    }
+    
+    var rawValue: RawValue
+    {
+        switch self
+        {
+            case .ProjectLead: return "Project Lead"
+            case .Developer: return "Developer"
+            case .DBA: return "DBA"
+            case .Tester: return "Tester"
+        }
+    }
 }
 
 struct User

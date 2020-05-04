@@ -16,12 +16,39 @@ enum IssueType: String, CaseIterable
     case Epic
 }
 
-enum IssueStatus: String, CaseIterable
+enum IssueStatus: CaseIterable
 {
     case Open 
     case InProgress
     case InReview
     case Closed
+}
+
+extension IssueStatus: RawRepresentable
+{
+    typealias RawValue = String
+    init?(rawValue: RawValue)
+    {
+        switch rawValue
+        {
+            case "Open": self = .Open
+            case "In Progress": self = .InProgress
+            case "In Review": self = .InReview
+            case "Closed": self = .Closed
+            default: return nil
+        }
+    }
+    
+    var rawValue: RawValue
+    {
+        switch self
+        {
+            case .Open: return "Open"
+            case .InProgress: return "In Progress"
+            case .InReview: return "In Review"
+            case .Closed: return "Closed"
+        }
+    }
 }
 
 struct Issue
