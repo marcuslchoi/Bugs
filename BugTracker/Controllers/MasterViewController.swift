@@ -279,7 +279,7 @@ class MasterViewController: UITableViewController {
             issue = issues[indexPath.row]
         }
         cell.textLabel?.text = "\(issue.id): \(issue.title)"
-        cell.detailTextLabel?.text = issue.description
+        cell.detailTextLabel?.text = "Assignee: \(issue.assignedTo)"
         return cell
     }
 
