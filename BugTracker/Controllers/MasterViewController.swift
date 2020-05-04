@@ -298,6 +298,7 @@ class MasterViewController: UITableViewController {
     }
 }
 
+//MARK: - DbManagerDelegate
 extension MasterViewController: DbManagerDelegate
 {
     func onIssuesLoaded() {
@@ -306,6 +307,7 @@ extension MasterViewController: DbManagerDelegate
     }
 }
 
+//MARK: - search bar
 extension MasterViewController: UISearchResultsUpdating
 {
     func updateSearchResults(for searchController: UISearchController)
