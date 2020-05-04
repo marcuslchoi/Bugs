@@ -12,6 +12,33 @@ import Firebase
 class ChooseProjectViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    let dbManager = DbManager.instance
+    
+    private let searchController = UISearchController(searchResultsController: nil)
+    private var filteredProjects: [Project] = []
+    
+    private var isSearchBarEmpty: Bool
+    {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    private var isFiltering: Bool
+    {
+        return searchController.isActive && !isSearchBarEmpty
+    }
+
+    private func filterContentForSearchText(_ searchText: String)
+    {
+        filteredProjects = dbManager.Projects.filter
+        { (project: Project) -> Bool in
+
+            let txt = searchText.lowercased()
+            return
+                project.name.lowercased().contains(txt) ||
+                project.description.lowercased().contains(txt)
+        }
+        tableView.reloadData()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,15 +48,26 @@ class ChooseProjectViewController: UIViewController {
         tableView.dataSource = self
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        DbManager.instance.delegate = self
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        dbManager.delegate = self
         loadProjectsInTable()
+        setSearchControllerProps()
+    }
+    
+    private func setSearchControllerProps()
+    {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Projects"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
     }
     
     //show the projects in the table
     private func loadProjectsInTable()
     {
-        let projects = DbManager.instance.Projects
+        let projects = dbManager.Projects
         if !projects.isEmpty
         {
             for i in 0...projects.count - 1
@@ -61,11 +99,16 @@ extension ChooseProjectViewController: UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        let dbManager = DbManager.instance
-        let project = dbManager.Projects[indexPath.row]
-        //let projectName = project.namo
-        //print("going to issues for project \(projectName)")
-        
+        let project: Project
+        if isFiltering
+        {
+            project = filteredProjects[indexPath.row]
+        }
+        else
+        {
+            project = dbManager.Projects[indexPath.row]
+        }
+
         dbManager.setCurrentProjectId(id: project.id)
         dbManager.getIssues(for: project.id)
         
@@ -76,16 +119,36 @@ extension ChooseProjectViewController: UITableViewDelegate
 extension ChooseProjectViewController: UITableViewDataSource
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return DbManager.instance.Projects.count
+        if isFiltering
+        {
+            return filteredProjects.count
+        }
+        return dbManager.Projects.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let project = DbManager.instance.Projects[indexPath.row]
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        let project: Project
+        if isFiltering
+        {
+            project = filteredProjects[indexPath.row]
+        }
+        else
+        {
+            project = dbManager.Projects[indexPath.row]
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: "projectCell", for: indexPath)
         
         //populate the cell's text
         cell.textLabel?.text = project.name
         cell.detailTextLabel?.text = project.description
         return cell
+    }
+}
+
+extension ChooseProjectViewController: UISearchResultsUpdating
+{
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!)
     }
 }
