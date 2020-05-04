@@ -85,6 +85,7 @@ extension ChooseProjectViewController: UITableViewDataSource
         
         //populate the cell's text
         cell.textLabel?.text = project.name
+        cell.detailTextLabel?.text = project.description
         return cell
     }
 }
