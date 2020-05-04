@@ -11,9 +11,35 @@ import UIKit
 //this view shows the issues for the currently selected project
 class MasterViewController: UITableViewController {
 
+    let dbManager = DbManager.instance
     var detailViewController: DetailViewController? = nil
     var objects = [Any]()
     var delegate: IssueSelectionDelegate?
+    let searchController = UISearchController(searchResultsController: nil)
+    var filteredIssues: [Issue] = []
+    
+    var isSearchBarEmpty: Bool
+    {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    var isFiltering: Bool
+    {
+        return searchController.isActive && !isSearchBarEmpty
+    }
+
+    func filterContentForSearchText(_ searchText: String, user: String? = nil)
+    {
+        filteredIssues = dbManager.issues.filter
+        { (issue: Issue) -> Bool in
+            let txt = searchText.lowercased()
+            return issue.title.lowercased().contains(txt) ||
+                issue.description.lowercased().contains(txt) ||
+                issue.assignedTo.lowercased().contains(txt) ||
+                issue.type.rawValue.lowercased().contains(txt)
+        }
+        tableView.reloadData()
+    }
 
     override func viewDidLoad()
     {
@@ -25,12 +51,22 @@ class MasterViewController: UITableViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
+
+        setSearchControllerProps()
+    }
+    
+    private func setSearchControllerProps()
+    {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Issues"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
-        let dbManager = DbManager.instance
         dbManager.delegate = self
         loadIssuesInTable()
         if let currentProject = dbManager.CurrentProject
@@ -71,7 +107,7 @@ class MasterViewController: UITableViewController {
                 let issueTypeStr = issueTypeTextField.text ?? ""
                 let issueType = self.tempGetIssueType(issueTypeStr)
                 
-                DbManager.instance.addIssue(title, description, issueType)
+                self.dbManager.addIssue(title, description, issueType)
             }
         }
         
@@ -162,7 +198,7 @@ class MasterViewController: UITableViewController {
     //show the issues in the table
     private func loadIssuesInTable()
     {
-        let issues = DbManager.instance.issues
+        let issues = dbManager.issues
         if issues.count > 0
         {
             for i in 0...issues.count - 1
@@ -183,8 +219,16 @@ class MasterViewController: UITableViewController {
     
     //on issue selected, call the delegate method for detail view to refresh
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let issues = DbManager.instance.issues
-        let selectedIssue = issues[indexPath.row]
+        let selectedIssue: Issue
+        if isFiltering
+        {
+            selectedIssue = filteredIssues[indexPath.row]
+        }
+        else
+        {
+            let issues = dbManager.issues
+            selectedIssue = issues[indexPath.row]
+        }
         delegate?.onIssueSelected(selectedIssue: selectedIssue)
     }
     
@@ -193,15 +237,29 @@ class MasterViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return DbManager.instance.issues.count
+        if isFiltering
+        {
+            return filteredIssues.count
+        }
+        
+        return dbManager.issues.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "issueCell", for: indexPath)
-        
-        let issues = DbManager.instance.issues
-        let issue = issues[indexPath.row]
-        cell.textLabel!.text = "\(issue.id): \(issue.title)"
+
+        let issue: Issue
+        if isFiltering
+        {
+            issue = filteredIssues[indexPath.row]
+        }
+        else
+        {
+            let issues = dbManager.issues
+            issue = issues[indexPath.row]
+        }
+        cell.textLabel?.text = "\(issue.id): \(issue.title)"
+        cell.detailTextLabel?.text = issue.description
         return cell
     }
 
@@ -225,6 +283,15 @@ extension MasterViewController: DbManagerDelegate
     func onIssuesLoaded() {
         print("MasterViewController reloaded issues since they were updated")
         loadIssuesInTable()
+    }
+}
+
+extension MasterViewController: UISearchResultsUpdating
+{
+    func updateSearchResults(for searchController: UISearchController)
+    {
+        let searchBar = searchController.searchBar
+        filterContentForSearchText(searchBar.text!)
     }
 }
 
