@@ -25,18 +25,30 @@ class MasterViewController: UITableViewController {
     
     var isFiltering: Bool
     {
-        return searchController.isActive && !isSearchBarEmpty
+        let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
+        return searchController.isActive && (!isSearchBarEmpty || searchBarScopeIsFiltering)
     }
 
     func filterContentForSearchText(_ searchText: String, user: String? = nil)
     {
         filteredIssues = dbManager.issues.filter
         { (issue: Issue) -> Bool in
-            let txt = searchText.lowercased()
-            return issue.title.lowercased().contains(txt) ||
-                issue.description.lowercased().contains(txt) ||
-                issue.assignedTo.lowercased().contains(txt) ||
-                issue.type.rawValue.lowercased().contains(txt)
+            let isUserMatch = issue.assignedTo == user || user == "All"
+            if isSearchBarEmpty
+            {
+                return isUserMatch
+            }
+            else
+            {
+                let txt = searchText.lowercased()
+                return
+                    isUserMatch &&
+                    (issue.title.lowercased().contains(txt) ||
+                    issue.description.lowercased().contains(txt) ||
+                    //issue.assignedTo.lowercased().contains(txt) ||
+                    issue.type.rawValue.lowercased().contains(txt))
+            }
+
         }
         tableView.reloadData()
     }
@@ -51,8 +63,6 @@ class MasterViewController: UITableViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
-
-        setSearchControllerProps()
     }
     
     private func setSearchControllerProps()
@@ -62,6 +72,15 @@ class MasterViewController: UITableViewController {
         searchController.searchBar.placeholder = "Search Issues"
         navigationItem.searchController = searchController
         definesPresentationContext = true
+        
+        //scope buttons
+        if let users = dbManager.CurrentProject?.users
+        {
+            var scopeButtonTitles = users
+            scopeButtonTitles.insert("All", at: 0)
+            searchController.searchBar.scopeButtonTitles = scopeButtonTitles
+            searchController.searchBar.delegate = self
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,6 +97,7 @@ class MasterViewController: UITableViewController {
             title = ""
             print("Error: current project is nil!")
         }
+        setSearchControllerProps()
     }
 
     @IBAction func addButtonPress(_ sender: UIBarButtonItem)
@@ -291,7 +311,17 @@ extension MasterViewController: UISearchResultsUpdating
     func updateSearchResults(for searchController: UISearchController)
     {
         let searchBar = searchController.searchBar
-        filterContentForSearchText(searchBar.text!)
+        let assignee = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
+        filterContentForSearchText(searchBar.text!, user: assignee)
+    }
+}
+
+extension MasterViewController: UISearchBarDelegate
+{
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int)
+    {
+        let selectedUser = searchBar.scopeButtonTitles?[selectedScope]
+        filterContentForSearchText(searchBar.text!, user: selectedUser ?? nil)
     }
 }
 
