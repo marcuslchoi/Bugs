@@ -103,7 +103,7 @@ class MasterViewController: UITableViewController {
 
     @IBAction func addButtonPress(_ sender: UIBarButtonItem)
     {
-        showAddIssueAlert()
+        //showAddIssueAlert()
     }
 
     @IBAction func settingsButtonPress(_ sender: Any) {
