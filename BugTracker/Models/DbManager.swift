@@ -12,6 +12,8 @@ import Firebase
 class DbManager
 {
     var delegate: DbManagerDelegate?
+    //this delegate used only for CreateIssueViewController
+    var createIssueDelegate: CreateIssueDelegate?
     private let db = Firestore.firestore()
     private let auth = Auth.auth()
 
@@ -293,7 +295,7 @@ extension DbManager
     }
     
     //add a new issue to the db
-    func addIssue(_ title: String, _ description: String, _ type: IssueType, _ assignee: String, _ dueDate: String?)
+    func addIssue(_ title: String, _ description: String, _ type: IssueType, _ assignee: String, _ dueDate: String)
     {
         if let projectId = currentProjectId
         {
@@ -306,15 +308,17 @@ extension DbManager
                 //add the issue
                 let id = createNextIssueId(for: type)
                 //todo error UI
-                issuesRef.document(id).setData(["reporter": safeEmail, "assignedTo": assignee, "title": title, "description": description,"status": IssueStatus.Open.rawValue, "type": type.rawValue ])
+                issuesRef.document(id).setData(["reporter": safeEmail, "assignedTo": assignee, "title": title, "description": description,"status": IssueStatus.Open.rawValue, "type": type.rawValue, "dueDate": dueDate ])
                 { (error) in
                     if let e = error
                     {
                         print("addIssue error for \(title): \(e.localizedDescription)")
+                        self.createIssueDelegate?.onAddIssueFail(name: title)
                     }
                     else
                     {
                         print("addIssue success: \(title) added")
+                        self.createIssueDelegate?.onAddIssueSuccess(name: title)
                     }
                 }
             }
@@ -488,4 +492,12 @@ extension DbManagerDelegate
     {
         print("default: onEmailUserDoesNotExist")
     }
+}
+
+//MARK: - Create Issue Delegate
+//todo this should be in a separate class, CreateIssueManager
+protocol CreateIssueDelegate
+{
+    func onAddIssueSuccess(name: String)
+    func onAddIssueFail(name: String)
 }

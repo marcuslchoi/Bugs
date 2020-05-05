@@ -31,6 +31,7 @@ class CreateIssueViewController: UIViewController {
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        dbManager.createIssueDelegate = self
         //register the custom table view cell
         tableView.register(UINib(nibName: "CreateIssueTableViewCell", bundle: nil), forCellReuseIdentifier: "createIssueCustomCell")
         
@@ -42,6 +43,7 @@ class CreateIssueViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //to be informed of add issue success / fail
         pickersContainerView.isHidden = true
         
         let issuesSelectedRow = issueTypePicker.selectedRow(inComponent: 0)
@@ -188,5 +190,16 @@ extension CreateIssueViewController: UIPickerViewDataSource
         
         tableCellChosenVals[pickerView.tag] = chosenVal
         tableView.reloadData()
+    }
+}
+
+extension CreateIssueViewController: CreateIssueDelegate
+{
+    func onAddIssueFail(name: String) {
+        print("add issue fail!")
+    }
+    
+    func onAddIssueSuccess(name: String) {
+        dismiss(animated: true, completion: nil)
     }
 }
