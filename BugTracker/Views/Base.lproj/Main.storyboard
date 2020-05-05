@@ -282,19 +282,26 @@
                                             <outlet property="delegate" destination="R0e-bD-KaJ" id="wKY-8P-kJw"/>
                                         </connections>
                                     </pickerView>
+                                    <datePicker tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="AvT-BJ-sgz">
+                                        <rect key="frame" x="0.0" y="34" width="414" height="162"/>
+                                    </datePicker>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
+                                    <constraint firstItem="AvT-BJ-sgz" firstAttribute="centerY" secondItem="rSW-Jf-XaK" secondAttribute="centerY" id="0TL-H5-n4z"/>
                                     <constraint firstItem="rSW-Jf-XaK" firstAttribute="top" secondItem="PDc-MC-Lzd" secondAttribute="bottom" id="DwT-tY-Dpz"/>
                                     <constraint firstAttribute="trailing" secondItem="PDc-MC-Lzd" secondAttribute="trailing" id="G8K-4O-gne"/>
                                     <constraint firstItem="PDc-MC-Lzd" firstAttribute="top" secondItem="Lw3-DF-d9x" secondAttribute="top" id="K4l-xx-aoP"/>
                                     <constraint firstAttribute="bottom" secondItem="rSW-Jf-XaK" secondAttribute="bottom" id="KSx-bp-AF3"/>
                                     <constraint firstItem="PDc-MC-Lzd" firstAttribute="leading" secondItem="Lw3-DF-d9x" secondAttribute="leading" id="LTk-br-ERg"/>
                                     <constraint firstItem="rSW-Jf-XaK" firstAttribute="leading" secondItem="Lw3-DF-d9x" secondAttribute="leading" id="RLK-m1-KQi"/>
+                                    <constraint firstItem="AvT-BJ-sgz" firstAttribute="centerX" secondItem="rSW-Jf-XaK" secondAttribute="centerX" id="Rnl-4o-za5"/>
                                     <constraint firstItem="W4z-rA-Y7t" firstAttribute="centerX" secondItem="rSW-Jf-XaK" secondAttribute="centerX" id="Rz9-BE-ban"/>
                                     <constraint firstItem="W4z-rA-Y7t" firstAttribute="width" secondItem="rSW-Jf-XaK" secondAttribute="width" id="VTK-I6-PkD"/>
                                     <constraint firstItem="W4z-rA-Y7t" firstAttribute="centerY" secondItem="rSW-Jf-XaK" secondAttribute="centerY" id="VaN-mz-jEl"/>
+                                    <constraint firstItem="AvT-BJ-sgz" firstAttribute="width" secondItem="rSW-Jf-XaK" secondAttribute="width" id="Y9z-Es-TnL"/>
                                     <constraint firstAttribute="trailing" secondItem="rSW-Jf-XaK" secondAttribute="trailing" id="Zgi-MZ-QoC"/>
+                                    <constraint firstItem="AvT-BJ-sgz" firstAttribute="height" secondItem="rSW-Jf-XaK" secondAttribute="height" multiplier="0.952941" id="bEb-Ia-PcD"/>
                                     <constraint firstAttribute="height" constant="200" id="rdk-es-rXz"/>
                                     <constraint firstItem="W4z-rA-Y7t" firstAttribute="height" secondItem="rSW-Jf-XaK" secondAttribute="height" multiplier="0.952941" id="v8e-6J-F8a"/>
                                 </constraints>
@@ -310,6 +317,7 @@
                     </view>
                     <connections>
                         <outlet property="assigneePicker" destination="W4z-rA-Y7t" id="oWr-tx-QQT"/>
+                        <outlet property="dueDatePicker" destination="AvT-BJ-sgz" id="kkb-3y-9sd"/>
                         <outlet property="issueTypePicker" destination="rSW-Jf-XaK" id="nJV-aV-ntA"/>
                         <outlet property="pickersContainerView" destination="Lw3-DF-d9x" id="b5j-aO-C45"/>
                         <outlet property="tableView" destination="NRk-5L-f3b" id="tgZ-Sq-SCU"/>

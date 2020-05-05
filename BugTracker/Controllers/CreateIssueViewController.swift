@@ -18,6 +18,7 @@ class CreateIssueViewController: UIViewController {
     @IBOutlet weak var pickersContainerView: UIView!
     @IBOutlet weak var issueTypePicker: UIPickerView!
     @IBOutlet weak var assigneePicker: UIPickerView!
+    @IBOutlet weak var dueDatePicker: UIDatePicker!
     
     private let issueTypesDataSource = K.getIssueTypes()
     private var assigneesDataSource:[String] = []
@@ -47,10 +48,17 @@ class CreateIssueViewController: UIViewController {
     }
     
     @IBAction func pickerDoneButtonPress(_ sender: Any) {
+        if !dueDatePicker.isHidden
+        {
+            let date = dueDatePicker.date
+            tableCellChosenVals[K.CreateIssue.dueDatePickerTag] = K.convertDateToString(date: date)
+            tableView.reloadData()
+        }
         pickersContainerView.isHidden = true
     }
 }
 
+//MARK: - Table View Delegate
 extension CreateIssueViewController: UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -66,14 +74,17 @@ extension CreateIssueViewController: UITableViewDelegate
             case K.CreateIssue.issueTypePickerTag:
                 issueTypePicker.isHidden = false
                 assigneePicker.isHidden = true
+                dueDatePicker.isHidden = true
             break
             case K.CreateIssue.assigneePickerTag:
                 issueTypePicker.isHidden = true
                 assigneePicker.isHidden = false
+                dueDatePicker.isHidden = true
             break
             case K.CreateIssue.dueDatePickerTag:
                 issueTypePicker.isHidden = true
                 assigneePicker.isHidden = true
+                dueDatePicker.isHidden = false
             break
         default:
             break
@@ -99,6 +110,7 @@ extension CreateIssueViewController: UITableViewDataSource
     }
 }
 
+//MARK: - Picker View Delegate
 extension CreateIssueViewController: UIPickerViewDelegate
 {
     
