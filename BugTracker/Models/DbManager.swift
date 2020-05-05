@@ -313,7 +313,7 @@ extension DbManager
                     if let e = error
                     {
                         print("addIssue error for \(title): \(e.localizedDescription)")
-                        self.createIssueDelegate?.onAddIssueFail(name: title)
+                        self.createIssueDelegate?.onAddIssueFail(name: title, error: e.localizedDescription)
                     }
                     else
                     {
@@ -499,5 +499,5 @@ extension DbManagerDelegate
 protocol CreateIssueDelegate
 {
     func onAddIssueSuccess(name: String)
-    func onAddIssueFail(name: String)
+    func onAddIssueFail(name: String, error: String)
 }

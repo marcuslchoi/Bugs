@@ -110,6 +110,7 @@ class MasterViewController: UITableViewController {
         performSegue(withIdentifier: "IssuesToSettings", sender: self)
     }
     
+    /*
     private func showAddIssueAlert()
     {
         let alert = UIAlertController(title: "Add Issue", message: "", preferredStyle: .alert)
@@ -189,6 +190,7 @@ class MasterViewController: UITableViewController {
         }
         return issueType
     }
+    */
 
     // MARK: - Segues
 

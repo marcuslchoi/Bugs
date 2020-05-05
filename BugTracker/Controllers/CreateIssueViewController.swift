@@ -195,11 +195,18 @@ extension CreateIssueViewController: UIPickerViewDataSource
 
 extension CreateIssueViewController: CreateIssueDelegate
 {
-    func onAddIssueFail(name: String) {
-        print("add issue fail!")
+    func onAddIssueFail(name: String, error: String) {
+        showAddIssueFailAlert(name: name, error: error)
     }
     
-    func onAddIssueSuccess(name: String) {
+    func onAddIssueSuccess(name: String)
+    {
         dismiss(animated: true, completion: nil)
+    }
+    
+    private func showAddIssueFailAlert(name: String, error: String)
+    {
+        let alert = UIAlertController(title: "Add \(name) Failed", message: error, preferredStyle: .alert)
+        present(alert, animated: true, completion: nil)
     }
 }
