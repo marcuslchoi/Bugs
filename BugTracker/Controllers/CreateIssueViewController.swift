@@ -11,6 +11,7 @@ import UIKit
 class CreateIssueViewController: UIViewController {
 
     private var cellTitles:[String] = ["Issue Type", "Assignee","Due Date"]
+    private var cellDetails:[String] = ["","",""]
     
     @IBOutlet weak var issueTypePicker: UIPickerView!
     
@@ -48,6 +49,7 @@ extension CreateIssueViewController: UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "createIssueCustomCell", for: indexPath) as! CreateIssueTableViewCell
         cell.titleLabel?.text = cellTitles[indexPath.row]
+        cell.detailLabel?.text = cellDetails[indexPath.row]
         return cell
     }
 }
@@ -73,10 +75,8 @@ extension CreateIssueViewController: UIPickerViewDataSource
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let indexPath = IndexPath(row: 0, section: 0)
-        let cell = tableView.dequeueReusableCell(withIdentifier: "createIssueCell", for: indexPath)
-        //cell.textLabel?.text = issueTypesDataSource[row]
-        cellTitles[0] = issueTypesDataSource[row]
+        //let indexPath = IndexPath(row: 0, section: 0)
+        cellDetails[0] = issueTypesDataSource[row]
         tableView.reloadData()
     }
 }
