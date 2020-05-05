@@ -10,19 +10,29 @@ import UIKit
 
 class CreateIssueViewController: UIViewController {
 
-    let cellTitles:[String] = ["Issue Type", "Assignee","Due Date"]
-    //issue type, assignee, due date
+    private var cellTitles:[String] = ["Issue Type", "Assignee","Due Date"]
+    
+    @IBOutlet weak var issueTypePicker: UIPickerView!
+    
+    private let issueTypesDataSource = K.getIssueTypes()
+    private var tableViewRow: Int?
+    
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var pickerBottomConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.register(UINib(nibName: "CreateIssueTableViewCell", bundle: nil), forCellReuseIdentifier: "createIssueCustomCell")
     }
-
 }
 
 extension CreateIssueViewController: UITableViewDelegate
 {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableViewRow = indexPath.row
+        pickerBottomConstraint.constant = 0
+    }
 }
 
 extension CreateIssueViewController: UITableViewDataSource
@@ -36,10 +46,37 @@ extension CreateIssueViewController: UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "createIssueCell", for: indexPath)
-        cell.textLabel?.text = cellTitles[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "createIssueCustomCell", for: indexPath) as! CreateIssueTableViewCell
+        cell.titleLabel?.text = cellTitles[indexPath.row]
         return cell
     }
+}
+
+extension CreateIssueViewController: UIPickerViewDelegate
+{
     
+}
+
+extension CreateIssueViewController: UIPickerViewDataSource
+{
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
     
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+
+        return issueTypesDataSource.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return issueTypesDataSource[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let indexPath = IndexPath(row: 0, section: 0)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "createIssueCell", for: indexPath)
+        //cell.textLabel?.text = issueTypesDataSource[row]
+        cellTitles[0] = issueTypesDataSource[row]
+        tableView.reloadData()
+    }
 }

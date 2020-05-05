@@ -235,11 +235,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QlJ-q4-ZoS">
-                                <rect key="frame" x="193" y="692" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="OK"/>
-                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NRk-5L-f3b">
                                 <rect key="frame" x="0.0" y="384" width="414" height="230"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -259,11 +254,29 @@
                                     <outlet property="delegate" destination="R0e-bD-KaJ" id="DoU-yG-bOH"/>
                                 </connections>
                             </tableView>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rSW-Jf-XaK">
+                                <rect key="frame" x="47" y="626" width="320" height="216"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="R0e-bD-KaJ" id="F5Q-NF-UMV"/>
+                                    <outlet property="delegate" destination="R0e-bD-KaJ" id="JeM-Pt-WtY"/>
+                                </connections>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QlJ-q4-ZoS">
+                                <rect key="frame" x="193" y="622" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="OK"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="rSW-Jf-XaK" firstAttribute="centerX" secondItem="nwg-Nz-V87" secondAttribute="centerX" id="7Ow-Wo-MRG"/>
+                            <constraint firstAttribute="bottom" secondItem="rSW-Jf-XaK" secondAttribute="bottom" id="lOU-RD-w7p"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="WZ8-8L-9H5"/>
                     </view>
                     <connections>
+                        <outlet property="issueTypePicker" destination="rSW-Jf-XaK" id="nJV-aV-ntA"/>
+                        <outlet property="pickerBottomConstraint" destination="lOU-RD-w7p" id="Aef-e9-OmM"/>
                         <outlet property="tableView" destination="NRk-5L-f3b" id="tgZ-Sq-SCU"/>
                     </connections>
                 </viewController>

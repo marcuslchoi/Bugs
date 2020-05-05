@@ -13,6 +13,8 @@
 		9B4E18B8245753C0004C68AF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4E18B7245753C0004C68AF /* User.swift */; };
 		9B4E18BA245778FF004C68AF /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4E18B9245778FF004C68AF /* AuthManager.swift */; };
 		9B5D81F42460DAA000B6AF11 /* CreateIssueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5D81F32460DAA000B6AF11 /* CreateIssueViewController.swift */; };
+		9B5D81F72461C16200B6AF11 /* CreateIssueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5D81F52461C16200B6AF11 /* CreateIssueTableViewCell.swift */; };
+		9B5D81F82461C16200B6AF11 /* CreateIssueTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B5D81F62461C16200B6AF11 /* CreateIssueTableViewCell.xib */; };
 		9B79F6B324475B5F00BFF9D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B79F6B224475B5F00BFF9D6 /* AppDelegate.swift */; };
 		9B79F6B524475B5F00BFF9D6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B79F6B424475B5F00BFF9D6 /* SceneDelegate.swift */; };
 		9B79F6B724475B5F00BFF9D6 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B79F6B624475B5F00BFF9D6 /* MasterViewController.swift */; };
@@ -62,6 +64,8 @@
 		9B4E18B7245753C0004C68AF /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9B4E18B9245778FF004C68AF /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		9B5D81F32460DAA000B6AF11 /* CreateIssueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateIssueViewController.swift; sourceTree = "<group>"; };
+		9B5D81F52461C16200B6AF11 /* CreateIssueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateIssueTableViewCell.swift; sourceTree = "<group>"; };
+		9B5D81F62461C16200B6AF11 /* CreateIssueTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateIssueTableViewCell.xib; sourceTree = "<group>"; };
 		9B79F6AF24475B5F00BFF9D6 /* BugTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BugTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B79F6B224475B5F00BFF9D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B79F6B424475B5F00BFF9D6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -190,6 +194,8 @@
 			children = (
 				9B79F6BF24475B6600BFF9D6 /* LaunchScreen.storyboard */,
 				9B79F6BA24475B5F00BFF9D6 /* Main.storyboard */,
+				9B5D81F52461C16200B6AF11 /* CreateIssueTableViewCell.swift */,
+				9B5D81F62461C16200B6AF11 /* CreateIssueTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -341,6 +347,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B79F6C124475B6600BFF9D6 /* LaunchScreen.storyboard in Resources */,
+				9B5D81F82461C16200B6AF11 /* CreateIssueTableViewCell.xib in Resources */,
 				9B79F6F2244A696D00BFF9D6 /* GoogleService-Info.plist in Resources */,
 				9B79F6BE24475B6600BFF9D6 /* Assets.xcassets in Resources */,
 				9B79F6BC24475B5F00BFF9D6 /* Main.storyboard in Resources */,
@@ -480,6 +487,7 @@
 				9B79F6F6244ABA2A00BFF9D6 /* CreateProjectViewController.swift in Sources */,
 				9B4E18B624560F14004C68AF /* ProjectSettingsViewController.swift in Sources */,
 				9B5D81F42460DAA000B6AF11 /* CreateIssueViewController.swift in Sources */,
+				9B5D81F72461C16200B6AF11 /* CreateIssueTableViewCell.swift in Sources */,
 				9B79F6B324475B5F00BFF9D6 /* AppDelegate.swift in Sources */,
 				9B9E69A7244E5E4D000256E2 /* DbManager.swift in Sources */,
 				9B79F6B524475B5F00BFF9D6 /* SceneDelegate.swift in Sources */,

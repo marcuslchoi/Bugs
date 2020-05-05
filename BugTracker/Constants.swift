@@ -24,6 +24,16 @@ struct K
         return statuses
     }
     
+    static func getIssueTypes() -> [String]
+    {
+        var types: [String] = []
+        for type in IssueType.allCases
+        {
+            types.append(type.rawValue)
+        }
+        return types
+    }
+    
     static func getUserRoles() -> [String]
     {
         var roles: [String] = []
