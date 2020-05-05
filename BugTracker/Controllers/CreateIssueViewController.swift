@@ -11,38 +11,72 @@ import Firebase
 
 class CreateIssueViewController: UIViewController {
 
-    private var cellTitles:[String] = ["Issue Type", "Assignee","Due Date"]
-    private var cellDetails:[String] = ["","","None"]
+    let dbManager = DbManager.instance
+    private var tableCellTitles:[String] = ["Issue Type", "Assignee","Due Date"]
+    private var tableCellChosenVals:[String] = ["","","None"]
     
-    @IBOutlet weak var issuePickerView: UIView!
+    @IBOutlet weak var pickersContainerView: UIView!
     @IBOutlet weak var issueTypePicker: UIPickerView!
+    @IBOutlet weak var assigneePicker: UIPickerView!
     
     private let issueTypesDataSource = K.getIssueTypes()
-    //private var tableViewRow: Int?
+    private var assigneesDataSource:[String] = []
     
     @IBOutlet weak var tableView: UITableView!
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
+        //register the custom table view cell
         tableView.register(UINib(nibName: "CreateIssueTableViewCell", bundle: nil), forCellReuseIdentifier: "createIssueCustomCell")
-        issuePickerView.isHidden = true
-        if let myEmail = AuthManager.instance.currentUserEmail
+        
+//        if let myEmail = AuthManager.instance.currentUserEmail
+//        {
+//            cellDetails[1] = myEmail
+//        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        pickersContainerView.isHidden = true
+        
+        if let users = dbManager.CurrentProject?.users
         {
-            cellDetails[1] = myEmail
+            assigneesDataSource = users
         }
     }
-    @IBAction func issuePickerDonePress(_ sender: Any) {
-        issuePickerView.isHidden = true
+    
+    @IBAction func pickerDoneButtonPress(_ sender: Any) {
+        pickersContainerView.isHidden = true
     }
 }
 
 extension CreateIssueViewController: UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        pickersContainerView.isHidden = false
         let selectedRow = indexPath.row
-        if selectedRow == 0
+        showPicker(tag: selectedRow)
+    }
+    
+    private func showPicker(tag: Int)
+    {
+        switch (tag)
         {
-            issuePickerView.isHidden = false
+            case K.CreateIssue.issueTypePickerTag:
+                issueTypePicker.isHidden = false
+                assigneePicker.isHidden = true
+            break
+            case K.CreateIssue.assigneePickerTag:
+                issueTypePicker.isHidden = true
+                assigneePicker.isHidden = false
+            break
+            case K.CreateIssue.dueDatePickerTag:
+                issueTypePicker.isHidden = true
+                assigneePicker.isHidden = true
+            break
+        default:
+            break
         }
     }
 }
@@ -54,13 +88,13 @@ extension CreateIssueViewController: UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellTitles.count
+        return tableCellTitles.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "createIssueCustomCell", for: indexPath) as! CreateIssueTableViewCell
-        cell.titleLabel?.text = cellTitles[indexPath.row]
-        cell.detailLabel?.text = cellDetails[indexPath.row]
+        cell.titleLabel?.text = tableCellTitles[indexPath.row]
+        cell.detailLabel?.text = tableCellChosenVals[indexPath.row]
         return cell
     }
 }
@@ -77,17 +111,42 @@ extension CreateIssueViewController: UIPickerViewDataSource
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-
-        return issueTypesDataSource.count
+        if pickerView.tag == K.CreateIssue.issueTypePickerTag
+        {
+            return issueTypesDataSource.count
+        }
+        else if pickerView.tag == K.CreateIssue.assigneePickerTag
+        {
+            return assigneesDataSource.count
+        }
+        return 0
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return issueTypesDataSource[row]
+        if pickerView.tag == K.CreateIssue.issueTypePickerTag
+        {
+            return issueTypesDataSource[row]
+        }
+        else if pickerView.tag == K.CreateIssue.assigneePickerTag
+        {
+            return assigneesDataSource[row]
+        }
+        return ""
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        //let indexPath = IndexPath(row: 0, section: 0)
-        cellDetails[0] = issueTypesDataSource[row]
+        let chosenVal:String
+        
+        if pickerView.tag == K.CreateIssue.issueTypePickerTag
+        {
+            chosenVal = issueTypesDataSource[row]
+        }
+        else //if pickerView.tag == K.CreateIssue.assigneePickerTag
+        {
+            chosenVal = assigneesDataSource[row]
+        }
+        
+        tableCellChosenVals[pickerView.tag] = chosenVal
         tableView.reloadData()
     }
 }

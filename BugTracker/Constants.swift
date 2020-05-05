@@ -13,6 +13,13 @@ struct K
     static let statusPickerTag = 0
     static let assigneePickerTag = 1
     
+    struct CreateIssue
+    {
+        static let issueTypePickerTag = 0
+        static let assigneePickerTag = 1
+        static let dueDatePickerTag = 2
+    }
+    
     static let dateFormat = "MM-dd-yyyy"
     static func getIssueStatuses() -> [String]
     {

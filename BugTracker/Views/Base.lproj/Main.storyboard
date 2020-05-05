@@ -265,7 +265,7 @@
                                         </constraints>
                                         <state key="normal" title="Done"/>
                                         <connections>
-                                            <action selector="issuePickerDonePress:" destination="R0e-bD-KaJ" eventType="touchUpInside" id="166-ej-hEZ"/>
+                                            <action selector="pickerDoneButtonPress:" destination="R0e-bD-KaJ" eventType="touchUpInside" id="166-ej-hEZ"/>
                                         </connections>
                                     </button>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rSW-Jf-XaK">
@@ -273,6 +273,13 @@
                                         <connections>
                                             <outlet property="dataSource" destination="R0e-bD-KaJ" id="F5Q-NF-UMV"/>
                                             <outlet property="delegate" destination="R0e-bD-KaJ" id="JeM-Pt-WtY"/>
+                                        </connections>
+                                    </pickerView>
+                                    <pickerView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W4z-rA-Y7t">
+                                        <rect key="frame" x="0.0" y="34" width="414" height="162"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="R0e-bD-KaJ" id="KBm-F1-ltc"/>
+                                            <outlet property="delegate" destination="R0e-bD-KaJ" id="wKY-8P-kJw"/>
                                         </connections>
                                     </pickerView>
                                 </subviews>
@@ -284,8 +291,12 @@
                                     <constraint firstAttribute="bottom" secondItem="rSW-Jf-XaK" secondAttribute="bottom" id="KSx-bp-AF3"/>
                                     <constraint firstItem="PDc-MC-Lzd" firstAttribute="leading" secondItem="Lw3-DF-d9x" secondAttribute="leading" id="LTk-br-ERg"/>
                                     <constraint firstItem="rSW-Jf-XaK" firstAttribute="leading" secondItem="Lw3-DF-d9x" secondAttribute="leading" id="RLK-m1-KQi"/>
+                                    <constraint firstItem="W4z-rA-Y7t" firstAttribute="centerX" secondItem="rSW-Jf-XaK" secondAttribute="centerX" id="Rz9-BE-ban"/>
+                                    <constraint firstItem="W4z-rA-Y7t" firstAttribute="width" secondItem="rSW-Jf-XaK" secondAttribute="width" id="VTK-I6-PkD"/>
+                                    <constraint firstItem="W4z-rA-Y7t" firstAttribute="centerY" secondItem="rSW-Jf-XaK" secondAttribute="centerY" id="VaN-mz-jEl"/>
                                     <constraint firstAttribute="trailing" secondItem="rSW-Jf-XaK" secondAttribute="trailing" id="Zgi-MZ-QoC"/>
                                     <constraint firstAttribute="height" constant="200" id="rdk-es-rXz"/>
+                                    <constraint firstItem="W4z-rA-Y7t" firstAttribute="height" secondItem="rSW-Jf-XaK" secondAttribute="height" multiplier="0.952941" id="v8e-6J-F8a"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -298,8 +309,9 @@
                         <viewLayoutGuide key="safeArea" id="WZ8-8L-9H5"/>
                     </view>
                     <connections>
-                        <outlet property="issuePickerView" destination="Lw3-DF-d9x" id="b5j-aO-C45"/>
+                        <outlet property="assigneePicker" destination="W4z-rA-Y7t" id="oWr-tx-QQT"/>
                         <outlet property="issueTypePicker" destination="rSW-Jf-XaK" id="nJV-aV-ntA"/>
+                        <outlet property="pickersContainerView" destination="Lw3-DF-d9x" id="b5j-aO-C45"/>
                         <outlet property="tableView" destination="NRk-5L-f3b" id="tgZ-Sq-SCU"/>
                     </connections>
                 </viewController>
