@@ -14,6 +14,15 @@ class AuthManager
     var delegate: AuthManagerDelegate?
     private let auth = Auth.auth()
     static var instance = AuthManager()
+    
+    var currentUserEmail: String?
+    {
+        get
+        {
+            return auth.currentUser?.email
+        }
+    }
+    
     private init() { }
     
     func login(email: String, pw: String)

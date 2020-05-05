@@ -7,32 +7,43 @@
 //
 
 import UIKit
+import Firebase
 
 class CreateIssueViewController: UIViewController {
 
     private var cellTitles:[String] = ["Issue Type", "Assignee","Due Date"]
-    private var cellDetails:[String] = ["","",""]
+    private var cellDetails:[String] = ["","","None"]
     
+    @IBOutlet weak var issuePickerView: UIView!
     @IBOutlet weak var issueTypePicker: UIPickerView!
     
     private let issueTypesDataSource = K.getIssueTypes()
-    private var tableViewRow: Int?
+    //private var tableViewRow: Int?
     
     @IBOutlet weak var tableView: UITableView!
-    
-    @IBOutlet weak var pickerBottomConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "CreateIssueTableViewCell", bundle: nil), forCellReuseIdentifier: "createIssueCustomCell")
+        issuePickerView.isHidden = true
+        if let myEmail = AuthManager.instance.currentUserEmail
+        {
+            cellDetails[1] = myEmail
+        }
+    }
+    @IBAction func issuePickerDonePress(_ sender: Any) {
+        issuePickerView.isHidden = true
     }
 }
 
 extension CreateIssueViewController: UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableViewRow = indexPath.row
-        pickerBottomConstraint.constant = 0
+        let selectedRow = indexPath.row
+        if selectedRow == 0
+        {
+            issuePickerView.isHidden = false
+        }
     }
 }
 

@@ -254,35 +254,58 @@
                                     <outlet property="delegate" destination="R0e-bD-KaJ" id="DoU-yG-bOH"/>
                                 </connections>
                             </tableView>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rSW-Jf-XaK">
-                                <rect key="frame" x="47" y="626" width="320" height="216"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="R0e-bD-KaJ" id="F5Q-NF-UMV"/>
-                                    <outlet property="delegate" destination="R0e-bD-KaJ" id="JeM-Pt-WtY"/>
-                                </connections>
-                            </pickerView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QlJ-q4-ZoS">
-                                <rect key="frame" x="193" y="622" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="OK"/>
-                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lw3-DF-d9x">
+                                <rect key="frame" x="0.0" y="642" width="414" height="200"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PDc-MC-Lzd">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
+                                        <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="HdN-aA-UP2"/>
+                                        </constraints>
+                                        <state key="normal" title="Done"/>
+                                        <connections>
+                                            <action selector="issuePickerDonePress:" destination="R0e-bD-KaJ" eventType="touchUpInside" id="166-ej-hEZ"/>
+                                        </connections>
+                                    </button>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rSW-Jf-XaK">
+                                        <rect key="frame" x="0.0" y="30" width="414" height="170"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="R0e-bD-KaJ" id="F5Q-NF-UMV"/>
+                                            <outlet property="delegate" destination="R0e-bD-KaJ" id="JeM-Pt-WtY"/>
+                                        </connections>
+                                    </pickerView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="rSW-Jf-XaK" firstAttribute="top" secondItem="PDc-MC-Lzd" secondAttribute="bottom" id="DwT-tY-Dpz"/>
+                                    <constraint firstAttribute="trailing" secondItem="PDc-MC-Lzd" secondAttribute="trailing" id="G8K-4O-gne"/>
+                                    <constraint firstItem="PDc-MC-Lzd" firstAttribute="top" secondItem="Lw3-DF-d9x" secondAttribute="top" id="K4l-xx-aoP"/>
+                                    <constraint firstAttribute="bottom" secondItem="rSW-Jf-XaK" secondAttribute="bottom" id="KSx-bp-AF3"/>
+                                    <constraint firstItem="PDc-MC-Lzd" firstAttribute="leading" secondItem="Lw3-DF-d9x" secondAttribute="leading" id="LTk-br-ERg"/>
+                                    <constraint firstItem="rSW-Jf-XaK" firstAttribute="leading" secondItem="Lw3-DF-d9x" secondAttribute="leading" id="RLK-m1-KQi"/>
+                                    <constraint firstAttribute="trailing" secondItem="rSW-Jf-XaK" secondAttribute="trailing" id="Zgi-MZ-QoC"/>
+                                    <constraint firstAttribute="height" constant="200" id="rdk-es-rXz"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="rSW-Jf-XaK" firstAttribute="centerX" secondItem="nwg-Nz-V87" secondAttribute="centerX" id="7Ow-Wo-MRG"/>
-                            <constraint firstAttribute="bottom" secondItem="rSW-Jf-XaK" secondAttribute="bottom" id="lOU-RD-w7p"/>
+                            <constraint firstAttribute="bottom" secondItem="Lw3-DF-d9x" secondAttribute="bottom" id="Leq-Kl-4Za"/>
+                            <constraint firstAttribute="trailing" secondItem="Lw3-DF-d9x" secondAttribute="trailing" id="P8n-tZ-pRd"/>
+                            <constraint firstItem="Lw3-DF-d9x" firstAttribute="leading" secondItem="WZ8-8L-9H5" secondAttribute="leading" id="nBR-WE-xde"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="WZ8-8L-9H5"/>
                     </view>
                     <connections>
+                        <outlet property="issuePickerView" destination="Lw3-DF-d9x" id="b5j-aO-C45"/>
                         <outlet property="issueTypePicker" destination="rSW-Jf-XaK" id="nJV-aV-ntA"/>
-                        <outlet property="pickerBottomConstraint" destination="lOU-RD-w7p" id="Aef-e9-OmM"/>
                         <outlet property="tableView" destination="NRk-5L-f3b" id="tgZ-Sq-SCU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aez-oK-Cwq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2574" y="-621"/>
+            <point key="canvasLocation" x="2573.913043478261" y="-621.42857142857144"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">
