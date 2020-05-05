@@ -14,11 +14,14 @@ class CreateIssueViewController: UIViewController {
     let dbManager = DbManager.instance
     private var tableCellTitles:[String] = ["Issue Type", "Assignee","Due Date"]
     private var tableCellChosenVals:[String] = ["","","None"]
+    @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var descriptionTextView: UITextView!
     
     @IBOutlet weak var pickersContainerView: UIView!
     @IBOutlet weak var issueTypePicker: UIPickerView!
     @IBOutlet weak var assigneePicker: UIPickerView!
     @IBOutlet weak var dueDatePicker: UIDatePicker!
+    @IBOutlet weak var createIssueButton: UIButton!
     
     private let issueTypesDataSource = K.getIssueTypes()
     private var assigneesDataSource:[String] = []
@@ -41,34 +44,25 @@ class CreateIssueViewController: UIViewController {
         super.viewWillAppear(animated)
         pickersContainerView.isHidden = true
         
-        if let users = dbManager.CurrentProject?.users
+        let issuesSelectedRow = issueTypePicker.selectedRow(inComponent: 0)
+        tableCellChosenVals[K.CreateIssue.issueTypePickerTag] = issueTypesDataSource[issuesSelectedRow]
+        
+        //set assignee picker data, initial selection
+        if let users = dbManager.CurrentProject?.users, let myEmail = AuthManager.instance.currentUserEmail
         {
             assigneesDataSource = users
+            if let index = assigneesDataSource.firstIndex(of: myEmail)
+            {
+                assigneePicker.selectRow(index, inComponent: 0, animated: true)
+                tableCellChosenVals[K.CreateIssue.assigneePickerTag] = myEmail
+            }
         }
-    }
-    
-    @IBAction func pickerDoneButtonPress(_ sender: Any) {
-        if !dueDatePicker.isHidden
-        {
-            let date = dueDatePicker.date
-            tableCellChosenVals[K.CreateIssue.dueDatePickerTag] = K.convertDateToString(date: date)
-            tableView.reloadData()
-        }
-        pickersContainerView.isHidden = true
-    }
-}
-
-//MARK: - Table View Delegate
-extension CreateIssueViewController: UITableViewDelegate
-{
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        pickersContainerView.isHidden = false
-        let selectedRow = indexPath.row
-        showPicker(tag: selectedRow)
+        tableView.reloadData()
     }
     
     private func showPicker(tag: Int)
     {
+        createIssueButton.isHidden = true
         switch (tag)
         {
             case K.CreateIssue.issueTypePickerTag:
@@ -89,6 +83,40 @@ extension CreateIssueViewController: UITableViewDelegate
         default:
             break
         }
+    }
+    
+    @IBAction func pickerDoneButtonPress(_ sender: Any) {
+        if !dueDatePicker.isHidden
+        {
+            let date = dueDatePicker.date
+            tableCellChosenVals[K.CreateIssue.dueDatePickerTag] = K.convertDateToString(date: date)
+            tableView.reloadData()
+        }
+        pickersContainerView.isHidden = true
+        createIssueButton.isHidden = false
+    }
+    
+    @IBAction func createIssueButtonPress(_ sender: Any)
+    {
+        if let title = titleTextField?.text, title != ""
+        {
+            let issueType = IssueType(rawValue: tableCellChosenVals[K.CreateIssue.issueTypePickerTag])
+            dbManager.addIssue(title, descriptionTextView?.text ?? "", issueType ?? IssueType.Bug, tableCellChosenVals[K.CreateIssue.assigneePickerTag], tableCellChosenVals[K.CreateIssue.dueDatePickerTag])
+        }
+        else
+        {
+            print("no title")
+        }
+    }
+}
+
+//MARK: - Table View Delegate
+extension CreateIssueViewController: UITableViewDelegate
+{
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        pickersContainerView.isHidden = false
+        let selectedRow = indexPath.row
+        showPicker(tag: selectedRow)
     }
 }
 

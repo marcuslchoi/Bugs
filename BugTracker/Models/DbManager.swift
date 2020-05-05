@@ -293,7 +293,7 @@ extension DbManager
     }
     
     //add a new issue to the db
-    func addIssue(_ title: String, _ description: String, _ type: IssueType)
+    func addIssue(_ title: String, _ description: String, _ type: IssueType, _ assignee: String, _ dueDate: String?)
     {
         if let projectId = currentProjectId
         {
@@ -306,7 +306,7 @@ extension DbManager
                 //add the issue
                 let id = createNextIssueId(for: type)
                 //todo error UI
-                issuesRef.document(id).setData(["reporter": safeEmail, "assignedTo": safeEmail, "title": title, "description": description,"status": IssueStatus.Open.rawValue, "type": type.rawValue ])
+                issuesRef.document(id).setData(["reporter": safeEmail, "assignedTo": assignee, "title": title, "description": description,"status": IssueStatus.Open.rawValue, "type": type.rawValue ])
                 { (error) in
                     if let e = error
                     {

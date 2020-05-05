@@ -128,7 +128,7 @@ class MasterViewController: UITableViewController {
                 let issueTypeStr = issueTypeTextField.text ?? ""
                 let issueType = self.tempGetIssueType(issueTypeStr)
                 
-                self.dbManager.addIssue(title, description, issueType)
+                //self.dbManager.addIssue(title, description, issueType)
             }
         }
         
