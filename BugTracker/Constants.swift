@@ -14,6 +14,8 @@ struct K
     {
         static let statusPickerTag = 0
         static let assigneePickerTag = 1
+        static let dueDatePickerTag = 2
+        static let assigneeEmailComponent = 0
     }
     
     struct CreateIssue

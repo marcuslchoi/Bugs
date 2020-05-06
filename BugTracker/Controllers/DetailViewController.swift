@@ -14,7 +14,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var tableView: UITableView!
     
-    @IBOutlet weak var pickerContainerView: UIView!
+    @IBOutlet weak var pickersContainerView: UIView!
     @IBOutlet weak var statusPickerView: UIPickerView!
     
     @IBOutlet weak var assigneePickerView: UIPickerView!
@@ -26,9 +26,10 @@ class DetailViewController: UIViewController {
         
     private let dbManager = DbManager.instance
     private let tableCellTitles = ["Status", "Assignee", "Due Date"]
-    private var tableCellChosenVals = ["","",""]
+    private var tableCellChosenVals = ["", "", "None"]
     private let statusTag = K.IssueDetail.statusPickerTag
     private let assigneeTag = K.IssueDetail.assigneePickerTag
+    private let dueDateTag = K.IssueDetail.dueDatePickerTag
     
     let statusPickerData: [String] = K.getIssueStatuses()
     var assigneePickerData: [String] = []
@@ -53,15 +54,52 @@ class DetailViewController: UIViewController {
         setAssigneeRoles()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        pickersContainerView.isHidden = true
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         save()
     }
+    
+    private func showPicker(tag: Int)
+    {
+        //createIssueButton.isHidden = true
+        switch (tag)
+        {
+            case statusTag:
+                statusPickerView.isHidden = false
+                assigneePickerView.isHidden = true
+                dueDatePicker.isHidden = true
+            break
+            case assigneeTag:
+                statusPickerView.isHidden = true
+                assigneePickerView.isHidden = false
+                dueDatePicker.isHidden = true
+            break
+            case dueDateTag:
+                statusPickerView.isHidden = true
+                assigneePickerView.isHidden = true
+                dueDatePicker.isHidden = false
+            break
+        default:
+            break
+        }
+    }
 
     @IBAction func pickerDoneButtonPress(_ sender: Any)
     {
-        pickerContainerView.isHidden = true
+        if !dueDatePicker.isHidden
+        {
+            let date = dueDatePicker.date
+            tableCellChosenVals[dueDateTag] = K.convertDateToString(date: date)
+            tableView.reloadData()
+        }
+        pickersContainerView.isHidden = true
     }
+    
     private func refreshUI()
     {
         if let safeIssue = issue
@@ -74,6 +112,11 @@ class DetailViewController: UIViewController {
             setStatusPickerInitialSelection(issue: safeIssue)
             setAssigneePickerInitialSelection(issue: safeIssue)
             setDueDatePickerInitialSelection(issue: safeIssue)
+            
+            tableCellChosenVals[statusTag] = safeIssue.status.rawValue
+            tableCellChosenVals[assigneeTag] = safeIssue.assignedTo
+            tableCellChosenVals[dueDateTag] = K.convertDateToString(date: safeIssue.dueDate)
+            tableView.reloadData()
         }
     }
     
@@ -149,7 +192,7 @@ class DetailViewController: UIViewController {
     }
 }
 
-//MARK: - Extensions
+//MARK: - Issue Selection Delegate
 //IssueSelectionDelegate is a delegate of MasterViewController
 extension DetailViewController: IssueSelectionDelegate
 {
@@ -159,6 +202,7 @@ extension DetailViewController: IssueSelectionDelegate
     }
 }
 
+//MARK: - Picker delegates
 extension DetailViewController: UIPickerViewDelegate
 {
     
@@ -215,7 +259,7 @@ extension DetailViewController: UIPickerViewDataSource
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView.tag == assigneeTag
         {
-            if component == 0
+            if component == K.IssueDetail.assigneeEmailComponent
             {
                 pickerView.selectRow(row, inComponent: 1, animated: true)
             }
@@ -223,7 +267,13 @@ extension DetailViewController: UIPickerViewDataSource
             {
                 pickerView.selectRow(row, inComponent: 0, animated: true)
             }
+            tableCellChosenVals[assigneeTag] = assigneePickerData[row]
         }
+        else //status
+        {
+            tableCellChosenVals[statusTag] = statusPickerData[row]
+        }
+        tableView.reloadData()
     }
 }
 
@@ -248,5 +298,9 @@ extension DetailViewController: UITableViewDataSource
 
 extension DetailViewController: UITableViewDelegate
 {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        pickersContainerView.isHidden = false
+        let selectedRow = indexPath.row
+        showPicker(tag: selectedRow)
+    }
 }
