@@ -28,8 +28,12 @@ class ProjectSettingsViewController: UIViewController {
     var cameFromIssues: Bool = false
     let dbManager = DbManager.instance
     
+    private var currSelectedUserIndex = 0
+    
+    //users on current project
     private var users: [String] = []
-    private var userRoles: [String] = []
+    //the roles associated with the users
+    private var userAssignedRoles: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +78,13 @@ class ProjectSettingsViewController: UIViewController {
     @IBAction func pickerDoneButtonPress(_ sender: Any)
     {
         pickerContainerView.isHidden = true
+        if let project = dbManager.CurrentProject
+        {
+            let roleIndex = userRolePickerView.selectedRow(inComponent: 0)
+            let newRole = userRolePickerData[roleIndex]
+            let userSelected = users[currSelectedUserIndex]
+            dbManager.updateUserRoleOnProject(projectId: project.id, email: userSelected, roleStr: newRole)
+        }
     }
     private func onEnterUpdateUI(project: Project)
     {
@@ -87,7 +98,7 @@ class ProjectSettingsViewController: UIViewController {
         if let currProject = dbManager.CurrentProject
         {
             users = currProject.users
-            userRoles = currProject.roles
+            userAssignedRoles = currProject.roles
             usersTableView.reloadData()
         }
     }
@@ -123,8 +134,9 @@ class ProjectSettingsViewController: UIViewController {
             }
             else
             {
-                let roleIndex = userRolePickerView.selectedRow(inComponent: 0)
-                let role = userRolePickerData[roleIndex]
+//                let roleIndex = userRolePickerView.selectedRow(inComponent: 0)
+//                let role = userRolePickerData[roleIndex]
+                let role = "Developer"
                 dbManager.tryAddEmailUserToProject(to: project.id, with: email, roleStr: role)
             }
         }
@@ -152,7 +164,15 @@ extension ProjectSettingsViewController: DbManagerDelegate
     
     func onAddEmailUserToProjectError(email: String, errorStr: String) {
         //errorLabel.text = "Error with \(email): \(errorStr)"
-        print("Error with \(email): \(errorStr)")
+        print("Error adding \(email) to project: \(errorStr)")
+    }
+    
+    func onUpdateUserRoleOnProjectSuccess(email: String) {
+        showUsersInUI()
+    }
+    
+    func onUpdateUserRoleOnProjectError(email: String, errorStr: String) {
+        print("Error updating \(email) role: \(errorStr)")
     }
 }
 
@@ -181,13 +201,13 @@ extension ProjectSettingsViewController: UIPickerViewDataSource
 extension ProjectSettingsViewController: UITableViewDataSource
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return users.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "createIssueCustomCell", for: indexPath) as! CreateIssueTableViewCell
-        cell.titleLabel?.text = users[indexPath.row]
-        cell.detailLabel?.text = userRoles[indexPath.row]
+        cell.titleLabel?.text = userAssignedRoles[indexPath.row]
+        cell.detailLabel?.text = users[indexPath.row]
         return cell
     }
 }
@@ -197,6 +217,6 @@ extension ProjectSettingsViewController: UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         pickerContainerView.isHidden = false
         let selectedRow = indexPath.row
-        //showPicker(tag: selectedRow)
+        currSelectedUserIndex = selectedRow
     }
 }

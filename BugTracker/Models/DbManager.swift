@@ -422,6 +422,43 @@ extension DbManager
         }
     }
     
+    func updateUserRoleOnProject(projectId: String, email: String, roleStr: String)
+    {
+        //todo error UI
+        if var project = getProject(with: projectId)
+        {
+            var roles = project.roles
+            let users = project.users
+            if let index = users.firstIndex(of: email)
+            {
+                if roles.count > index
+                {
+                    if roles[index] == roleStr
+                    {
+                        print("role already set to \(roleStr)")
+                        return;
+                    }
+                    else
+                    {
+                        let projectRef = db.collection("Projects").document(projectId)
+                        roles[index] = roleStr
+                        
+                        projectRef.updateData(["roles": roles]) { (error) in
+                            if let e = error
+                            {
+                                self.delegate?.onUpdateUserRoleOnProjectError(email: email, errorStr: e.localizedDescription)
+                            }
+                            else
+                            {
+                                self.delegate?.onUpdateUserRoleOnProjectSuccess(email: email)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     //add the user to the project in db
     private func updateProjectAddUser(projectId: String, email: String, roleStr: String)
     {
@@ -456,8 +493,11 @@ protocol DbManagerDelegate
     func onCreateProjectSuccess(projectName: String)
     func onProjectsLoaded()
     func onIssuesLoaded()
+    
     func onAddEmailUserToProjectSuccess(email: String)
     func onAddEmailUserToProjectError(email: String, errorStr: String)
+    func onUpdateUserRoleOnProjectSuccess(email: String)
+    func onUpdateUserRoleOnProjectError(email: String, errorStr: String)
 }
 
 //delegate default methods
@@ -491,6 +531,15 @@ extension DbManagerDelegate
     func onAddEmailUserToProjectError(email: String, errorStr: String)
     {
         print("default: onEmailUserDoesNotExist")
+    }
+    
+    func onUpdateUserRoleOnProjectSuccess(email: String)
+    {
+        print("default: onUpdateUserRoleOnProjectSuccess")
+    }
+    func onUpdateUserRoleOnProjectError(email: String, errorStr: String)
+    {
+        print("default: onUpdateUserRoleOnProjectError")
     }
 }
 
