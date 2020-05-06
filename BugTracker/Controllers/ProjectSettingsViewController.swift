@@ -14,10 +14,12 @@ class ProjectSettingsViewController: UIViewController {
     @IBOutlet weak var descriptionTextView: UITextView!
     
     @IBOutlet weak var addUserTextField: UITextField!
-    @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var usersTableView: UITableView!
     
-    @IBOutlet weak var currentUsersTextView: UITextView!
+    //@IBOutlet weak var userRoleTextField: UITextField!
     
+    @IBOutlet weak var pickerContainerView: UIView!
+
     @IBOutlet weak var okButton: UIButton!
     
     @IBOutlet weak var userRolePickerView: UIPickerView!
@@ -25,14 +27,20 @@ class ProjectSettingsViewController: UIViewController {
     let userRolePickerData: [String] = K.getUserRoles()
     var cameFromIssues: Bool = false
     let dbManager = DbManager.instance
+    
+    private var users: [String] = []
+    private var userRoles: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        //register the custom table view cell
+        usersTableView.register(UINib(nibName: "CreateIssueTableViewCell", bundle: nil), forCellReuseIdentifier: "createIssueCustomCell")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        pickerContainerView.isHidden = true
         if cameFromIssues //came from issues (master) view
         {
             okButton.isHidden = true
@@ -42,7 +50,7 @@ class ProjectSettingsViewController: UIViewController {
             navigationItem.hidesBackButton = true
         }
         
-        errorLabel.text = ""
+        //errorLabel.text = ""
         //to get notified if added user email is valid
         dbManager.delegate = self
         
@@ -63,6 +71,10 @@ class ProjectSettingsViewController: UIViewController {
         updateProjectDescription()
     }
     
+    @IBAction func pickerDoneButtonPress(_ sender: Any)
+    {
+        pickerContainerView.isHidden = true
+    }
     private func onEnterUpdateUI(project: Project)
     {
         projectIdLabel.text = "Project: \(project.name)"
@@ -72,18 +84,11 @@ class ProjectSettingsViewController: UIViewController {
     
     private func showUsersInUI()
     {
-        if let users = dbManager.CurrentProject?.users
+        if let currProject = dbManager.CurrentProject
         {
-            currentUsersTextView.text = ""
-            for i in 0...users.count - 1
-            {
-                var userStr = "\(users[i]), "
-                if i == users.count - 1
-                {
-                    userStr = users[i]
-                }
-                currentUsersTextView.text += userStr
-            }
+            users = currProject.users
+            userRoles = currProject.roles
+            usersTableView.reloadData()
         }
     }
     
@@ -114,7 +119,7 @@ class ProjectSettingsViewController: UIViewController {
         {
             if email == ""
             {
-                errorLabel.text = "Error: Please add a user email."
+                //errorLabel.text = "Error: Please add a user email."
             }
             else
             {
@@ -136,21 +141,22 @@ class ProjectSettingsViewController: UIViewController {
     }
 }
 
-//MARK: - extensions
+//MARK: - DbManagerDelegate
 extension ProjectSettingsViewController: DbManagerDelegate
 {
     func onAddEmailUserToProjectSuccess(email: String) {
-        errorLabel.text = "\(email) added to project."
+        //errorLabel.text = "\(email) added to project."
         addUserTextField.text = ""
         showUsersInUI()
     }
     
     func onAddEmailUserToProjectError(email: String, errorStr: String) {
-        errorLabel.text = "Error with \(email): \(errorStr)"
+        //errorLabel.text = "Error with \(email): \(errorStr)"
         print("Error with \(email): \(errorStr)")
     }
 }
 
+//MARK: - picker delegates
 extension ProjectSettingsViewController: UIPickerViewDelegate
 {
     
@@ -169,6 +175,28 @@ extension ProjectSettingsViewController: UIPickerViewDataSource
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return userRolePickerData.count
     }
+}
+
+//MARK: - table view extensions
+extension ProjectSettingsViewController: UITableViewDataSource
+{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
     
-    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "createIssueCustomCell", for: indexPath) as! CreateIssueTableViewCell
+        cell.titleLabel?.text = users[indexPath.row]
+        cell.detailLabel?.text = userRoles[indexPath.row]
+        return cell
+    }
+}
+
+extension ProjectSettingsViewController: UITableViewDelegate
+{
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        pickerContainerView.isHidden = false
+        let selectedRow = indexPath.row
+        //showPicker(tag: selectedRow)
+    }
 }
