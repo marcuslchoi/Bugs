@@ -22,6 +22,18 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         authManager.delegate = self
         errorLabel.text = ""
+        stylizeTextBoxes()
+    }
+    
+    private func stylizeTextBoxes()
+    {
+        emailTextField.layer.borderWidth = 1
+        emailTextField.layer.borderColor = UIColor.black.cgColor
+        emailTextField.layer.cornerRadius = 5
+        
+        pwTextField.layer.borderWidth = 1
+        pwTextField.layer.borderColor = UIColor.black.cgColor
+        pwTextField.layer.cornerRadius = 5
     }
     
     @IBAction func loginPressed(_ sender: Any)
