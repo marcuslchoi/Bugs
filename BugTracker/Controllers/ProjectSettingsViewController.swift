@@ -39,6 +39,8 @@ class ProjectSettingsViewController: UIViewController {
         super.viewDidLoad()
         //register the custom table view cell
         usersTableView.register(UINib(nibName: "CreateIssueTableViewCell", bundle: nil), forCellReuseIdentifier: "createIssueCustomCell")
+        
+        stylizeTextBoxes()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,6 +75,17 @@ class ProjectSettingsViewController: UIViewController {
         super.viewWillDisappear(animated)
         //save the project description on navigating away
         updateProjectDescription()
+    }
+    
+    private func stylizeTextBoxes()
+    {
+        descriptionTextView.layer.borderWidth = 1
+        descriptionTextView.layer.borderColor = UIColor.black.cgColor
+        descriptionTextView.layer.cornerRadius = 5
+        
+        addUserTextField.layer.borderWidth = 1
+        addUserTextField.layer.borderColor = UIColor.black.cgColor
+        addUserTextField.layer.cornerRadius = 5
     }
     
     @IBAction func pickerDoneButtonPress(_ sender: Any)
