@@ -26,6 +26,10 @@ class CreateIssueViewController: UIViewController {
     private let issueTypesDataSource = K.getIssueTypes()
     private var assigneesDataSource:[String] = []
     
+    private let issueTag = K.CreateIssue.issueTypePickerTag
+    private let assigneeTag = K.CreateIssue.assigneePickerTag
+    private let dueDateTag = K.CreateIssue.dueDatePickerTag
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad()
@@ -34,11 +38,6 @@ class CreateIssueViewController: UIViewController {
         dbManager.createIssueDelegate = self
         //register the custom table view cell
         tableView.register(UINib(nibName: "CreateIssueTableViewCell", bundle: nil), forCellReuseIdentifier: "createIssueCustomCell")
-        
-//        if let myEmail = AuthManager.instance.currentUserEmail
-//        {
-//            cellDetails[1] = myEmail
-//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,7 +46,7 @@ class CreateIssueViewController: UIViewController {
         pickersContainerView.isHidden = true
         
         let issuesSelectedRow = issueTypePicker.selectedRow(inComponent: 0)
-        tableCellChosenVals[K.CreateIssue.issueTypePickerTag] = issueTypesDataSource[issuesSelectedRow]
+        tableCellChosenVals[issueTag] = issueTypesDataSource[issuesSelectedRow]
         
         //set assignee picker data, initial selection
         if let users = dbManager.CurrentProject?.users, let myEmail = AuthManager.instance.currentUserEmail
@@ -56,7 +55,7 @@ class CreateIssueViewController: UIViewController {
             if let index = assigneesDataSource.firstIndex(of: myEmail)
             {
                 assigneePicker.selectRow(index, inComponent: 0, animated: true)
-                tableCellChosenVals[K.CreateIssue.assigneePickerTag] = myEmail
+                tableCellChosenVals[assigneeTag] = myEmail
             }
         }
         tableView.reloadData()
@@ -67,17 +66,17 @@ class CreateIssueViewController: UIViewController {
         createIssueButton.isHidden = true
         switch (tag)
         {
-            case K.CreateIssue.issueTypePickerTag:
+            case issueTag:
                 issueTypePicker.isHidden = false
                 assigneePicker.isHidden = true
                 dueDatePicker.isHidden = true
             break
-            case K.CreateIssue.assigneePickerTag:
+            case assigneeTag:
                 issueTypePicker.isHidden = true
                 assigneePicker.isHidden = false
                 dueDatePicker.isHidden = true
             break
-            case K.CreateIssue.dueDatePickerTag:
+            case dueDateTag:
                 issueTypePicker.isHidden = true
                 assigneePicker.isHidden = true
                 dueDatePicker.isHidden = false
@@ -91,7 +90,7 @@ class CreateIssueViewController: UIViewController {
         if !dueDatePicker.isHidden
         {
             let date = dueDatePicker.date
-            tableCellChosenVals[K.CreateIssue.dueDatePickerTag] = K.convertDateToString(date: date)
+            tableCellChosenVals[dueDateTag] = K.convertDateToString(date: date)
             tableView.reloadData()
         }
         pickersContainerView.isHidden = true
@@ -102,13 +101,23 @@ class CreateIssueViewController: UIViewController {
     {
         if let title = titleTextField?.text, title != ""
         {
-            let issueType = IssueType(rawValue: tableCellChosenVals[K.CreateIssue.issueTypePickerTag])
-            dbManager.addIssue(title, descriptionTextView?.text ?? "", issueType ?? IssueType.Bug, tableCellChosenVals[K.CreateIssue.assigneePickerTag], tableCellChosenVals[K.CreateIssue.dueDatePickerTag])
+            let issueType = IssueType(rawValue: tableCellChosenVals[issueTag])
+            dbManager.addIssue(title, descriptionTextView?.text ?? "", issueType ?? IssueType.Bug, tableCellChosenVals[assigneeTag], tableCellChosenVals[dueDateTag])
         }
         else
         {
-            print("no title")
+            showNoTitleAlert()
         }
+    }
+    
+    private func showNoTitleAlert()
+    {
+        let alert = UIAlertController(title: "Please add a title.", message: "", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            print("OK")
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
     }
 }
 
@@ -153,11 +162,11 @@ extension CreateIssueViewController: UIPickerViewDataSource
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView.tag == K.CreateIssue.issueTypePickerTag
+        if pickerView.tag == issueTag
         {
             return issueTypesDataSource.count
         }
-        else if pickerView.tag == K.CreateIssue.assigneePickerTag
+        else if pickerView.tag == assigneeTag
         {
             return assigneesDataSource.count
         }
@@ -165,11 +174,11 @@ extension CreateIssueViewController: UIPickerViewDataSource
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView.tag == K.CreateIssue.issueTypePickerTag
+        if pickerView.tag == issueTag
         {
             return issueTypesDataSource[row]
         }
-        else if pickerView.tag == K.CreateIssue.assigneePickerTag
+        else if pickerView.tag == assigneeTag
         {
             return assigneesDataSource[row]
         }
@@ -179,11 +188,11 @@ extension CreateIssueViewController: UIPickerViewDataSource
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let chosenVal:String
         
-        if pickerView.tag == K.CreateIssue.issueTypePickerTag
+        if pickerView.tag == issueTag
         {
             chosenVal = issueTypesDataSource[row]
         }
-        else //if pickerView.tag == K.CreateIssue.assigneePickerTag
+        else //if pickerView.tag == assigneeTag
         {
             chosenVal = assigneesDataSource[row]
         }
@@ -207,6 +216,11 @@ extension CreateIssueViewController: CreateIssueDelegate
     private func showAddIssueFailAlert(name: String, error: String)
     {
         let alert = UIAlertController(title: "Add \(name) Failed", message: error, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            print("OK")
+        }
+        
+        alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
     }
 }

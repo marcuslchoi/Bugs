@@ -12,7 +12,9 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     
     @IBOutlet weak var descriptionTextView: UITextView!
+    @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var pickerContainerView: UIView!
     @IBOutlet weak var statusPickerView: UIPickerView!
     
     @IBOutlet weak var assigneePickerView: UIPickerView!
@@ -22,7 +24,11 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var dueDatePicker: UIDatePicker!
         
-    let dbManager = DbManager.instance
+    private let dbManager = DbManager.instance
+    private let tableCellTitles = ["Status", "Assignee", "Due Date"]
+    private var tableCellChosenVals = ["","",""]
+    private let statusTag = K.IssueDetail.statusPickerTag
+    private let assigneeTag = K.IssueDetail.assigneePickerTag
     
     let statusPickerData: [String] = K.getIssueStatuses()
     var assigneePickerData: [String] = []
@@ -40,6 +46,9 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //register the custom table view cell
+        tableView.register(UINib(nibName: "CreateIssueTableViewCell", bundle: nil), forCellReuseIdentifier: "createIssueCustomCell")
+
         setAssigneePickerData()
         setAssigneeRoles()
     }
@@ -49,6 +58,10 @@ class DetailViewController: UIViewController {
         save()
     }
 
+    @IBAction func pickerDoneButtonPress(_ sender: Any)
+    {
+        pickerContainerView.isHidden = true
+    }
     private func refreshUI()
     {
         if let safeIssue = issue
@@ -154,7 +167,7 @@ extension DetailViewController: UIPickerViewDelegate
 extension DetailViewController: UIPickerViewDataSource
 {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        if pickerView.tag == K.assigneePickerTag
+        if pickerView.tag == assigneeTag
         {
             return 2
         }
@@ -162,11 +175,11 @@ extension DetailViewController: UIPickerViewDataSource
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView.tag == K.statusPickerTag
+        if pickerView.tag == statusTag
         {
             return statusPickerData.count
         }
-        else if pickerView.tag == K.assigneePickerTag
+        else if pickerView.tag == assigneeTag
         {
             return assigneePickerData.count
         }
@@ -178,11 +191,11 @@ extension DetailViewController: UIPickerViewDataSource
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
     {
-        if pickerView.tag == K.statusPickerTag
+        if pickerView.tag == statusTag
         {
             return statusPickerData[row]
         }
-        else if pickerView.tag == K.assigneePickerTag
+        else if pickerView.tag == assigneeTag
         {
             if component == 0 //users
             {
@@ -200,7 +213,7 @@ extension DetailViewController: UIPickerViewDataSource
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView.tag == K.assigneePickerTag
+        if pickerView.tag == assigneeTag
         {
             if component == 0
             {
@@ -212,6 +225,28 @@ extension DetailViewController: UIPickerViewDataSource
             }
         }
     }
+}
+
+//MARK: - Table View extensions
+extension DetailViewController: UITableViewDataSource
+{
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableCellTitles.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "createIssueCustomCell", for: indexPath) as! CreateIssueTableViewCell
+        cell.titleLabel?.text = tableCellTitles[indexPath.row]
+        cell.detailLabel?.text = tableCellChosenVals[indexPath.row]
+        return cell
+    }
+}
+
+extension DetailViewController: UITableViewDelegate
+{
     
 }

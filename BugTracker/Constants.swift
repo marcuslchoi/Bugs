@@ -10,8 +10,11 @@ import Foundation
 
 struct K
 {
-    static let statusPickerTag = 0
-    static let assigneePickerTag = 1
+    struct IssueDetail
+    {
+        static let statusPickerTag = 0
+        static let assigneePickerTag = 1
+    }
     
     struct CreateIssue
     {
