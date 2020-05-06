@@ -117,42 +117,35 @@ class DbManager
     func tryCreateProject(projName: String, myRoleStr: String) -> String
     {
         var status = ""
-        if projName == ""
+        if !checkIfUniqueProjectName(projName)
         {
-            status = "Please enter a project name"
+            status = "\(projName) already exists"
         }
-        else
+        else //create the project
         {
-            if !checkIfUniqueProjectName(projName)
+            let currentUser = Auth.auth().currentUser
+            if currentUser == nil
             {
-                status = "\(projName) already exists"
+                status = "current user is nil! todo login"
             }
-            else //create the project
+            else
             {
-                let currentUser = Auth.auth().currentUser
-                if currentUser == nil
+                let myEmail = currentUser!.email!
+                let users = [myEmail]
+                let roles = [myRoleStr]
+                
+                let projectsRef = db.collection("Projects")
+                //add the data to database collection
+                projectsRef.document().setData(["name": projName, "users": users, "roles": roles])
                 {
-                    status = "current user is nil! todo login"
-                }
-                else
-                {
-                    let myEmail = currentUser!.email!
-                    let users = [myEmail]
-                    let roles = [myRoleStr]
-                    
-                    let projectsRef = db.collection("Projects")
-                    //add the data to database collection
-                    projectsRef.document().setData(["name": projName, "users": users, "roles": roles])
+                    (error) in
+                    if let e = error
                     {
-                        (error) in
-                        if let e = error
-                        {
-                            self.delegate?.onCreateProjectError(description: e.localizedDescription)
-                        }
-                        else
-                        {
-                            self.delegate?.onCreateProjectSuccess(projectName: projName)
-                        }
+                        self.delegate?.onCreateProjectError(description: e.localizedDescription)
+                    }
+                    else
+                    {
+                        self.delegate?.onCreateProjectSuccess(projectName: projName)
                     }
                 }
             }

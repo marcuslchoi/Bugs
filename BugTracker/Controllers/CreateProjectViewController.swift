@@ -14,32 +14,67 @@ class CreateProjectViewController: UIViewController {
 
     @IBOutlet weak var errorLabel: UILabel!
     
-    @IBOutlet weak var userRolePickerView: UIPickerView!
-    let userRolePickerDataSource: [String] = K.getUserRoles()
+    let userRolePicker = UIPickerView()
 
+    let userRolePickerDataSource: [String] = K.getUserRoles()
+    @IBOutlet weak var myRoleTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         errorLabel.text = ""
         navigationItem.hidesBackButton = true
+        setupPicker()
+    }
+    
+    private func setupPicker()
+    {
+        //stackoverflow.com/questions/31728680/how-to-make-an-uipickerview-with-a-done-button
+        userRolePicker.backgroundColor = .white
+        userRolePicker.delegate = self
+        userRolePicker.dataSource = self
+
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.backgroundColor = .systemGreen
+        toolBar.isTranslucent = true
+        //toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        toolBar.sizeToFit()
+
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(self.donePicker))
+
+        toolBar.setItems([doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+
+        myRoleTextField.inputView = userRolePicker
+        myRoleTextField.inputAccessoryView = toolBar
+    }
+    
+    @objc func donePicker()
+    {
+        myRoleTextField.text = userRolePickerDataSource[userRolePicker.selectedRow(inComponent: 0)]
+        myRoleTextField.resignFirstResponder()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //todo make sure this happens when nav back to this view
         DbManager.instance.delegate = self
+        let pickerIndex = userRolePicker.selectedRow(inComponent: 0)
+        myRoleTextField.text = userRolePickerDataSource[pickerIndex]
     }
     
     @IBAction func createButtonPress(_ sender: Any)
     {
-        if let projName = projectNameTextField.text
+        if let projName = projectNameTextField.text, projName != ""
         {
-            let roleIndex = userRolePickerView.selectedRow(inComponent: 0)
+            let roleIndex = userRolePicker.selectedRow(inComponent: 0)
             let myRole = userRolePickerDataSource[roleIndex]
             errorLabel.text = DbManager.instance.tryCreateProject(projName: projName, myRoleStr: myRole)
         }
         else
         {
-            print("error: projectNameTextField.text is nil")
+            errorLabel.text = "please enter a project name"
         }
     }
 

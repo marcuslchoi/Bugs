@@ -150,7 +150,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="r2W-r4-CCO" firstAttribute="top" secondItem="ze5-xl-RXf" secondAttribute="bottom" id="CVd-4q-Aqg"/>
                             <constraint firstItem="XXT-Y1-XaW" firstAttribute="top" secondItem="5Nj-2M-tep" secondAttribute="bottom" id="Cw2-BZ-QCm"/>
@@ -304,7 +304,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="NRk-5L-f3b" firstAttribute="top" secondItem="fhy-xy-t0Y" secondAttribute="bottom" constant="20" id="4GZ-jh-csa"/>
                             <constraint firstItem="WZ8-8L-9H5" firstAttribute="trailing" secondItem="fhy-xy-t0Y" secondAttribute="trailing" constant="20" id="Bs8-Nf-h8H"/>
@@ -785,22 +785,22 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="SC6-By-FsR">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rh1-NV-96U" userLabel="TopView">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rh1-NV-96U" userLabel="Project Name View">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="400"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Project Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MaE-Jb-qGl">
-                                                <rect key="frame" x="20" y="126.5" width="113" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a New Project" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zVx-XQ-idg">
                                                 <rect key="frame" x="99" y="50" width="216" height="26.5"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J5G-wJ-6zB">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Project Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MaE-Jb-qGl">
+                                                <rect key="frame" x="20" y="126.5" width="113" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J5G-wJ-6zB">
                                                 <rect key="frame" x="144" y="120" width="250" height="34"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="250" id="I1M-xS-hH2"/>
@@ -808,34 +808,31 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="My Role:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I90-pO-B3E">
-                                                <rect key="frame" x="20" y="227" width="69" height="20.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Role:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I90-pO-B3E">
+                                                <rect key="frame" x="20" y="167" width="69" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <pickerView contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZTC-PC-MGw">
-                                                <rect key="frame" x="144" y="169" width="250" height="141"/>
-                                                <connections>
-                                                    <outlet property="dataSource" destination="bpu-nd-Wk8" id="Awi-dR-vXh"/>
-                                                    <outlet property="delegate" destination="bpu-nd-Wk8" id="DEH-mf-vNQ"/>
-                                                </connections>
-                                            </pickerView>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X3i-0X-HTc">
+                                                <rect key="frame" x="144" y="160.5" width="250" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="X3i-0X-HTc" firstAttribute="centerY" secondItem="I90-pO-B3E" secondAttribute="centerY" id="1n4-Yg-DMp"/>
                                             <constraint firstItem="MaE-Jb-qGl" firstAttribute="leading" secondItem="rh1-NV-96U" secondAttribute="leading" constant="20" id="3VP-Ii-484"/>
-                                            <constraint firstItem="I90-pO-B3E" firstAttribute="centerY" secondItem="ZTC-PC-MGw" secondAttribute="centerY" id="7HD-ue-tjS"/>
-                                            <constraint firstItem="ZTC-PC-MGw" firstAttribute="top" secondItem="J5G-wJ-6zB" secondAttribute="bottom" constant="20" id="Ezd-vi-dYg"/>
                                             <constraint firstItem="MaE-Jb-qGl" firstAttribute="top" secondItem="zVx-XQ-idg" secondAttribute="bottom" constant="50" id="I5m-ub-rDP"/>
                                             <constraint firstItem="zVx-XQ-idg" firstAttribute="top" secondItem="rh1-NV-96U" secondAttribute="top" constant="50" id="IzL-4l-Xij"/>
                                             <constraint firstAttribute="height" constant="400" id="MnQ-Il-yHv"/>
                                             <constraint firstAttribute="trailing" secondItem="J5G-wJ-6zB" secondAttribute="trailing" constant="20" id="Ory-Je-yvS"/>
-                                            <constraint firstItem="I90-pO-B3E" firstAttribute="top" secondItem="MaE-Jb-qGl" secondAttribute="bottom" constant="80" id="Ot8-hn-Iim"/>
+                                            <constraint firstItem="I90-pO-B3E" firstAttribute="top" secondItem="MaE-Jb-qGl" secondAttribute="bottom" constant="20" id="Ot8-hn-Iim"/>
                                             <constraint firstItem="MaE-Jb-qGl" firstAttribute="centerY" secondItem="J5G-wJ-6zB" secondAttribute="centerY" id="TrE-OX-2lE"/>
-                                            <constraint firstItem="ZTC-PC-MGw" firstAttribute="width" secondItem="J5G-wJ-6zB" secondAttribute="width" id="gS3-ye-qyH"/>
                                             <constraint firstItem="zVx-XQ-idg" firstAttribute="centerX" secondItem="rh1-NV-96U" secondAttribute="centerX" id="paM-v1-BKZ"/>
+                                            <constraint firstItem="X3i-0X-HTc" firstAttribute="trailing" secondItem="J5G-wJ-6zB" secondAttribute="trailing" id="qGn-bb-48r"/>
+                                            <constraint firstItem="X3i-0X-HTc" firstAttribute="leading" secondItem="J5G-wJ-6zB" secondAttribute="leading" id="tao-fM-uPU"/>
                                             <constraint firstItem="I90-pO-B3E" firstAttribute="leading" secondItem="MaE-Jb-qGl" secondAttribute="leading" id="w12-Jo-T7a"/>
-                                            <constraint firstItem="ZTC-PC-MGw" firstAttribute="centerX" secondItem="J5G-wJ-6zB" secondAttribute="centerX" id="xcc-QM-f8a"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m2Z-cA-8j0" userLabel="MiddleView">
@@ -896,8 +893,8 @@
                     <navigationItem key="navigationItem" id="PNY-LG-xyt"/>
                     <connections>
                         <outlet property="errorLabel" destination="8bY-0c-rs4" id="tJZ-JG-R1S"/>
+                        <outlet property="myRoleTextField" destination="X3i-0X-HTc" id="v3f-2g-9SK"/>
                         <outlet property="projectNameTextField" destination="J5G-wJ-6zB" id="lRt-YL-GEk"/>
-                        <outlet property="userRolePickerView" destination="ZTC-PC-MGw" id="OhC-Zp-hcs"/>
                         <segue destination="fvL-IS-nIt" kind="show" identifier="CreateProjectToProjects" id="IOA-Tq-53f"/>
                         <segue destination="bgX-a9-YuU" kind="show" identifier="CreateToProjectSettings" id="Frd-WK-SBK"/>
                     </connections>
@@ -990,7 +987,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="q32-ar-RP3"/>
+        <segue reference="IOA-Tq-53f"/>
         <segue reference="Wgv-Bg-HeI"/>
         <segue reference="Frd-WK-SBK"/>
         <segue reference="6S0-TO-JiA"/>
