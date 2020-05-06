@@ -34,7 +34,8 @@ class DetailViewController: UIViewController {
     let statusPickerData: [String] = K.getIssueStatuses()
     var assigneePickerData: [String] = []
     //these are the roles of the users assigned to this project
-    var assigneeRoles: [String] = []
+    //each index corresponds to same index of assigneePickerData
+    var assigneeRolesData: [String] = []
     
     //the issue is set when the user selects it from the master view controller
     var issue: Issue?
@@ -51,7 +52,15 @@ class DetailViewController: UIViewController {
         tableView.register(UINib(nibName: "CreateIssueTableViewCell", bundle: nil), forCellReuseIdentifier: "createIssueCustomCell")
 
         setAssigneePickerData()
-        setAssigneeRoles()
+        setAssigneeRolesData()
+        stylizeTextBoxes()
+    }
+    
+    private func stylizeTextBoxes()
+    {
+        descriptionTextView.layer.borderWidth = 1
+        descriptionTextView.layer.borderColor = UIColor.black.cgColor
+        descriptionTextView.layer.cornerRadius = 5
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -160,11 +169,11 @@ class DetailViewController: UIViewController {
         }
     }
     
-    private func setAssigneeRoles()
+    private func setAssigneeRolesData()
     {
         if let roles = dbManager.CurrentProject?.roles
         {
-            assigneeRoles = roles
+            assigneeRolesData = roles
         }
     }
     
@@ -247,7 +256,7 @@ extension DetailViewController: UIPickerViewDataSource
             }
             else //roles
             {
-                return assigneeRoles[row]
+                return assigneeRolesData[row]
             }
         }
         else

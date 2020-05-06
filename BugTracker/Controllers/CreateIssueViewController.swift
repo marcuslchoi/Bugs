@@ -36,8 +36,10 @@ class CreateIssueViewController: UIViewController {
     {
         super.viewDidLoad()
         dbManager.createIssueDelegate = self
+        
         //register the custom table view cell
         tableView.register(UINib(nibName: "CreateIssueTableViewCell", bundle: nil), forCellReuseIdentifier: "createIssueCustomCell")
+        stylizeTextBoxes()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,6 +61,17 @@ class CreateIssueViewController: UIViewController {
             }
         }
         tableView.reloadData()
+    }
+    
+    private func stylizeTextBoxes()
+    {
+        descriptionTextView.layer.borderWidth = 1
+        descriptionTextView.layer.borderColor = UIColor.black.cgColor
+        descriptionTextView.layer.cornerRadius = 5
+        
+        titleTextField.layer.borderWidth = 1
+        titleTextField.layer.borderColor = UIColor.black.cgColor
+        titleTextField.layer.cornerRadius = 5
     }
     
     private func showPicker(tag: Int)
