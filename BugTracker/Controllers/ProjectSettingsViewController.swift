@@ -19,7 +19,8 @@ class ProjectSettingsViewController: UIViewController {
     //@IBOutlet weak var userRoleTextField: UITextField!
     
     @IBOutlet weak var pickerContainerView: UIView!
-
+    @IBOutlet weak var selectedUserLabel: UILabel!
+    
     @IBOutlet weak var okButton: UIButton!
     
     @IBOutlet weak var userRolePickerView: UIPickerView!
@@ -149,7 +150,7 @@ class ProjectSettingsViewController: UIViewController {
             {
 //                let roleIndex = userRolePickerView.selectedRow(inComponent: 0)
 //                let role = userRolePickerData[roleIndex]
-                let role = "Developer"
+                let role = UserRole.Developer.rawValue
                 dbManager.tryAddEmailUserToProject(to: project.id, with: email, roleStr: role)
             }
         }
@@ -230,6 +231,7 @@ extension ProjectSettingsViewController: UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         pickerContainerView.isHidden = false
         let selectedRow = indexPath.row
+        selectedUserLabel.text = "Select \(users[selectedRow])'s Role"
         currSelectedUserIndex = selectedRow
     }
 }
