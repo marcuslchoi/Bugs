@@ -50,10 +50,20 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         //register the custom table view cell
         tableView.register(UINib(nibName: "CreateIssueTableViewCell", bundle: nil), forCellReuseIdentifier: "createIssueCustomCell")
-
+        
+        possiblySetIssueOnEnter()
         setAssigneePickerData()
         setAssigneeRolesData()
         stylizeTextBoxes()
+    }
+    
+    //set to first issue if it is nil
+    private func possiblySetIssueOnEnter()
+    {
+        if issue == nil && dbManager.Issues.count > 0
+        {
+            issue = dbManager.Issues[0]
+        }
     }
     
     private func stylizeTextBoxes()

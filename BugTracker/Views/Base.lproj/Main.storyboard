@@ -304,7 +304,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="NRk-5L-f3b" firstAttribute="top" secondItem="fhy-xy-t0Y" secondAttribute="bottom" constant="20" id="4GZ-jh-csa"/>
                             <constraint firstItem="WZ8-8L-9H5" firstAttribute="trailing" secondItem="fhy-xy-t0Y" secondAttribute="trailing" constant="20" id="Bs8-Nf-h8H"/>
