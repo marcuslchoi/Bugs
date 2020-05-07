@@ -16,13 +16,18 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var pwTextField: UITextField!
     
     @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var registerButton: UIButton!
     
+    var isLogin = true
     let authManager = AuthManager.instance
     override func viewDidLoad() {
         super.viewDidLoad()
         authManager.delegate = self
         errorLabel.text = ""
         stylizeTextBoxes()
+        registerButton.isHidden = isLogin
+        loginButton.isHidden = !isLogin
     }
     
     private func stylizeTextBoxes()
