@@ -200,14 +200,27 @@ class MasterViewController: UITableViewController {
             let issues = dbManager.Issues
             issue = issues[indexPath.row]
         }
-        cell.textLabel?.text = "\(issue.id): \(issue.title)"
+        
+        let cellTitle = "\(issue.id): \(issue.title)"
+        //strike through text if issue is closed
+        if issue.status == IssueStatus.Closed
+        {
+            let attributedString: NSMutableAttributedString =  NSMutableAttributedString(string: cellTitle)
+            attributedString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSMakeRange(0, attributedString.length))
+            cell.textLabel?.attributedText = attributedString
+        }
+        else
+        {
+            cell.textLabel?.text = cellTitle
+        }
+        
         cell.detailTextLabel?.text = "Assignee: \(issue.assignedTo)"
         return cell
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
-        return true
+        return false
     }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
