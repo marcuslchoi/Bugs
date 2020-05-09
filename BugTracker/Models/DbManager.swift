@@ -119,14 +119,14 @@ class DbManager
         var status = ""
         if !checkIfUniqueProjectName(projName)
         {
-            status = "\(projName) already exists"
+            status = "\(projName) already exists. Please choose a different name."
         }
         else //create the project
         {
             let currentUser = Auth.auth().currentUser
             if currentUser == nil
             {
-                status = "current user is nil! todo login"
+                status = "Error: You are not logged in."
             }
             else
             {

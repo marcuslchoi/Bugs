@@ -24,6 +24,19 @@ class CreateProjectViewController: UIViewController {
         errorLabel.text = ""
         navigationItem.hidesBackButton = true
         setupPicker()
+        stylizeTextBoxes()
+        title = "Create a New Project"
+    }
+    
+    private func stylizeTextBoxes()
+    {
+        projectNameTextField.layer.borderWidth = 1
+        projectNameTextField.layer.borderColor = UIColor.black.cgColor
+        projectNameTextField.layer.cornerRadius = 5
+        
+        myRoleTextField.layer.borderWidth = 1
+        myRoleTextField.layer.borderColor = UIColor.black.cgColor
+        myRoleTextField.layer.cornerRadius = 5
     }
     
     private func setupPicker()
@@ -74,7 +87,7 @@ class CreateProjectViewController: UIViewController {
         }
         else
         {
-            errorLabel.text = "please enter a project name"
+            errorLabel.text = "Please enter a project name."
         }
     }
 
