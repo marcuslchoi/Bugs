@@ -236,7 +236,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NRk-5L-f3b">
-                                <rect key="frame" x="0.0" y="344" width="414" height="424"/>
+                                <rect key="frame" x="0.0" y="344" width="414" height="394"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="createIssueCell" id="Sjr-h7-GA1">
@@ -308,8 +308,15 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v68-DZ-btT">
-                                <rect key="frame" x="164" y="778" width="86" height="30"/>
-                                <state key="normal" title="Create Issue"/>
+                                <rect key="frame" x="0.0" y="748" width="414" height="60"/>
+                                <color key="backgroundColor" name="BrandLightBlue"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="qk3-12-KJI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Create Issue">
+                                    <color key="titleColor" name="BrandBlue"/>
+                                </state>
                                 <connections>
                                     <action selector="createIssueButtonPress:" destination="R0e-bD-KaJ" eventType="touchUpInside" id="eI7-5C-Aeq"/>
                                 </connections>
@@ -324,6 +331,7 @@
                             <constraint firstItem="7jn-SX-GMn" firstAttribute="top" secondItem="WZ8-8L-9H5" secondAttribute="top" constant="20" id="H6A-7B-ctP"/>
                             <constraint firstAttribute="bottom" secondItem="Lw3-DF-d9x" secondAttribute="bottom" id="Leq-Kl-4Za"/>
                             <constraint firstItem="NRk-5L-f3b" firstAttribute="leading" secondItem="WZ8-8L-9H5" secondAttribute="leading" id="N4h-ls-WAb"/>
+                            <constraint firstItem="WZ8-8L-9H5" firstAttribute="trailing" secondItem="v68-DZ-btT" secondAttribute="trailing" id="N8n-Kd-nLU"/>
                             <constraint firstAttribute="trailing" secondItem="Lw3-DF-d9x" secondAttribute="trailing" id="P8n-tZ-pRd"/>
                             <constraint firstItem="WZ8-8L-9H5" firstAttribute="bottom" secondItem="v68-DZ-btT" secondAttribute="bottom" id="PVd-fU-KaL"/>
                             <constraint firstItem="fhy-xy-t0Y" firstAttribute="top" secondItem="VHt-ej-2bl" secondAttribute="bottom" constant="10" id="RCj-ah-Pfd"/>
@@ -331,6 +339,7 @@
                             <constraint firstItem="VHt-ej-2bl" firstAttribute="top" secondItem="iPj-QD-gNc" secondAttribute="bottom" constant="10" id="Ual-Qb-N9l"/>
                             <constraint firstItem="fhy-xy-t0Y" firstAttribute="leading" secondItem="WZ8-8L-9H5" secondAttribute="leading" constant="20" id="UqE-Pe-0ZG"/>
                             <constraint firstItem="VHt-ej-2bl" firstAttribute="leading" secondItem="7jn-SX-GMn" secondAttribute="leading" id="eFI-qa-T83"/>
+                            <constraint firstItem="v68-DZ-btT" firstAttribute="leading" secondItem="WZ8-8L-9H5" secondAttribute="leading" id="h1f-aq-prc"/>
                             <constraint firstItem="WZ8-8L-9H5" firstAttribute="trailing" secondItem="iPj-QD-gNc" secondAttribute="trailing" constant="20" id="lAQ-cn-r41"/>
                             <constraint firstItem="Lw3-DF-d9x" firstAttribute="leading" secondItem="WZ8-8L-9H5" secondAttribute="leading" id="nBR-WE-xde"/>
                             <constraint firstItem="7jn-SX-GMn" firstAttribute="leading" secondItem="WZ8-8L-9H5" secondAttribute="leading" constant="20" id="opx-iz-skx"/>
@@ -1058,7 +1067,7 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="q32-ar-RP3"/>
+        <segue reference="IOA-Tq-53f"/>
         <segue reference="Wgv-Bg-HeI"/>
         <segue reference="Frd-WK-SBK"/>
         <segue reference="6S0-TO-JiA"/>
