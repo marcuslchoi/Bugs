@@ -14,6 +14,8 @@ class DbManager
     var delegate: DbManagerDelegate?
     //this delegate used only for CreateIssueViewController
     var createIssueDelegate: CreateIssueDelegate?
+    //this delegate used only for ProjectSettingsViewController
+    var projectUsersDelegate: ProjectUsersDelegate?
     private let db = Firestore.firestore()
     private let auth = Auth.auth()
 
@@ -391,7 +393,7 @@ extension DbManager
     {
         if checkIfUserOnProject(projectId, email)
         {
-            self.delegate?.onAddEmailUserToProjectError(email: email, errorStr: "\(email) is already on this project.")
+            self.projectUsersDelegate?.onAddEmailUserToProjectError(email: email, errorStr: "\(email) is already on this project.")
             return;
         }
         
@@ -400,7 +402,7 @@ extension DbManager
         userRef.getDocument { (doc, error) in
             if let e = error
             {
-                self.delegate?.onAddEmailUserToProjectError(email: email, errorStr: e.localizedDescription)
+                self.projectUsersDelegate?.onAddEmailUserToProjectError(email: email, errorStr: e.localizedDescription)
             }
             else if let safeDoc = doc, safeDoc.exists
             {
@@ -410,7 +412,7 @@ extension DbManager
             }
             else
             {
-                self.delegate?.onAddEmailUserToProjectError(email: email, errorStr: "\(email) not found")
+                self.projectUsersDelegate?.onAddEmailUserToProjectError(email: email, errorStr: "\(email) not found")
             }
         }
     }
@@ -439,11 +441,11 @@ extension DbManager
                         projectRef.updateData(["roles": roles]) { (error) in
                             if let e = error
                             {
-                                self.delegate?.onUpdateUserRoleOnProjectError(email: email, errorStr: e.localizedDescription)
+                                self.projectUsersDelegate?.onUpdateUserRoleOnProjectError(email: email, errorStr: e.localizedDescription)
                             }
                             else
                             {
-                                self.delegate?.onUpdateUserRoleOnProjectSuccess(email: email)
+                                self.projectUsersDelegate?.onUpdateUserRoleOnProjectSuccess(email: email)
                             }
                         }
                     }
@@ -464,11 +466,11 @@ extension DbManager
             projectRef.updateData(["users": FieldValue.arrayUnion([email]), "roles": roles]) { (error) in
                 if let e = error
                 {
-                    self.delegate?.onAddEmailUserToProjectError(email: email, errorStr: e.localizedDescription)
+                    self.projectUsersDelegate?.onAddEmailUserToProjectError(email: email, errorStr: e.localizedDescription)
                 }
                 else
                 {
-                    self.delegate?.onAddEmailUserToProjectSuccess(email: email)
+                    self.projectUsersDelegate?.onAddEmailUserToProjectSuccess(email: email)
                 }
             }
         }
@@ -486,11 +488,6 @@ protocol DbManagerDelegate
     func onCreateProjectSuccess(projectName: String)
     func onProjectsLoaded()
     func onIssuesLoaded()
-    
-    func onAddEmailUserToProjectSuccess(email: String)
-    func onAddEmailUserToProjectError(email: String, errorStr: String)
-    func onUpdateUserRoleOnProjectSuccess(email: String)
-    func onUpdateUserRoleOnProjectError(email: String, errorStr: String)
 }
 
 //delegate default methods
@@ -515,25 +512,6 @@ extension DbManagerDelegate
     {
         print("default: onIssuesLoaded")
     }
-    
-    func onAddEmailUserToProjectSuccess(email: String)
-    {
-        print("default: onEmailUserExists")
-    }
-    
-    func onAddEmailUserToProjectError(email: String, errorStr: String)
-    {
-        print("default: onEmailUserDoesNotExist")
-    }
-    
-    func onUpdateUserRoleOnProjectSuccess(email: String)
-    {
-        print("default: onUpdateUserRoleOnProjectSuccess")
-    }
-    func onUpdateUserRoleOnProjectError(email: String, errorStr: String)
-    {
-        print("default: onUpdateUserRoleOnProjectError")
-    }
 }
 
 //MARK: - Create Issue Delegate
@@ -542,4 +520,12 @@ protocol CreateIssueDelegate
 {
     func onAddIssueSuccess(name: String)
     func onAddIssueFail(name: String, error: String)
+}
+
+protocol ProjectUsersDelegate
+{
+    func onAddEmailUserToProjectSuccess(email: String)
+    func onAddEmailUserToProjectError(email: String, errorStr: String)
+    func onUpdateUserRoleOnProjectSuccess(email: String)
+    func onUpdateUserRoleOnProjectError(email: String, errorStr: String)
 }

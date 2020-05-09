@@ -41,7 +41,7 @@ class ProjectSettingsViewController: UIViewController {
         title = "Project Settings"
         //register the custom table view cell
         usersTableView.register(UINib(nibName: "CreateIssueTableViewCell", bundle: nil), forCellReuseIdentifier: "createIssueCustomCell")
-        
+        dbManager.projectUsersDelegate = self
         stylizeTextBoxes()
     }
     
@@ -59,8 +59,6 @@ class ProjectSettingsViewController: UIViewController {
         }
         
         //errorLabel.text = ""
-        //to get notified if added user email is valid
-        dbManager.delegate = self
         
         //get the project's current users
         if let project = dbManager.CurrentProject
@@ -149,8 +147,6 @@ class ProjectSettingsViewController: UIViewController {
             }
             else
             {
-//                let roleIndex = userRolePickerView.selectedRow(inComponent: 0)
-//                let role = userRolePickerData[roleIndex]
                 let role = UserRole.Developer.rawValue
                 dbManager.tryAddEmailUserToProject(to: project.id, with: email, roleStr: role)
             }
@@ -168,8 +164,8 @@ class ProjectSettingsViewController: UIViewController {
     }
 }
 
-//MARK: - DbManagerDelegate
-extension ProjectSettingsViewController: DbManagerDelegate
+//MARK: - ProjectUsersDelegate
+extension ProjectSettingsViewController: ProjectUsersDelegate
 {
     func onAddEmailUserToProjectSuccess(email: String) {
         //errorLabel.text = "\(email) added to project."
@@ -191,7 +187,7 @@ extension ProjectSettingsViewController: DbManagerDelegate
     }
 }
 
-//MARK: - picker delegates
+//MARK: - picker extensions
 extension ProjectSettingsViewController: UIPickerViewDelegate
 {
     
