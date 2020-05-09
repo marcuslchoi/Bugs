@@ -25,6 +25,7 @@ class ProjectSettingsViewController: UIViewController {
     
     @IBOutlet weak var userRolePickerView: UIPickerView!
     
+    @IBOutlet weak var descriptionTextViewHeight: NSLayoutConstraint!
     let userRolePickerData: [String] = K.getUserRoles()
     var cameFromIssues: Bool = false
     let dbManager = DbManager.instance
@@ -75,6 +76,19 @@ class ProjectSettingsViewController: UIViewController {
         super.viewWillDisappear(animated)
         //save the project description on navigating away
         updateProjectDescription()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)
+    {
+        let orientBeforeTransition = UIApplication.shared.statusBarOrientation
+        if orientBeforeTransition == .landscapeLeft || orientBeforeTransition == .landscapeRight
+        {
+            descriptionTextViewHeight.constant = 200
+        }
+        else
+        {
+            descriptionTextViewHeight.constant = 80
+        }
     }
     
     private func stylizeTextBoxes()

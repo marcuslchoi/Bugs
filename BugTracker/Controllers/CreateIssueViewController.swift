@@ -32,6 +32,7 @@ class CreateIssueViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var descriptionTextViewHeight: NSLayoutConstraint!
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -61,6 +62,19 @@ class CreateIssueViewController: UIViewController {
             }
         }
         tableView.reloadData()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)
+    {
+        let orientBeforeTransition = UIApplication.shared.statusBarOrientation
+        if orientBeforeTransition == .landscapeLeft || orientBeforeTransition == .landscapeRight
+        {
+            descriptionTextViewHeight.constant = 200
+        }
+        else
+        {
+            descriptionTextViewHeight.constant = 80
+        }
     }
     
     private func stylizeTextBoxes()
