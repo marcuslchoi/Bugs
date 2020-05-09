@@ -107,7 +107,7 @@ class DbManager
     {
         for project in projects
         {
-            if project.name == name
+            if project.name.lowercased() == name.lowercased()
             {
                 return false
             }
