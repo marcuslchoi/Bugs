@@ -228,7 +228,15 @@ extension ProjectSettingsViewController: UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         pickerContainerView.isHidden = false
         let selectedRow = indexPath.row
-        selectedUserLabel.text = "Select \(users[selectedRow])'s Role"
+        let selectedUser = users[selectedRow]
+        selectedUserLabel.text = "Select \(selectedUser)'s Role"
         currSelectedUserIndex = selectedRow
+        
+        //select initial picker role
+        let currRole = userAssignedRoles[selectedRow]
+        if let indexOfRole = userRolePickerData.firstIndex(of: currRole)
+        {
+            userRolePickerView.selectRow(indexOfRole, inComponent: 0, animated: false)
+        }
     }
 }
