@@ -38,6 +38,7 @@ class ProjectSettingsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Project Settings"
         //register the custom table view cell
         usersTableView.register(UINib(nibName: "CreateIssueTableViewCell", bundle: nil), forCellReuseIdentifier: "createIssueCustomCell")
         
@@ -68,7 +69,7 @@ class ProjectSettingsViewController: UIViewController {
         }
         else
         {
-            projectIdLabel.text = "Error: current project not set"
+            projectIdLabel.text = "Error: Current project not set."
         }
     }
     
@@ -102,7 +103,7 @@ class ProjectSettingsViewController: UIViewController {
     }
     private func onEnterUpdateUI(project: Project)
     {
-        projectIdLabel.text = "Project: \(project.name)"
+        projectIdLabel.text = project.name
         descriptionTextView.text = project.description
         showUsersInUI()
     }
