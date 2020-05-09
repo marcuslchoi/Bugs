@@ -29,11 +29,11 @@
             <objects>
                 <viewController title="Detail" id="JEX-9P-axG" customClass="DetailViewController" customModule="BugTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="svH-Pt-448">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="(title textfield)" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ze5-xl-RXf">
-                                <rect key="frame" x="20" y="93" width="374" height="35"/>
+                                <rect key="frame" x="20" y="61" width="374" height="35"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="e0G-8A-gyU"/>
@@ -42,7 +42,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reporter" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r2W-r4-CCO">
-                                <rect key="frame" x="0.0" y="133" width="414" height="25"/>
+                                <rect key="frame" x="0.0" y="101" width="414" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="WGf-Cv-1en"/>
                                 </constraints>
@@ -51,7 +51,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EsN-qh-i45" userLabel="DescView">
-                                <rect key="frame" x="0.0" y="158" width="414" height="270.5"/>
+                                <rect key="frame" x="0.0" y="126" width="414" height="270.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9n3-XR-jWd">
                                         <rect key="frame" x="20" y="10" width="97.5" height="20.5"/>
@@ -81,7 +81,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5Nj-2M-tep">
-                                <rect key="frame" x="0.0" y="428.5" width="414" height="433.5"/>
+                                <rect key="frame" x="0.0" y="396.5" width="414" height="411.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="SC5-ke-ezD">
@@ -99,7 +99,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XXT-Y1-XaW">
-                                <rect key="frame" x="0.0" y="696" width="414" height="200"/>
+                                <rect key="frame" x="0.0" y="642" width="414" height="200"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mTv-EK-Y7Z">
                                         <rect key="frame" x="0.0" y="30" width="414" height="170"/>
@@ -424,7 +424,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Issues" id="Zdf-7t-Un8">
-                        <barButtonItem key="leftBarButtonItem" systemItem="camera" id="MwO-wK-0xt">
+                        <barButtonItem key="leftBarButtonItem" title="Settings" id="MwO-wK-0xt">
                             <connections>
                                 <action selector="settingsButtonPress:" destination="7bK-jq-Zjz" id="0FT-rc-s0e"/>
                             </connections>
@@ -449,7 +449,7 @@
             <objects>
                 <navigationController id="vC3-pB-5Vb" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="DjV-YW-jjY">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -1073,7 +1073,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="q32-ar-RP3"/>
         <segue reference="Wgv-Bg-HeI"/>
-        <segue reference="Frd-WK-SBK"/>
+        <segue reference="Xp2-ds-dqD"/>
         <segue reference="6S0-TO-JiA"/>
     </inferredMetricsTieBreakers>
 </document>
