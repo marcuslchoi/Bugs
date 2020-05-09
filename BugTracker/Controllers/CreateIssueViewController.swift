@@ -41,6 +41,7 @@ class CreateIssueViewController: UIViewController {
         //register the custom table view cell
         tableView.register(UINib(nibName: "CreateIssueTableViewCell", bundle: nil), forCellReuseIdentifier: "createIssueCustomCell")
         stylizeTextBoxes()
+        setDescHeightOnLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,14 +68,28 @@ class CreateIssueViewController: UIViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)
     {
         let orientBeforeTransition = UIApplication.shared.statusBarOrientation
-        if orientBeforeTransition == .landscapeLeft || orientBeforeTransition == .landscapeRight
+        orientBeforeTransition == .landscapeLeft || orientBeforeTransition == .landscapeRight
+        setDescriptionHeight(orientBeforeTransition == .landscapeLeft || orientBeforeTransition == .landscapeRight)
+    }
+    
+    private func setDescHeightOnLoad()
+    {
+        let orientation = UIApplication.shared.statusBarOrientation
+        setDescriptionHeight(orientation == .portrait || orientation == .portraitUpsideDown)
+    }
+    
+    private func setDescriptionHeight(_ isPortrait: Bool)
+    {
+        let h: CGFloat
+        if isPortrait
         {
-            descriptionTextViewHeight.constant = 200
+            h = CGFloat(K.portraitDescHeight)
         }
         else
         {
-            descriptionTextViewHeight.constant = 80
+            h = CGFloat(K.landscapeDescHeight)
         }
+        descriptionTextViewHeight.constant = h
     }
     
     private func stylizeTextBoxes()

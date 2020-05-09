@@ -19,11 +19,12 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var assigneePickerView: UIPickerView!
     
-    
     @IBOutlet weak var reporterLabel: UILabel!
     
     @IBOutlet weak var dueDatePicker: UIDatePicker!
         
+    @IBOutlet weak var descriptionTextViewHeight: NSLayoutConstraint!
+    
     private let dbManager = DbManager.instance
     private let tableCellTitles = ["Status", "Assignee", "Due Date"]
     private var tableCellChosenVals = ["", "", "None"]
@@ -55,6 +56,7 @@ class DetailViewController: UIViewController {
         setAssigneePickerData()
         setAssigneeRolesData()
         stylizeTextBoxes()
+        setDescHeightOnLoad()
     }
     
     //set to first issue if it is nil
@@ -81,6 +83,33 @@ class DetailViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         save()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)
+    {
+        let orientBeforeTransition = UIApplication.shared.statusBarOrientation
+        orientBeforeTransition == .landscapeLeft || orientBeforeTransition == .landscapeRight
+        setDescriptionHeight(orientBeforeTransition == .landscapeLeft || orientBeforeTransition == .landscapeRight)
+    }
+    
+    private func setDescHeightOnLoad()
+    {
+        let orientation = UIApplication.shared.statusBarOrientation
+        setDescriptionHeight(orientation == .portrait || orientation == .portraitUpsideDown)
+    }
+    
+    private func setDescriptionHeight(_ isPortrait: Bool)
+    {
+        let h: CGFloat
+        if isPortrait
+        {
+            h = CGFloat(K.portraitDescHeight)
+        }
+        else
+        {
+            h = CGFloat(K.landscapeDescHeight)
+        }
+        descriptionTextViewHeight.constant = h
     }
     
     private func showPicker(tag: Int)

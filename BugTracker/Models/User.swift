@@ -46,5 +46,5 @@ extension UserRole: RawRepresentable
 struct User
 {
     let email: String
-    //var projects: [Project] = []
+    //var role: UserRole
 }

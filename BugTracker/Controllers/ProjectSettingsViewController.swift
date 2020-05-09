@@ -42,13 +42,14 @@ class ProjectSettingsViewController: UIViewController {
         title = "Project Settings"
         //register the custom table view cell
         usersTableView.register(UINib(nibName: "CreateIssueTableViewCell", bundle: nil), forCellReuseIdentifier: "createIssueCustomCell")
-        dbManager.projectUsersDelegate = self
+        //dbManager.projectUsersDelegate = self
         stylizeTextBoxes()
+        setDescHeightOnLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        dbManager.projectUsersDelegate = self
         pickerContainerView.isHidden = true
         if cameFromIssues //came from issues (master) view
         {
@@ -81,14 +82,28 @@ class ProjectSettingsViewController: UIViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)
     {
         let orientBeforeTransition = UIApplication.shared.statusBarOrientation
-        if orientBeforeTransition == .landscapeLeft || orientBeforeTransition == .landscapeRight
+        orientBeforeTransition == .landscapeLeft || orientBeforeTransition == .landscapeRight
+        setDescriptionHeight(orientBeforeTransition == .landscapeLeft || orientBeforeTransition == .landscapeRight)
+    }
+    
+    private func setDescHeightOnLoad()
+    {
+        let orientation = UIApplication.shared.statusBarOrientation
+        setDescriptionHeight(orientation == .portrait || orientation == .portraitUpsideDown)
+    }
+    
+    private func setDescriptionHeight(_ isPortrait: Bool)
+    {
+        let h: CGFloat
+        if isPortrait
         {
-            descriptionTextViewHeight.constant = 200
+            h = CGFloat(K.portraitDescHeight)
         }
         else
         {
-            descriptionTextViewHeight.constant = 80
+            h = CGFloat(K.landscapeDescHeight)
         }
+        descriptionTextViewHeight.constant = h
     }
     
     private func stylizeTextBoxes()
