@@ -236,7 +236,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NRk-5L-f3b">
-                                <rect key="frame" x="0.0" y="344" width="414" height="278"/>
+                                <rect key="frame" x="0.0" y="344" width="414" height="424"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="createIssueCell" id="Sjr-h7-GA1">
@@ -308,7 +308,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v68-DZ-btT">
-                                <rect key="frame" x="164" y="728" width="86" height="30"/>
+                                <rect key="frame" x="164" y="778" width="86" height="30"/>
                                 <state key="normal" title="Create Issue"/>
                                 <connections>
                                     <action selector="createIssueButtonPress:" destination="R0e-bD-KaJ" eventType="touchUpInside" id="eI7-5C-Aeq"/>
@@ -325,7 +325,7 @@
                             <constraint firstAttribute="bottom" secondItem="Lw3-DF-d9x" secondAttribute="bottom" id="Leq-Kl-4Za"/>
                             <constraint firstItem="NRk-5L-f3b" firstAttribute="leading" secondItem="WZ8-8L-9H5" secondAttribute="leading" id="N4h-ls-WAb"/>
                             <constraint firstAttribute="trailing" secondItem="Lw3-DF-d9x" secondAttribute="trailing" id="P8n-tZ-pRd"/>
-                            <constraint firstItem="WZ8-8L-9H5" firstAttribute="bottom" secondItem="v68-DZ-btT" secondAttribute="bottom" constant="50" id="PVd-fU-KaL"/>
+                            <constraint firstItem="WZ8-8L-9H5" firstAttribute="bottom" secondItem="v68-DZ-btT" secondAttribute="bottom" id="PVd-fU-KaL"/>
                             <constraint firstItem="fhy-xy-t0Y" firstAttribute="top" secondItem="VHt-ej-2bl" secondAttribute="bottom" constant="10" id="RCj-ah-Pfd"/>
                             <constraint firstItem="iPj-QD-gNc" firstAttribute="leading" secondItem="WZ8-8L-9H5" secondAttribute="leading" constant="20" id="Tbb-st-eGB"/>
                             <constraint firstItem="VHt-ej-2bl" firstAttribute="top" secondItem="iPj-QD-gNc" secondAttribute="bottom" constant="10" id="Ual-Qb-N9l"/>
@@ -333,8 +333,8 @@
                             <constraint firstItem="VHt-ej-2bl" firstAttribute="leading" secondItem="7jn-SX-GMn" secondAttribute="leading" id="eFI-qa-T83"/>
                             <constraint firstItem="WZ8-8L-9H5" firstAttribute="trailing" secondItem="iPj-QD-gNc" secondAttribute="trailing" constant="20" id="lAQ-cn-r41"/>
                             <constraint firstItem="Lw3-DF-d9x" firstAttribute="leading" secondItem="WZ8-8L-9H5" secondAttribute="leading" id="nBR-WE-xde"/>
-                            <constraint firstItem="Lw3-DF-d9x" firstAttribute="top" secondItem="NRk-5L-f3b" secondAttribute="bottom" constant="20" id="ohU-s1-CQi"/>
                             <constraint firstItem="7jn-SX-GMn" firstAttribute="leading" secondItem="WZ8-8L-9H5" secondAttribute="leading" constant="20" id="opx-iz-skx"/>
+                            <constraint firstItem="v68-DZ-btT" firstAttribute="top" secondItem="NRk-5L-f3b" secondAttribute="bottom" constant="10" id="sDT-Bk-tLn"/>
                             <constraint firstItem="NRk-5L-f3b" firstAttribute="trailing" secondItem="WZ8-8L-9H5" secondAttribute="trailing" id="udc-k5-Jbp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="WZ8-8L-9H5"/>
