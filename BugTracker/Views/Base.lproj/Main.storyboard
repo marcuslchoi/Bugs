@@ -584,12 +584,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="bQj-kc-XLX">
-                                <rect key="frame" x="115" y="325" width="239" height="34"/>
+                                <rect key="frame" x="115" y="325" width="239" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="qrL-f0-3UD"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iuv-BP-dQB">
-                                <rect key="frame" x="359" y="324.5" width="35" height="35"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iuv-BP-dQB" userLabel="Add Button">
+                                <rect key="frame" x="359" y="325" width="35" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="Vcd-W3-k23"/>
                                     <constraint firstAttribute="width" constant="35" id="gEs-Vj-uwC"/>
@@ -599,8 +602,9 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add User:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2y-I6-ZWA">
-                                <rect key="frame" x="20" y="332" width="90" height="20.5"/>
+                                <rect key="frame" x="20" y="332.5" width="90" height="20"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="tCu-8T-5p0"/>
                                     <constraint firstAttribute="width" constant="90" id="y9e-iy-Ufg"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
