@@ -216,6 +216,11 @@ class DetailViewController: UIViewController {
         }
     }
     
+    @IBAction func saveButtonPress(_ sender: Any)
+    {
+        save()
+    }
+    
     private func save()
     {
         if let issueId = issue?.id
