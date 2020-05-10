@@ -57,6 +57,14 @@ class DetailViewController: UIViewController {
         setAssigneeRolesData()
         stylizeTextBoxes()
         setDescHeightOnLoad()
+        //note this causes auto dismiss on tapping table view
+        //tapToDismiss()
+    }
+    
+    private func tapToDismiss()
+    {
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
     }
     
     //set to first issue if it is nil
@@ -70,9 +78,15 @@ class DetailViewController: UIViewController {
     
     private func stylizeTextBoxes()
     {
+        titleTextField.layer.borderWidth = 1
+        titleTextField.layer.borderColor = UIColor.black.cgColor
+        titleTextField.layer.cornerRadius = 5
+        titleTextField.delegate = self
+        
         descriptionTextView.layer.borderWidth = 1
         descriptionTextView.layer.borderColor = UIColor.black.cgColor
         descriptionTextView.layer.cornerRadius = 5
+        descriptionTextView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -355,5 +369,24 @@ extension DetailViewController: UITableViewDelegate
         pickersContainerView.isHidden = false
         let selectedRow = indexPath.row
         showPicker(tag: selectedRow)
+    }
+}
+
+extension DetailViewController: UITextFieldDelegate
+{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
+extension DetailViewController: UITextViewDelegate
+{
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
     }
 }

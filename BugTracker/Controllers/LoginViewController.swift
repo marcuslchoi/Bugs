@@ -28,6 +28,13 @@ class LoginViewController: UIViewController {
         stylizeTextBoxes()
         registerButton.isHidden = isLogin
         loginButton.isHidden = !isLogin
+        tapToDismiss()
+    }
+    
+    private func tapToDismiss()
+    {
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
     }
     
     private func stylizeTextBoxes()
@@ -39,6 +46,9 @@ class LoginViewController: UIViewController {
         pwTextField.layer.borderWidth = 1
         pwTextField.layer.borderColor = UIColor.black.cgColor
         pwTextField.layer.cornerRadius = 5
+        
+        emailTextField.delegate = self
+        pwTextField.delegate = self
     }
     
     @IBAction func loginPressed(_ sender: Any)
@@ -74,5 +84,13 @@ extension LoginViewController: AuthManagerDelegate
     
     func onRegisterFail(error: String) {
         self.errorLabel.text = error
+    }
+}
+
+extension LoginViewController: UITextFieldDelegate
+{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

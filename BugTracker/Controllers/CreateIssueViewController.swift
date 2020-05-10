@@ -42,6 +42,7 @@ class CreateIssueViewController: UIViewController {
         tableView.register(UINib(nibName: "CreateIssueTableViewCell", bundle: nil), forCellReuseIdentifier: "createIssueCustomCell")
         stylizeTextBoxes()
         setDescHeightOnLoad()
+        //tapToDismiss()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,6 +73,12 @@ class CreateIssueViewController: UIViewController {
         setDescriptionHeight(orientBeforeTransition == .landscapeLeft || orientBeforeTransition == .landscapeRight)
     }
     
+    private func tapToDismiss()
+    {
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
+    }
+    
     private func setDescHeightOnLoad()
     {
         let orientation = UIApplication.shared.statusBarOrientation
@@ -97,10 +104,12 @@ class CreateIssueViewController: UIViewController {
         descriptionTextView.layer.borderWidth = 1
         descriptionTextView.layer.borderColor = UIColor.black.cgColor
         descriptionTextView.layer.cornerRadius = 5
+        descriptionTextView.delegate = self
         
         titleTextField.layer.borderWidth = 1
         titleTextField.layer.borderColor = UIColor.black.cgColor
         titleTextField.layer.cornerRadius = 5
+        titleTextField.delegate = self
     }
     
     private func showPicker(tag: Int)
@@ -264,5 +273,24 @@ extension CreateIssueViewController: CreateIssueDelegate
         
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
+    }
+}
+
+extension CreateIssueViewController: UITextFieldDelegate
+{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
+extension CreateIssueViewController: UITextViewDelegate
+{
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
     }
 }

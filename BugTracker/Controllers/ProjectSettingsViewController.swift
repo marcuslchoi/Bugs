@@ -45,6 +45,7 @@ class ProjectSettingsViewController: UIViewController {
         //dbManager.projectUsersDelegate = self
         stylizeTextBoxes()
         setDescHeightOnLoad()
+        //tapToDismiss()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,7 +54,8 @@ class ProjectSettingsViewController: UIViewController {
         pickerContainerView.isHidden = true
         if cameFromIssues //came from issues (master) view
         {
-            okButton.isHidden = true
+            //todo make ok button go back to issues master
+            //okButton.isHidden = true
         }
         else //came from create project
         {
@@ -86,6 +88,12 @@ class ProjectSettingsViewController: UIViewController {
         setDescriptionHeight(orientBeforeTransition == .landscapeLeft || orientBeforeTransition == .landscapeRight)
     }
     
+    private func tapToDismiss()
+    {
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
+    }
+    
     private func setDescHeightOnLoad()
     {
         let orientation = UIApplication.shared.statusBarOrientation
@@ -111,10 +119,12 @@ class ProjectSettingsViewController: UIViewController {
         descriptionTextView.layer.borderWidth = 1
         descriptionTextView.layer.borderColor = UIColor.black.cgColor
         descriptionTextView.layer.cornerRadius = 5
+        descriptionTextView.delegate = self
         
         addUserTextField.layer.borderWidth = 1
         addUserTextField.layer.borderColor = UIColor.black.cgColor
         addUserTextField.layer.cornerRadius = 5
+        addUserTextField.delegate = self
     }
     
     @IBAction func pickerDoneButtonPress(_ sender: Any)
@@ -267,5 +277,24 @@ extension ProjectSettingsViewController: UITableViewDelegate
         {
             userRolePickerView.selectRow(indexOfRole, inComponent: 0, animated: false)
         }
+    }
+}
+
+extension ProjectSettingsViewController: UITextFieldDelegate
+{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
+extension ProjectSettingsViewController: UITextViewDelegate
+{
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
     }
 }

@@ -26,6 +26,13 @@ class CreateProjectViewController: UIViewController {
         setupPicker()
         stylizeTextBoxes()
         title = "Create a New Project"
+        //tapToDismiss()
+    }
+    
+    private func tapToDismiss()
+    {
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
     }
     
     private func stylizeTextBoxes()
@@ -33,6 +40,7 @@ class CreateProjectViewController: UIViewController {
         projectNameTextField.layer.borderWidth = 1
         projectNameTextField.layer.borderColor = UIColor.black.cgColor
         projectNameTextField.layer.cornerRadius = 5
+        projectNameTextField.delegate = self
         
         myRoleTextField.layer.borderWidth = 1
         myRoleTextField.layer.borderColor = UIColor.black.cgColor
@@ -141,5 +149,13 @@ extension CreateProjectViewController: UIPickerViewDataSource
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return userRolePickerDataSource.count
+    }
+}
+
+extension CreateProjectViewController: UITextFieldDelegate
+{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
