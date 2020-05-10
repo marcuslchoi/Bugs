@@ -211,6 +211,7 @@ class MasterViewController: UITableViewController {
         }
         else
         {
+            cell.textLabel?.attributedText = nil
             cell.textLabel?.text = cellTitle
         }
         
