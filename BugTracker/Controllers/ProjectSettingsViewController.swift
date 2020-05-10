@@ -45,7 +45,8 @@ class ProjectSettingsViewController: UIViewController {
         //dbManager.projectUsersDelegate = self
         stylizeTextBoxes()
         setDescHeightOnLoad()
-        //tapToDismiss()
+        tapToDismiss()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,6 +92,7 @@ class ProjectSettingsViewController: UIViewController {
     private func tapToDismiss()
     {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
     

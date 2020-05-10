@@ -34,6 +34,7 @@ class LoginViewController: UIViewController {
     private func tapToDismiss()
     {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
     

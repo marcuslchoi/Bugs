@@ -26,12 +26,13 @@ class CreateProjectViewController: UIViewController {
         setupPicker()
         stylizeTextBoxes()
         title = "Create a New Project"
-        //tapToDismiss()
+        tapToDismiss()
     }
     
     private func tapToDismiss()
     {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
     
@@ -50,7 +51,7 @@ class CreateProjectViewController: UIViewController {
     private func setupPicker()
     {
         //stackoverflow.com/questions/31728680/how-to-make-an-uipickerview-with-a-done-button
-        userRolePicker.backgroundColor = .white
+        //userRolePicker.backgroundColor = .white
         userRolePicker.delegate = self
         userRolePicker.dataSource = self
 

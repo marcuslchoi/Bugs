@@ -58,12 +58,13 @@ class DetailViewController: UIViewController {
         stylizeTextBoxes()
         setDescHeightOnLoad()
         //note this causes auto dismiss on tapping table view
-        //tapToDismiss()
+        tapToDismiss()
     }
     
     private func tapToDismiss()
     {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
     

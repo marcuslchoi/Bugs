@@ -42,7 +42,7 @@ class CreateIssueViewController: UIViewController {
         tableView.register(UINib(nibName: "CreateIssueTableViewCell", bundle: nil), forCellReuseIdentifier: "createIssueCustomCell")
         stylizeTextBoxes()
         setDescHeightOnLoad()
-        //tapToDismiss()
+        tapToDismiss()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,6 +76,7 @@ class CreateIssueViewController: UIViewController {
     private func tapToDismiss()
     {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
     
