@@ -55,11 +55,11 @@ class ProjectSettingsViewController: UIViewController {
         pickerContainerView.isHidden = true
         if cameFromIssues //came from issues (master) view
         {
-            //todo make ok button go back to issues master
-            //okButton.isHidden = true
+            okButton.setTitle("Save", for: .normal)
         }
         else //came from create project
         {
+            okButton.setTitle("Finish", for: .normal)
             navigationItem.hidesBackButton = true
         }
         
@@ -79,7 +79,7 @@ class ProjectSettingsViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         //save the project description on navigating away
-        updateProjectDescription()
+        updateProjectDescriptionToDb()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)
@@ -164,9 +164,13 @@ class ProjectSettingsViewController: UIViewController {
         {
             showMustAddUserAlert()
         }
+        else
+        {
+            performSegue(withIdentifier: "ProjectSettingsToChooseProject", sender: self)
+        }
     }
     
-    private func updateProjectDescription()
+    private func updateProjectDescriptionToDb()
     {
         if let project = dbManager.CurrentProject
         {
