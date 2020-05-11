@@ -458,7 +458,7 @@
                                     <segue destination="R0e-bD-KaJ" kind="presentation" id="Lzr-E3-lzb"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Settings" id="MwO-wK-0xt">
+                            <barButtonItem title="Settings" image="gear" catalog="system" id="MwO-wK-0xt">
                                 <connections>
                                     <action selector="settingsButtonPress:" destination="7bK-jq-Zjz" id="0FT-rc-s0e"/>
                                 </connections>
@@ -1093,13 +1093,14 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="lih-mw-aS8"/>
+        <segue reference="sso-7G-z9q"/>
         <segue reference="Nyu-W1-yTb"/>
         <segue reference="Xp2-ds-dqD"/>
         <segue reference="6S0-TO-JiA"/>
         <segue reference="Lzr-E3-lzb"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="gear" catalog="system" width="128" height="119"/>
         <namedColor name="BrandBlue">
             <color red="0.16500000655651093" green="0.77999997138977051" blue="0.99599999189376831" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
