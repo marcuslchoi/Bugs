@@ -215,7 +215,7 @@ class MasterViewController: UITableViewController {
             cell.textLabel?.text = cellTitle
         }
         
-        cell.detailTextLabel?.text = "\(issue.status): \(issue.assignedTo)"
+        cell.detailTextLabel?.text = "\(issue.status.rawValue): \(issue.assignedTo)"
         return cell
     }
 
