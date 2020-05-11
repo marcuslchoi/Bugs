@@ -486,8 +486,12 @@ protocol DbManagerDelegate
 {
     func onCreateProjectError(description: String)
     func onCreateProjectSuccess(projectName: String)
+    
     func onProjectsLoaded()
+    func onProjectsLoadError()
+    
     func onIssuesLoaded()
+    func onIssuesLoadError()
 }
 
 //delegate default methods
@@ -508,9 +512,19 @@ extension DbManagerDelegate
         print("default: onProjectsLoaded")
     }
     
+    func onProjectsLoadError()
+    {
+        print("default: onProjectsLoadError")
+    }
+    
     func onIssuesLoaded()
     {
         print("default: onIssuesLoaded")
+    }
+    
+    func onIssuesLoadError()
+    {
+        print("default: onIssuesLoadError")
     }
 }
 

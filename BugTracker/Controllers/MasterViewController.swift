@@ -82,7 +82,7 @@ class MasterViewController: UITableViewController {
         }
         setSearchControllerProps()
     }
-    
+
     private func setSearchControllerProps()
     {
         searchController.searchResultsUpdater = self
@@ -169,8 +169,18 @@ class MasterViewController: UITableViewController {
         else
         {
             let issues = dbManager.Issues
-            selectedIssue = issues[indexPath.row]
+            if issues.count > indexPath.row
+            {
+                selectedIssue = issues[indexPath.row]
+            }
+            else
+            {
+                //todo show alert
+                print("Error! selected an issue that doesn't exist??")
+                return;
+            }
         }
+        //the delegate is detail view controller
         delegate?.onIssueSelected(selectedIssue: selectedIssue)
     }
     

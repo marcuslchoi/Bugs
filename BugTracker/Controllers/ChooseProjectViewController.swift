@@ -54,7 +54,7 @@ class ChooseProjectViewController: UIViewController {
         loadProjectsInTable()
         setSearchControllerProps()
     }
-    
+
     private func setSearchControllerProps()
     {
         searchController.searchResultsUpdater = self
@@ -93,6 +93,33 @@ extension ChooseProjectViewController: DbManagerDelegate
         loadProjectsInTable()
         print("ChooseProjectViewController: projects loaded in table!")
     }
+    
+    func onIssuesLoaded() {
+        if let project = dbManager.CurrentProject
+        {
+            //if there are no issues, go to create issue view
+            if dbManager.Issues.count == 0
+            {
+                showAddIssueAlert(project.name)
+            }
+            else
+            {
+                performSegue(withIdentifier: "ProjectsToMaster", sender: self)
+            }
+        }
+        else
+        {
+            print("Error: project has not been set!")
+        }
+    }
+    
+    func onProjectsLoadError() {
+        //todo
+    }
+    
+    func onIssuesLoadError() {
+        //todo
+    }
 }
 
 extension ChooseProjectViewController: UITableViewDelegate
@@ -111,8 +138,19 @@ extension ChooseProjectViewController: UITableViewDelegate
 
         dbManager.setCurrentProjectId(id: project.id)
         dbManager.getIssues(for: project.id)
+    }
+    
+    private func showAddIssueAlert(_ projectName: String)
+    {
+        let alert = UIAlertController(title: "Welcome!", message: "Please add your first issue to \(projectName).", preferredStyle: .alert)
         
-        performSegue(withIdentifier: "ProjectsToMaster", sender: self)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            
+            self.performSegue(withIdentifier: "ProjectsToCreateIssue", sender: self)
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+        
     }
 }
 
