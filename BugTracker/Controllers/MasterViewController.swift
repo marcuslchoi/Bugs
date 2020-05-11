@@ -73,7 +73,7 @@ class MasterViewController: UITableViewController {
         loadIssuesInTable()
         if let currentProject = dbManager.CurrentProject
         {
-            title = "Issues for \(currentProject.name)"
+            title = currentProject.name
         }
         else
         {
