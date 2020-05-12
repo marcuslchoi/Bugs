@@ -15,7 +15,7 @@ class DbManager
     //this delegate used only for CreateIssueViewController
     var createIssueDelegate: CreateIssueDelegate?
     //this delegate used only for ProjectSettingsViewController
-    var projectUsersDelegate: ProjectUsersDelegate?
+    var projectSettingsManagerDelegate: ProjectSettingsManagerDelegate?
     
     var issueUpdateDelegate: IssueUpdateDelegate?
     private let db = Firestore.firestore()
@@ -193,10 +193,12 @@ class DbManager
             if let e = error
             {
                 print("updateProject error for \(project.name): \(e.localizedDescription)")
+                self.projectSettingsManagerDelegate?.onUpdateProjectError(errorStr: e.localizedDescription)
             }
             else
             {
                 print("updateProject success: \(project.name) updated")
+                self.projectSettingsManagerDelegate?.onUpdateProjectSuccess()
             }
         }
     }
@@ -397,7 +399,7 @@ extension DbManager
     {
         if checkIfUserOnProject(projectId, email)
         {
-            self.projectUsersDelegate?.onAddEmailUserToProjectError(email: email, errorStr: "\(email) is already on this project.")
+            self.projectSettingsManagerDelegate?.onAddEmailUserToProjectError(email: email, errorStr: "\(email) is already on this project.")
             return;
         }
         
@@ -406,7 +408,7 @@ extension DbManager
         userRef.getDocument { (doc, error) in
             if let e = error
             {
-                self.projectUsersDelegate?.onAddEmailUserToProjectError(email: email, errorStr: e.localizedDescription)
+                self.projectSettingsManagerDelegate?.onAddEmailUserToProjectError(email: email, errorStr: e.localizedDescription)
             }
             else if let safeDoc = doc, safeDoc.exists
             {
@@ -416,7 +418,7 @@ extension DbManager
             }
             else
             {
-                self.projectUsersDelegate?.onAddEmailUserToProjectError(email: email, errorStr: "\(email) not found")
+                self.projectSettingsManagerDelegate?.onAddEmailUserToProjectError(email: email, errorStr: "\(email) is not registered. Please ask them to register in order to be added to the project.")
             }
         }
     }
@@ -445,11 +447,11 @@ extension DbManager
                         projectRef.updateData(["roles": roles]) { (error) in
                             if let e = error
                             {
-                                self.projectUsersDelegate?.onUpdateUserRoleOnProjectError(email: email, errorStr: e.localizedDescription)
+                                self.projectSettingsManagerDelegate?.onUpdateUserRoleOnProjectError(email: email, errorStr: e.localizedDescription)
                             }
                             else
                             {
-                                self.projectUsersDelegate?.onUpdateUserRoleOnProjectSuccess(email: email)
+                                self.projectSettingsManagerDelegate?.onUpdateUserRoleOnProjectSuccess(email: email)
                             }
                         }
                     }
@@ -470,11 +472,11 @@ extension DbManager
             projectRef.updateData(["users": FieldValue.arrayUnion([email]), "roles": roles]) { (error) in
                 if let e = error
                 {
-                    self.projectUsersDelegate?.onAddEmailUserToProjectError(email: email, errorStr: e.localizedDescription)
+                    self.projectSettingsManagerDelegate?.onAddEmailUserToProjectError(email: email, errorStr: e.localizedDescription)
                 }
                 else
                 {
-                    self.projectUsersDelegate?.onAddEmailUserToProjectSuccess(email: email)
+                    self.projectSettingsManagerDelegate?.onAddEmailUserToProjectSuccess(email: email)
                 }
             }
         }
@@ -546,10 +548,12 @@ protocol IssueUpdateDelegate
     func onIssueUpdateError(error: String)
 }
 
-protocol ProjectUsersDelegate
+protocol ProjectSettingsManagerDelegate
 {
     func onAddEmailUserToProjectSuccess(email: String)
     func onAddEmailUserToProjectError(email: String, errorStr: String)
     func onUpdateUserRoleOnProjectSuccess(email: String)
     func onUpdateUserRoleOnProjectError(email: String, errorStr: String)
+    func onUpdateProjectSuccess()
+    func onUpdateProjectError(errorStr: String)
 }

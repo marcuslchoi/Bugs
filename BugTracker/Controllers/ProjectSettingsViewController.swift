@@ -66,7 +66,7 @@ class ProjectSettingsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        dbManager.projectUsersDelegate = self
+        dbManager.projectSettingsManagerDelegate = self
         pickerContainerView.isHidden = true
         navigationItem.hidesBackButton = !cameFromIssues
         setOkButtonNormalUI()
@@ -173,19 +173,6 @@ class ProjectSettingsViewController: UIViewController {
         else
         {
             updateProjectDescriptionToDb()
-            if cameFromIssues
-            {
-                //todo move this stuff to delegate
-                //ProjectUsersDelegate on description update success
-                okButton.backgroundColor = .green
-                okButton.setTitleColor(.black, for: .normal)
-                okButton.setTitle("Saved!", for: .normal)
-                let timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(setOkButtonNormalUI), userInfo: nil, repeats: false)
-            }
-            else
-            {
-                performSegue(withIdentifier: "ProjectSettingsToChooseProject", sender: self)
-            }
         }
     }
     
@@ -198,6 +185,7 @@ class ProjectSettingsViewController: UIViewController {
         else
         {
             print("updateProjectDescription error: current project is nil")
+            showOkAlert(title: "Error", msg: "There was a problem accessing the current project.")
         }
     }
     
@@ -229,11 +217,32 @@ class ProjectSettingsViewController: UIViewController {
 }
 
 //MARK: - ProjectUsersDelegate
-extension ProjectSettingsViewController: ProjectUsersDelegate
+extension ProjectSettingsViewController: ProjectSettingsManagerDelegate
 {
+    //user pressed save / finish button
+    func onUpdateProjectSuccess()
+    {
+        if cameFromIssues //save button pressed (ok button)
+        {
+            okButton.backgroundColor = .green
+            okButton.setTitleColor(.black, for: .normal)
+            okButton.setTitle("Saved!", for: .normal)
+            let timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(setOkButtonNormalUI), userInfo: nil, repeats: false)
+        }
+        else //finish button pressed (ok button)
+        {
+            performSegue(withIdentifier: "ProjectSettingsToChooseProject", sender: self)
+        }
+    }
+    
+    func onUpdateProjectError(errorStr: String) {
+        showOkAlert(title: "Error", msg: errorStr)
+    }
+    
     func onAddEmailUserToProjectSuccess(email: String) {
         addUserTextField.text = ""
         showUsersInUI()
+        showOkAlert(title: "\(email) added", msg: "\(email) was successfully added to the project.")
     }
     
     func onAddEmailUserToProjectError(email: String, errorStr: String) {
