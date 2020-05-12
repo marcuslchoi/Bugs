@@ -10,6 +10,7 @@ import Foundation
 
 struct K
 {
+    static let iPadDescHeight = 200
     static let portraitDescHeight = 200
     static let landscapeDescHeight = 80
     struct IssueDetail

@@ -91,8 +91,8 @@ class ProjectSettingsViewController: UIViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)
     {
         let orientBeforeTransition = UIApplication.shared.statusBarOrientation
-        orientBeforeTransition == .landscapeLeft || orientBeforeTransition == .landscapeRight
-        setDescriptionHeight(orientBeforeTransition == .landscapeLeft || orientBeforeTransition == .landscapeRight)
+        let wasLandscape = orientBeforeTransition == .landscapeLeft || orientBeforeTransition == .landscapeRight
+        setDescriptionHeight(wasLandscape)
     }
     
     private func tapToDismiss()
@@ -105,19 +105,28 @@ class ProjectSettingsViewController: UIViewController {
     private func setDescHeightOnLoad()
     {
         let orientation = UIApplication.shared.statusBarOrientation
-        setDescriptionHeight(orientation == .portrait || orientation == .portraitUpsideDown)
+        let isPortrait = orientation == .portrait || orientation == .portraitUpsideDown
+        setDescriptionHeight(isPortrait)
     }
     
     private func setDescriptionHeight(_ isPortrait: Bool)
     {
         let h: CGFloat
-        if isPortrait
+        let model = UIDevice.current.model.lowercased()
+        if model.contains("ipad")
         {
             h = CGFloat(K.portraitDescHeight)
         }
         else
         {
-            h = CGFloat(K.landscapeDescHeight)
+            if isPortrait
+            {
+                h = CGFloat(K.portraitDescHeight)
+            }
+            else
+            {
+                h = CGFloat(K.landscapeDescHeight)
+            }
         }
         descriptionTextViewHeight.constant = h
     }
