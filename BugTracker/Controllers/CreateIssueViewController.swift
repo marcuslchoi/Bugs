@@ -280,7 +280,15 @@ extension CreateIssueViewController: CreateIssueDelegate
     
     func onAddIssueSuccess(name: String)
     {
-        dismiss(animated: true, completion: nil)
+        //just added first issue
+        if dbManager.Issues.count == 1
+        {
+            performSegue(withIdentifier: "CreateIssueToMaster", sender: self)
+        }
+        else
+        {
+            dismiss(animated: true, completion: nil)
+        }
     }
     
     private func showAddIssueFailAlert(name: String, error: String)
