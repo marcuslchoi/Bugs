@@ -49,10 +49,11 @@ class ProjectSettingsViewController: UIViewController {
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        dbManager.projectUsersDelegate = self
-        pickerContainerView.isHidden = true
+    @objc
+    private func setOkButtonNormalUI()
+    {
+        okButton.setTitleColor(.white, for: .normal)
+        okButton.backgroundColor = UIColor(named: "BrandPurple")
         if cameFromIssues //came from issues (master) view
         {
             okButton.setTitle("Save", for: .normal)
@@ -60,8 +61,15 @@ class ProjectSettingsViewController: UIViewController {
         else //came from create project
         {
             okButton.setTitle("Finish", for: .normal)
-            navigationItem.hidesBackButton = true
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        dbManager.projectUsersDelegate = self
+        pickerContainerView.isHidden = true
+        navigationItem.hidesBackButton = !cameFromIssues
+        setOkButtonNormalUI()
 
         //get the project's current users
         if let project = dbManager.CurrentProject
@@ -169,7 +177,10 @@ class ProjectSettingsViewController: UIViewController {
             {
                 //todo move this stuff to delegate
                 //ProjectUsersDelegate on description update success
-                //todo show UI save success
+                okButton.backgroundColor = .green
+                okButton.setTitleColor(.black, for: .normal)
+                okButton.setTitle("Saved!", for: .normal)
+                let timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(setOkButtonNormalUI), userInfo: nil, repeats: false)
             }
             else
             {
