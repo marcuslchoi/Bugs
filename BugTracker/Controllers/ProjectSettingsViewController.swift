@@ -136,7 +136,6 @@ class ProjectSettingsViewController: UIViewController {
         descriptionTextView.layer.borderWidth = 1
         descriptionTextView.layer.borderColor = UIColor.black.cgColor
         descriptionTextView.layer.cornerRadius = 5
-        descriptionTextView.delegate = self
         
         addUserTextField.layer.borderWidth = 1
         addUserTextField.layer.borderColor = UIColor.black.cgColor
@@ -325,17 +324,6 @@ extension ProjectSettingsViewController: UITextFieldDelegate
 {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        return true
-    }
-}
-
-extension ProjectSettingsViewController: UITextViewDelegate
-{
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if(text == "\n") {
-            textView.resignFirstResponder()
-            return false
-        }
         return true
     }
 }
