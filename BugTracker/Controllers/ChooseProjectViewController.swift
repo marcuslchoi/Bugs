@@ -119,16 +119,17 @@ extension ChooseProjectViewController: DbManagerDelegate
         }
         else
         {
+            //this should not happen
             print("Error: project has not been set!")
         }
     }
     
-    func onProjectsLoadError() {
-        //todo
+    func onProjectsLoadError(error: String) {
+        showOkAlert(title: "Error loading projects", msg: error)
     }
     
-    func onIssuesLoadError() {
-        //todo
+    func onIssuesLoadError(error: String) {
+        showOkAlert(title: "Error loading issues", msg: error)
     }
 }
 

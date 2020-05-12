@@ -71,6 +71,7 @@ class DbManager
                 if let err = err
                 {
                     print("Error getting documents: \(err)")
+                    self.delegate?.onProjectsLoadError(error: err.localizedDescription)
                 }
                 else
                 {
@@ -216,6 +217,7 @@ extension DbManager
             if let err = err
             {
                 print("Error getting issues: \(err)")
+                self.delegate?.onIssuesLoadError(error: err.localizedDescription)
             }
             else
             {
@@ -494,10 +496,10 @@ protocol DbManagerDelegate
     func onCreateProjectSuccess(projectName: String)
     
     func onProjectsLoaded()
-    func onProjectsLoadError()
+    func onProjectsLoadError(error: String)
     
     func onIssuesLoaded()
-    func onIssuesLoadError()
+    func onIssuesLoadError(error: String)
 }
 
 //delegate default methods
@@ -518,7 +520,7 @@ extension DbManagerDelegate
         print("default: onProjectsLoaded")
     }
     
-    func onProjectsLoadError()
+    func onProjectsLoadError(error: String)
     {
         print("default: onProjectsLoadError")
     }
@@ -528,7 +530,7 @@ extension DbManagerDelegate
         print("default: onIssuesLoaded")
     }
     
-    func onIssuesLoadError()
+    func onIssuesLoadError(error: String)
     {
         print("default: onIssuesLoadError")
     }
