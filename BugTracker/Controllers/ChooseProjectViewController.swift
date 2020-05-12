@@ -84,6 +84,16 @@ class ChooseProjectViewController: UIViewController {
             print("loadProjectsInTable: no projects to load!")
         }
     }
+    
+    private func showOkAlert(title: String, msg: String)
+    {
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 //MARK: - DbManagerDelegate extension

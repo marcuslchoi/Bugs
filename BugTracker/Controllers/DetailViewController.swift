@@ -22,7 +22,8 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var reporterLabel: UILabel!
     
     @IBOutlet weak var dueDatePicker: UIDatePicker!
-        
+    @IBOutlet weak var saveButton: UIButton!
+    
     @IBOutlet weak var descriptionTextViewHeight: NSLayoutConstraint!
     
     private let dbManager = DbManager.instance
@@ -49,6 +50,8 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        dbManager.issueUpdateDelegate = self
+        
         //register the custom table view cell
         tableView.register(UINib(nibName: "CreateIssueTableViewCell", bundle: nil), forCellReuseIdentifier: "createIssueCustomCell")
         
@@ -258,6 +261,16 @@ class DetailViewController: UIViewController {
             print("save error: issue id is nil!")
         }
     }
+    
+    private func showOkAlert(title: String, msg: String)
+    {
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 //MARK: - Issue Selection Delegate
@@ -267,6 +280,27 @@ extension DetailViewController: IssueSelectionDelegate
     func onIssueSelected(selectedIssue: Issue) {
         self.issue = selectedIssue
         print("DetailViewController onIssueSelected \(issue?.title)")
+    }
+}
+
+extension DetailViewController: IssueUpdateDelegate
+{
+    func onIssueUpdateSuccess() {
+        saveButton.backgroundColor = .green
+        saveButton.setTitleColor(.black, for: .normal)
+        saveButton.setTitle("Saved!", for: .normal)
+        let timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(resetSaveButtonUI), userInfo: nil, repeats: false)
+    }
+    
+    @objc func resetSaveButtonUI()
+    {
+        saveButton.setTitle("Save", for: .normal)
+        saveButton.setTitleColor(.white, for: .normal)
+        saveButton.backgroundColor = UIColor(named: "BrandPurple")
+    }
+    
+    func onIssueUpdateError(error: String) {
+        showOkAlert(title: "Error", msg: error)
     }
 }
 

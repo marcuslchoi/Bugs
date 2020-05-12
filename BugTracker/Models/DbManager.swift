@@ -16,6 +16,8 @@ class DbManager
     var createIssueDelegate: CreateIssueDelegate?
     //this delegate used only for ProjectSettingsViewController
     var projectUsersDelegate: ProjectUsersDelegate?
+    
+    var issueUpdateDelegate: IssueUpdateDelegate?
     private let db = Firestore.firestore()
     private let auth = Auth.auth()
 
@@ -342,10 +344,12 @@ extension DbManager
                 if let e = error
                 {
                     print("updateIssue error for \(title): \(e.localizedDescription)")
+                    self.issueUpdateDelegate?.onIssueUpdateError(error: e.localizedDescription)
                 }
                 else
                 {
                     print("updateIssue success: \(title) updated")
+                    self.issueUpdateDelegate?.onIssueUpdateSuccess()
                 }
             }
         }
@@ -534,6 +538,12 @@ protocol CreateIssueDelegate
 {
     func onAddIssueSuccess(name: String)
     func onAddIssueFail(name: String, error: String)
+}
+
+protocol IssueUpdateDelegate
+{
+    func onIssueUpdateSuccess()
+    func onIssueUpdateError(error: String)
 }
 
 protocol ProjectUsersDelegate

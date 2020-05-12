@@ -200,6 +200,7 @@
                         <outlet property="dueDatePicker" destination="zkr-hL-tzU" id="XQa-h1-UiW"/>
                         <outlet property="pickersContainerView" destination="XXT-Y1-XaW" id="BM6-8f-g0Y"/>
                         <outlet property="reporterLabel" destination="r2W-r4-CCO" id="rqF-Ix-0Xd"/>
+                        <outlet property="saveButton" destination="NI2-ga-6nU" id="RQ1-PM-Qbm"/>
                         <outlet property="statusPickerView" destination="mTv-EK-Y7Z" id="EAL-I1-Dos"/>
                         <outlet property="tableView" destination="5Nj-2M-tep" id="cRf-vW-hcj"/>
                         <outlet property="titleTextField" destination="ze5-xl-RXf" id="5FR-GV-lsb"/>
@@ -1097,7 +1098,7 @@
         <segue reference="Nyu-W1-yTb"/>
         <segue reference="Xp2-ds-dqD"/>
         <segue reference="6S0-TO-JiA"/>
-        <segue reference="Lzr-E3-lzb"/>
+        <segue reference="1Hz-Zo-hOg"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="gear" catalog="system" width="128" height="119"/>

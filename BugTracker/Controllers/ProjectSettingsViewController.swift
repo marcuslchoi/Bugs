@@ -162,11 +162,21 @@ class ProjectSettingsViewController: UIViewController {
     {
         if let addUserText = addUserTextField.text, addUserText != ""
         {
-            showMustAddUserAlert()
+            showOkAlert(title: "Did you want to add the user?", msg: "Please press the + button, or clear the field to continue.")
         }
         else
         {
-            performSegue(withIdentifier: "ProjectSettingsToChooseProject", sender: self)
+            updateProjectDescriptionToDb()
+            if cameFromIssues
+            {
+                //todo move this stuff to delegate
+                //ProjectUsersDelegate on description update success
+                //todo show UI save success
+            }
+            else
+            {
+                performSegue(withIdentifier: "ProjectSettingsToChooseProject", sender: self)
+            }
         }
     }
     
@@ -198,13 +208,13 @@ class ProjectSettingsViewController: UIViewController {
         }
     }
     
-    private func showMustAddUserAlert()
+    private func showOkAlert(title: String, msg: String)
     {
-        let alert = UIAlertController(title: "Did you want to add the user?", message: "Please press the 'Add User' button, or clear the field to continue.", preferredStyle: .alert)
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
         
-        let addAction = UIAlertAction(title: "OK", style: .default) { (action) in
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
         }
-        alert.addAction(addAction)
+        alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
     }
 }
