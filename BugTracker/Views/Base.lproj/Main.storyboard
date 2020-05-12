@@ -538,11 +538,8 @@
                                                     <action selector="loginPressed:" destination="VEr-aj-5Zx" eventType="touchUpInside" id="owa-ob-2hK"/>
                                                 </connections>
                                             </button>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1@2.com" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yk8-HH-KOO">
-                                                <rect key="frame" x="144" y="23.5" width="250" height="34"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="250" id="kSD-1o-yQX"/>
-                                                </constraints>
+                                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1@2.com" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yk8-HH-KOO">
+                                                <rect key="frame" x="118" y="24" width="276" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -555,8 +552,8 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123456" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1yg-oy-vAB">
-                                                <rect key="frame" x="144" y="74" width="250" height="34"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123456" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1yg-oy-vAB">
+                                                <rect key="frame" x="118" y="74" width="276" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                             </textField>
@@ -569,6 +566,7 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="1yg-oy-vAB" firstAttribute="leading" secondItem="Yk8-HH-KOO" secondAttribute="leading" id="5IK-nn-hVj"/>
+                                            <constraint firstItem="Yk8-HH-KOO" firstAttribute="leading" secondItem="Xq6-XG-dzt" secondAttribute="trailing" constant="10" id="Bpv-th-RMi"/>
                                             <constraint firstItem="vCw-mZ-55P" firstAttribute="leading" secondItem="1oT-Si-pGO" secondAttribute="leading" id="CAJ-pv-JtA"/>
                                             <constraint firstItem="vCw-mZ-55P" firstAttribute="centerX" secondItem="1oT-Si-pGO" secondAttribute="centerX" id="DM7-04-shB"/>
                                             <constraint firstItem="1yg-oy-vAB" firstAttribute="trailing" secondItem="Yk8-HH-KOO" secondAttribute="trailing" id="DNI-OZ-Udx"/>
