@@ -312,6 +312,8 @@ extension DetailViewController: IssueUpdateDelegate
         saveButton.setTitleColor(.black, for: .normal)
         saveButton.setTitle("Saved!", for: .normal)
         let timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(resetSaveButtonUI), userInfo: nil, repeats: false)
+        //reset this so it doesn't save again on leave view
+        hasBeenEdited = false
     }
     
     @objc func resetSaveButtonUI()
