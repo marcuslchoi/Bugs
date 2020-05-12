@@ -48,8 +48,12 @@ class DetailViewController: UIViewController {
         }
     }
     
+    //use this for auto-save on leaving the issue
+    var hasBeenEdited = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        hasBeenEdited = false
         dbManager.issueUpdateDelegate = self
         
         //register the custom table view cell
@@ -90,6 +94,7 @@ class DetailViewController: UIViewController {
         descriptionTextView.layer.borderWidth = 1
         descriptionTextView.layer.borderColor = UIColor.black.cgColor
         descriptionTextView.layer.cornerRadius = 5
+        descriptionTextView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -99,7 +104,10 @@ class DetailViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        save()
+        if hasBeenEdited
+        {
+            save()
+        }
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)
@@ -315,7 +323,6 @@ extension DetailViewController: IssueUpdateDelegate
 //MARK: - Picker delegates
 extension DetailViewController: UIPickerViewDelegate
 {
-    
 }
 
 extension DetailViewController: UIPickerViewDataSource
@@ -412,6 +419,7 @@ extension DetailViewController: UITableViewDelegate
         pickersContainerView.isHidden = false
         let selectedRow = indexPath.row
         showPicker(tag: selectedRow)
+        hasBeenEdited = true
     }
 }
 
@@ -420,5 +428,16 @@ extension DetailViewController: UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        hasBeenEdited = true
+    }
+}
+
+extension DetailViewController: UITextViewDelegate
+{
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        hasBeenEdited = true
     }
 }
