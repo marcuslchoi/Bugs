@@ -62,9 +62,7 @@ class ProjectSettingsViewController: UIViewController {
             okButton.setTitle("Finish", for: .normal)
             navigationItem.hidesBackButton = true
         }
-        
-        //errorLabel.text = ""
-        
+
         //get the project's current users
         if let project = dbManager.CurrentProject
         {
@@ -162,7 +160,7 @@ class ProjectSettingsViewController: UIViewController {
     {
         if let addUserText = addUserTextField.text, addUserText != ""
         {
-            showOkAlert(title: "Did you want to add the user?", msg: "Please press the + button, or clear the field to continue.")
+            showOkAlert(title: "Did you want to add the user?", msg: "Please press the + button, or clear the 'Add User' field to continue.")
         }
         else
         {
@@ -198,7 +196,7 @@ class ProjectSettingsViewController: UIViewController {
         {
             if email == ""
             {
-                //errorLabel.text = "Error: Please add a user email."
+                showOkAlert(title: "Error", msg: "Please add a user email.")
             }
             else
             {
@@ -223,14 +221,12 @@ class ProjectSettingsViewController: UIViewController {
 extension ProjectSettingsViewController: ProjectUsersDelegate
 {
     func onAddEmailUserToProjectSuccess(email: String) {
-        //errorLabel.text = "\(email) added to project."
         addUserTextField.text = ""
         showUsersInUI()
     }
     
     func onAddEmailUserToProjectError(email: String, errorStr: String) {
-        //errorLabel.text = "Error with \(email): \(errorStr)"
-        print("Error adding \(email) to project: \(errorStr)")
+        showOkAlert(title: "Error adding \(email)", msg: errorStr)
     }
     
     func onUpdateUserRoleOnProjectSuccess(email: String) {
@@ -238,7 +234,7 @@ extension ProjectSettingsViewController: ProjectUsersDelegate
     }
     
     func onUpdateUserRoleOnProjectError(email: String, errorStr: String) {
-        print("Error updating \(email) role: \(errorStr)")
+        showOkAlert(title: "Error updating \(email)", msg: errorStr)
     }
 }
 
