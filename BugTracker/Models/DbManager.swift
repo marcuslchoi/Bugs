@@ -244,7 +244,7 @@ extension DbManager
                     
                     if let safeType = type, let safeStatus = status, let d = description, let t = title, let a = assignedTo, let r = reporter
                     {
-                        let issue = Issue(id: id, reporter: r, assignedTo: a, status: IssueStatus(rawValue: safeStatus) ?? IssueStatus.Open, type: IssueType(rawValue: safeType) ?? IssueType.Bug, title: t, description: d, dueDate: date ?? Date())
+                        let issue = Issue(id: id, reporter: r, assignedTo: a, status: IssueStatus(rawValue: safeStatus) ?? IssueStatus.Open, type: IssueType(rawValue: safeType) ?? IssueType.Bug, title: t, description: d, dueDate: date)
                         self.issues.append(issue)
                     }
                     else

@@ -60,9 +60,5 @@ struct Issue
     let type: IssueType
     var title:String
     var description:String
-    var dueDate: Date
-
-//    let module: String
-//    var dueDate: Date
-//    var comments: [String]
+    var dueDate: Date?
 }

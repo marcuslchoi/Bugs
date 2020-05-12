@@ -197,7 +197,10 @@ class DetailViewController: UIViewController {
             
             tableCellChosenVals[statusTag] = safeIssue.status.rawValue
             tableCellChosenVals[assigneeTag] = safeIssue.assignedTo
-            tableCellChosenVals[dueDateTag] = K.convertDateToString(date: safeIssue.dueDate)
+            if let dueDate = safeIssue.dueDate
+            {
+                tableCellChosenVals[dueDateTag] = K.convertDateToString(date: dueDate)
+            }
             tableView.reloadData()
         }
     }
@@ -231,7 +234,10 @@ class DetailViewController: UIViewController {
     //equals the due date of the issue in the db
     private func setDueDatePickerInitialSelection(issue: Issue)
     {
-        dueDatePicker.setDate(issue.dueDate, animated: true)
+        if let dueDate = issue.dueDate
+        {
+            dueDatePicker.setDate(dueDate, animated: true)
+        }
     }
 
     private func setAssigneePickerData()
@@ -265,8 +271,8 @@ class DetailViewController: UIViewController {
             let assigneeSelectedRow = assigneePickerView.selectedRow(inComponent: 0)
             let assignee = assigneePickerData[assigneeSelectedRow]
             
-            let dateSelected = K.convertDateToString(date: dueDatePicker.date)
-
+            let dateSelected = tableCellChosenVals[dueDateTag]
+            
             if let title = titleTextField.text
             {
                 DbManager.instance.updateIssue(issueId: issueId, title: title, description: descriptionTextView.text, statusString: status, assignee: assignee, dueDate: dateSelected)
