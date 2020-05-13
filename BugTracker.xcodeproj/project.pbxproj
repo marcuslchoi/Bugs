@@ -61,6 +61,7 @@
 		7F25C05B8A09487995652AD6 /* Pods-BugTracker-BugTrackerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BugTracker-BugTrackerUITests.debug.xcconfig"; path = "Target Support Files/Pods-BugTracker-BugTrackerUITests/Pods-BugTracker-BugTrackerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7F574DA39155C985AB6A988B /* Pods-BugTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BugTracker.debug.xcconfig"; path = "Target Support Files/Pods-BugTracker/Pods-BugTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		8C28EAC3525033943981545A /* Pods-BugTrackerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BugTrackerTests.debug.xcconfig"; path = "Target Support Files/Pods-BugTrackerTests/Pods-BugTrackerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9B4D199E246B63DD008898B3 /* BugTracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BugTracker.entitlements; sourceTree = "<group>"; };
 		9B4E18B524560F14004C68AF /* ProjectSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSettingsViewController.swift; sourceTree = "<group>"; };
 		9B4E18B7245753C0004C68AF /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9B4E18B9245778FF004C68AF /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
@@ -148,6 +149,7 @@
 		9B79F6B124475B5F00BFF9D6 /* BugTracker */ = {
 			isa = PBXGroup;
 			children = (
+				9B4D199E246B63DD008898B3 /* BugTracker.entitlements */,
 				9B79F6B224475B5F00BFF9D6 /* AppDelegate.swift */,
 				9B79F6B424475B5F00BFF9D6 /* SceneDelegate.swift */,
 				9B79F6E424475BFD00BFF9D6 /* Models */,
@@ -671,6 +673,7 @@
 			baseConfigurationReference = 7F574DA39155C985AB6A988B /* Pods-BugTracker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BugTracker/BugTracker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SZEYA5PL8C;
 				INFOPLIST_FILE = BugTracker/Info.plist;
@@ -680,6 +683,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.creationrage.BugTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -690,6 +694,7 @@
 			baseConfigurationReference = 529092EE47413B4198B36304 /* Pods-BugTracker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BugTracker/BugTracker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SZEYA5PL8C;
 				INFOPLIST_FILE = BugTracker/Info.plist;
@@ -699,6 +704,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.creationrage.BugTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

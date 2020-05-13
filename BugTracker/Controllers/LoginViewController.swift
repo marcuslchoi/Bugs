@@ -68,11 +68,12 @@ class LoginViewController: UIViewController {
         }
     }
     
-    private func showOkAlert(title: String, msg: String)
+    private func showRegistrationSuccessAlert(title: String, msg: String)
     {
         let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
         
         let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            self.performSegue(withIdentifier: "LoginToCreateProject", sender: self)
         }
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
@@ -89,8 +90,8 @@ extension LoginViewController: AuthManagerDelegate
         self.errorLabel.text = error
     }
     
-    func onRegisterSuccess() {
-        self.performSegue(withIdentifier: "LoginToCreateProject", sender: self)
+    func onRegisterSuccess(email: String) {
+        showRegistrationSuccessAlert(title: "Registration success!", msg: "\(email) is now registered.")
     }
     
     func onRegisterFail(error: String) {

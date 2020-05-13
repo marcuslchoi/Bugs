@@ -54,7 +54,7 @@ class AuthManager
             else
             {
                 print("registered! \(email)")
-                self.delegate?.onRegisterSuccess()
+                self.delegate?.onRegisterSuccess(email: email)
                 self.onUserAuthenticated(justRegistered: true, email: email)
             }
         }
@@ -76,6 +76,6 @@ protocol AuthManagerDelegate
 {
     func onLoginSuccess()
     func onLoginFail(error: String)
-    func onRegisterSuccess()
+    func onRegisterSuccess(email: String)
     func onRegisterFail(error: String)
 }
