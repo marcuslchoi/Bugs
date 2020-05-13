@@ -14,6 +14,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     
     @IBOutlet weak var pwTextField: UITextField!
+    @IBOutlet weak var savePasswordSwitch: UISwitch!
     
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var loginButton: UIButton!
@@ -69,7 +70,7 @@ class LoginViewController: UIViewController {
     {
         if let email = emailTextField.text, let password = pwTextField.text
         {
-            authManager.login(email: email, pw: password, shouldSaveCredentials: true)
+            authManager.login(email: email, pw: password, shouldSaveCredentials: savePasswordSwitch.isOn)
         }
     }
     
@@ -77,7 +78,7 @@ class LoginViewController: UIViewController {
     {
         if let email = emailTextField.text, let password = pwTextField.text
         {
-            authManager.register(email: email, pw: password, shouldSaveCredentials: true)
+            authManager.register(email: email, pw: password, shouldSaveCredentials: savePasswordSwitch.isOn)
         }
     }
     

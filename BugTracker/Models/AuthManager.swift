@@ -43,22 +43,14 @@ class AuthManager
                 {
                     self.saveCredentials(email, pw)
                 }
+                else
+                {
+                    self.removeCredentials()
+                }
             }
         }
     }
-    
-    private func saveCredentials(_ email: String, _ pw:String)
-    {
-        let loginDict = [K.Defaults.emailKey: email, K.Defaults.pwKey: pw]
-        defaults.set(loginDict, forKey: K.Defaults.loginDictKey)
-    }
-    
-    func getDefaultsLoginDictionary() -> Dictionary<String, String>?
-    {
-        let dict = defaults.dictionary(forKey: K.Defaults.loginDictKey) as? Dictionary<String, String>
-        return dict
-    }
-    
+
     func register(email: String, pw: String, shouldSaveCredentials: Bool)
     {
         auth.createUser(withEmail: email, password: pw)
@@ -90,6 +82,23 @@ class AuthManager
             dbManager.addUserToMyDb(email: email)
         }
         dbManager.getProjects()
+    }
+    
+    private func saveCredentials(_ email: String, _ pw:String)
+    {
+        let loginDict = [K.Defaults.emailKey: email, K.Defaults.pwKey: pw]
+        defaults.set(loginDict, forKey: K.Defaults.loginDictKey)
+    }
+    
+    private func removeCredentials()
+    {
+        defaults.removeObject(forKey: K.Defaults.loginDictKey)
+    }
+    
+    func getDefaultsLoginDictionary() -> Dictionary<String, String>?
+    {
+        let dict = defaults.dictionary(forKey: K.Defaults.loginDictKey) as? Dictionary<String, String>
+        return dict
     }
 }
 
