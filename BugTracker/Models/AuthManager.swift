@@ -14,6 +14,7 @@ class AuthManager
     var delegate: AuthManagerDelegate?
     private let auth = Auth.auth()
     static var instance = AuthManager()
+    let defaults = UserDefaults.standard
     
     var currentUserEmail: String?
     {
@@ -25,7 +26,7 @@ class AuthManager
     
     private init() { }
     
-    func login(email: String, pw: String)
+    func login(email: String, pw: String, shouldSaveCredentials: Bool)
     {
         auth.signIn(withEmail: email, password: pw)
         { authResult, error in
@@ -38,11 +39,27 @@ class AuthManager
                 print("logged in! \(email)")
                 self.delegate?.onLoginSuccess()
                 self.onUserAuthenticated(justRegistered: false, email: email)
+                if shouldSaveCredentials
+                {
+                    self.saveCredentials(email, pw)
+                }
             }
         }
     }
     
-    func register(email: String, pw: String)
+    private func saveCredentials(_ email: String, _ pw:String)
+    {
+        let loginDict = [K.Defaults.emailKey: email, K.Defaults.pwKey: pw]
+        defaults.set(loginDict, forKey: K.Defaults.loginDictKey)
+    }
+    
+    func getDefaultsLoginDictionary() -> Dictionary<String, String>?
+    {
+        let dict = defaults.dictionary(forKey: K.Defaults.loginDictKey) as? Dictionary<String, String>
+        return dict
+    }
+    
+    func register(email: String, pw: String, shouldSaveCredentials: Bool)
     {
         auth.createUser(withEmail: email, password: pw)
         {
@@ -56,6 +73,10 @@ class AuthManager
                 print("registered! \(email)")
                 self.delegate?.onRegisterSuccess(email: email)
                 self.onUserAuthenticated(justRegistered: true, email: email)
+                if shouldSaveCredentials
+                {
+                    self.saveCredentials(email, pw)
+                }
             }
         }
     }

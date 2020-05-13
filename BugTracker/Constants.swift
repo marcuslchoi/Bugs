@@ -13,6 +13,14 @@ struct K
     static let iPadDescHeight = 200
     static let portraitDescHeight = 200
     static let landscapeDescHeight = 80
+    
+    struct Defaults
+    {
+        static let loginDictKey = "loginDictionary"
+        static let emailKey = "email"
+        static let pwKey = "password"
+    }
+    
     struct IssueDetail
     {
         static let statusPickerTag = 0

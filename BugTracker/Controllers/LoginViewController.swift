@@ -28,7 +28,20 @@ class LoginViewController: UIViewController {
         stylizeTextBoxes()
         registerButton.isHidden = isLogin
         loginButton.isHidden = !isLogin
+        if isLogin
+        {
+            possiblySetSavedCredentials()
+        }
         tapToDismiss()
+    }
+    
+    private func possiblySetSavedCredentials()
+    {
+        if let loginDict = authManager.getDefaultsLoginDictionary()
+        {
+            emailTextField.text = loginDict[K.Defaults.emailKey]
+            pwTextField.text = loginDict[K.Defaults.pwKey]
+        }
     }
     
     private func tapToDismiss()
@@ -56,7 +69,7 @@ class LoginViewController: UIViewController {
     {
         if let email = emailTextField.text, let password = pwTextField.text
         {
-            authManager.login(email: email, pw: password)
+            authManager.login(email: email, pw: password, shouldSaveCredentials: true)
         }
     }
     
@@ -64,7 +77,7 @@ class LoginViewController: UIViewController {
     {
         if let email = emailTextField.text, let password = pwTextField.text
         {
-            authManager.register(email: email, pw: password)
+            authManager.register(email: email, pw: password, shouldSaveCredentials: true)
         }
     }
     
