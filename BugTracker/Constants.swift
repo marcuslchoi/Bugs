@@ -21,6 +21,12 @@ struct K
         static let pwKey = "password"
     }
     
+    struct MasterIssues
+    {
+        //in search bar, this is the first option for filtering by users
+        static let firstSearchScope = "All"
+    }
+    
     struct IssueDetail
     {
         static let statusPickerTag = 0

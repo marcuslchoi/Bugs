@@ -34,7 +34,8 @@ class MasterViewController: UITableViewController {
     {
         filteredIssues = dbManager.Issues.filter
         { (issue: Issue) -> Bool in
-            let isUserMatch = issue.assignedTo == user || user == "All"
+            let isUserMatch = issue.assignedTo == user ||
+                user == K.MasterIssues.firstSearchScope
             if isSearchBarEmpty
             {
                 return isUserMatch
@@ -95,7 +96,7 @@ class MasterViewController: UITableViewController {
         if let users = dbManager.CurrentProject?.users
         {
             var scopeButtonTitles = users
-            scopeButtonTitles.insert("All", at: 0)
+            scopeButtonTitles.insert(K.MasterIssues.firstSearchScope, at: 0)
             searchController.searchBar.scopeButtonTitles = scopeButtonTitles
             searchController.searchBar.delegate = self
         }

@@ -36,6 +36,8 @@ class DbManager
             {
                 if var currProject = getProject(with: id)
                 {
+                    //note: since issues is a property of DbManager, this does nothing
+                    //but is here just to show the relationship
                     currProject.issues = issues
                     return currProject
                 }

@@ -124,6 +124,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9B76FEF8246EE954004027CB /* Cases */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cases;
+			sourceTree = "<group>";
+		};
+		9B76FEF9246EE96F004027CB /* Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		9B76FEFA246EE977004027CB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9B79F6CD24475B6600BFF9D6 /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		9B79F6A624475B5F00BFF9D6 = {
 			isa = PBXGroup;
 			children = (
@@ -167,7 +189,9 @@
 			isa = PBXGroup;
 			children = (
 				9B79F6CB24475B6600BFF9D6 /* BugTrackerTests.swift */,
-				9B79F6CD24475B6600BFF9D6 /* Info.plist */,
+				9B76FEF8246EE954004027CB /* Cases */,
+				9B76FEF9246EE96F004027CB /* Data */,
+				9B76FEFA246EE977004027CB /* Supporting Files */,
 			);
 			path = BugTrackerTests;
 			sourceTree = "<group>";
