@@ -259,6 +259,12 @@ extension DbManager
         }
     }
     
+    func test_CreateNextIssueId(for type: IssueType) -> String
+    {
+        //issues = 
+        return createNextIssueId(for: type)
+    }
+    
     //create a new id for the issue being added
     private func createNextIssueId(for type: IssueType) -> String
     {
@@ -266,19 +272,19 @@ extension DbManager
         switch(type)
         {
             case IssueType.Bug:
-                searchString = "B-"
+                searchString = K.Issues.bugPrefix
                 break;
             case IssueType.Task:
-                searchString = "T-"
+                searchString = K.Issues.taskPrefix
                 break;
             case IssueType.Feature:
-                searchString = "F-"
+                searchString = K.Issues.featurePrefix
                 break;
             case IssueType.Improvement:
-                searchString = "I-"
+                searchString = K.Issues.improvementPrefix
                 break;
             case IssueType.Epic:
-                searchString = "E-"
+                searchString = K.Issues.epicPrefix
                 break;
             default:
                 print("error: issue type doesn't exist!")

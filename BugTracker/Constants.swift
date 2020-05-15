@@ -21,6 +21,16 @@ struct K
         static let pwKey = "password"
     }
     
+    //constants pertaining to issues in general
+    struct Issues
+    {
+        static let bugPrefix = "B-"
+        static let improvementPrefix = "I-"
+        static let taskPrefix = "T-"
+        static let featurePrefix = "F-"
+        static let epicPrefix = "E-"
+    }
+    
     struct MasterIssues
     {
         //in search bar, this is the first option for filtering by users

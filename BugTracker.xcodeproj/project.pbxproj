@@ -141,7 +141,6 @@
 		9B76FEFA246EE977004027CB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				9B79F6CD24475B6600BFF9D6 /* Info.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -189,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				9B79F6CB24475B6600BFF9D6 /* BugTrackerTests.swift */,
+				9B79F6CD24475B6600BFF9D6 /* Info.plist */,
 				9B76FEF8246EE954004027CB /* Cases */,
 				9B76FEF9246EE96F004027CB /* Data */,
 				9B76FEFA246EE977004027CB /* Supporting Files */,
