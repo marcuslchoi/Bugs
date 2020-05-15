@@ -285,13 +285,6 @@ extension DbManager
         return filteredIssues
     }
     
-    //for testing
-    func test_CreateNextIssueId(for type: IssueType, _ testIssues:[Issue]) -> String
-    {
-        issues = testIssues
-        return createNextIssueId(for: type)
-    }
-
     //create a new id for the issue being added
     private func createNextIssueId(for type: IssueType) -> String
     {
@@ -593,4 +586,20 @@ protocol ProjectSettingsManagerDelegate
     func onUpdateUserRoleOnProjectError(email: String, errorStr: String)
     func onUpdateProjectSuccess()
     func onUpdateProjectError(errorStr: String)
+}
+
+//MARK: - Testing
+extension DbManager
+{
+    func test_getFilteredIssues(testIssues:[Issue], isSearchBarEmpty: Bool, text searchText: String, user: String? = nil) -> [Issue]
+    {
+        issues = testIssues
+        return getFilteredIssues(isSearchBarEmpty: isSearchBarEmpty, text: searchText, user: user)
+    }
+    
+    func test_createNextIssueId(for type: IssueType, _ testIssues:[Issue]) -> String
+    {
+        issues = testIssues
+        return createNextIssueId(for: type)
+    }
 }
