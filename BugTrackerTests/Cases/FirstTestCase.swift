@@ -12,8 +12,23 @@ import XCTest
 class FirstTestCase: XCTestCase {
 
     let dbManager = DbManager.instance
+    var testIssues: [Issue] = []
+    
+    private func generateTestIssues() -> [Issue]
+    {
+        let issue0 = Issue(id: "B-1", reporter: "Marcus", assignedTo: "assignee0", status: .Closed, type: .Bug, title: "title", description: "", dueDate: nil)
+        let issue1 = Issue(id: "T-1", reporter: "Choi", assignedTo: "assignee1", status: .InProgress, type: .Task, title: "title", description: "", dueDate: nil)
+        let issue2 = Issue(id: "T-2", reporter: "marcuschoi", assignedTo: "assignee2", status: .InReview, type: .Task, title: "title", description: "", dueDate: nil)
+        let issue3 = Issue(id: "T-3", reporter: "reporter", assignedTo: "assignee3", status: .Open, type: .Task, title: "title", description: "", dueDate: nil)
+        let issue4 = Issue(id: "E-1", reporter: "1@3.com", assignedTo: "assignee4", status: .Open, type: .Epic, title: "title", description: "", dueDate: nil)
+        let issue5 = Issue(id: "B-2", reporter: "1@2.com", assignedTo: "assignee5", status: .InReview, type: .Bug, title: "title", description: "", dueDate: nil)
+        
+        return [issue0, issue1, issue2, issue3, issue4, issue5]
+    }
+    
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        testIssues = generateTestIssues()
     }
 
     override func tearDownWithError() throws {
@@ -22,21 +37,8 @@ class FirstTestCase: XCTestCase {
     
     func test_createNextIssueId()
     {
-        let testIssues = generateTestIssues()
         let id = dbManager.test_CreateNextIssueId(for: .Bug, testIssues)
         XCTAssertEqual(id, "B-3")
-    }
-    
-    private func generateTestIssues() -> [Issue]
-    {
-        let issue0 = Issue(id: "B-1", reporter: "reporter", assignedTo: "assignee", status: .InProgress, type: .Bug, title: "title", description: "", dueDate: nil)
-        let issue1 = Issue(id: "T-1", reporter: "reporter", assignedTo: "assignee", status: .InProgress, type: .Task, title: "title", description: "", dueDate: nil)
-        let issue2 = Issue(id: "T-2", reporter: "reporter", assignedTo: "assignee", status: .InProgress, type: .Task, title: "title", description: "", dueDate: nil)
-        let issue3 = Issue(id: "T-3", reporter: "reporter", assignedTo: "assignee", status: .InProgress, type: .Task, title: "title", description: "", dueDate: nil)
-        let issue4 = Issue(id: "E-1", reporter: "reporter", assignedTo: "assignee", status: .InProgress, type: .Epic, title: "title", description: "", dueDate: nil)
-        let issue5 = Issue(id: "B-2", reporter: "reporter", assignedTo: "assignee", status: .InProgress, type: .Bug, title: "title", description: "", dueDate: nil)
-        
-        return [issue0, issue1, issue2, issue3, issue4, issue5]
     }
 
     func testExample() throws {
