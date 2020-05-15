@@ -32,26 +32,7 @@ class MasterViewController: UITableViewController {
 
     private func filterContentForSearchText(_ searchText: String, user: String? = nil)
     {
-        filteredIssues = dbManager.Issues.filter
-        { (issue: Issue) -> Bool in
-            let isUserMatch = issue.assignedTo == user ||
-                user == K.MasterIssues.firstSearchScope
-            if isSearchBarEmpty
-            {
-                return isUserMatch
-            }
-            else
-            {
-                let txt = searchText.lowercased()
-                return
-                    isUserMatch &&
-                    (issue.title.lowercased().contains(txt) ||
-                    issue.description.lowercased().contains(txt) ||
-                    issue.status.rawValue.lowercased().contains(txt) ||
-                    issue.type.rawValue.lowercased().contains(txt))
-            }
-
-        }
+        filteredIssues = dbManager.getFilteredIssues(isSearchBarEmpty: isSearchBarEmpty, text: searchText, user: user)
         tableView.reloadData()
     }
 

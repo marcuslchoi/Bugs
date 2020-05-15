@@ -259,12 +259,38 @@ extension DbManager
         }
     }
     
+    //for searching in Master (Issues) View
+    func getFilteredIssues(isSearchBarEmpty: Bool, text searchText: String, user: String? = nil) -> [Issue]
+    {
+        let filteredIssues = Issues.filter
+        { (issue: Issue) -> Bool in
+            let isUserMatch = issue.assignedTo == user ||
+                user == K.MasterIssues.firstSearchScope
+            if isSearchBarEmpty
+            {
+                return isUserMatch
+            }
+            else
+            {
+                let txt = searchText.lowercased()
+                return
+                    isUserMatch &&
+                    (issue.title.lowercased().contains(txt) ||
+                    issue.description.lowercased().contains(txt) ||
+                    issue.status.rawValue.lowercased().contains(txt) ||
+                    issue.type.rawValue.lowercased().contains(txt))
+            }
+        }
+        return filteredIssues
+    }
+    
+    //for testing
     func test_CreateNextIssueId(for type: IssueType, _ testIssues:[Issue]) -> String
     {
         issues = testIssues
         return createNextIssueId(for: type)
     }
-    
+
     //create a new id for the issue being added
     private func createNextIssueId(for type: IssueType) -> String
     {
