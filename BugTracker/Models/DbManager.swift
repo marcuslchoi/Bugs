@@ -278,7 +278,8 @@ extension DbManager
                     (issue.title.lowercased().contains(txt) ||
                     issue.description.lowercased().contains(txt) ||
                     issue.status.rawValue.lowercased().contains(txt) ||
-                    issue.type.rawValue.lowercased().contains(txt))
+                    issue.type.rawValue.lowercased().contains(txt) ||
+                    issue.id.lowercased().contains(txt))
             }
         }
         return filteredIssues
