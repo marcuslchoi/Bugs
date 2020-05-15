@@ -5,7 +5,7 @@
 //  Created by Marcus Choi on 4/15/20.
 //  Copyright © 2020 Marcus Choi. All rights reserved.
 //
-
+/*
 import XCTest
 @testable import BugTracker
 
@@ -33,3 +33,4 @@ class BugTrackerTests: XCTestCase {
     }
 
 }
+*/

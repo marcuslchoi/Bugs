@@ -259,48 +259,48 @@ extension DbManager
         }
     }
     
-    func test_CreateNextIssueId(for type: IssueType) -> String
+    func test_CreateNextIssueId(for type: IssueType, _ testIssues:[Issue]) -> String
     {
-        //issues = 
+        issues = testIssues
         return createNextIssueId(for: type)
     }
     
     //create a new id for the issue being added
     private func createNextIssueId(for type: IssueType) -> String
     {
-        var searchString = ""
+        var idPrefix: String
         switch(type)
         {
             case IssueType.Bug:
-                searchString = K.Issues.bugPrefix
+                idPrefix = K.Issues.bugPrefix
                 break;
             case IssueType.Task:
-                searchString = K.Issues.taskPrefix
+                idPrefix = K.Issues.taskPrefix
                 break;
             case IssueType.Feature:
-                searchString = K.Issues.featurePrefix
+                idPrefix = K.Issues.featurePrefix
                 break;
             case IssueType.Improvement:
-                searchString = K.Issues.improvementPrefix
+                idPrefix = K.Issues.improvementPrefix
                 break;
             case IssueType.Epic:
-                searchString = K.Issues.epicPrefix
+                idPrefix = K.Issues.epicPrefix
                 break;
             default:
                 print("error: issue type doesn't exist!")
+                idPrefix = ""
                 break;
         }
 
         var count = 0
         for issue in issues
         {
-            let id = issue.id
-            if id.contains(searchString)
+            if issue.type == type
             {
                 count += 1
             }
         }
-        return searchString + String(count + 1)
+        return idPrefix + String(count + 1)
     }
     
     //add a new issue to the db
