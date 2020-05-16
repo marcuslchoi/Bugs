@@ -57,10 +57,12 @@ class LoginViewController: UIViewController {
         emailTextField.layer.borderWidth = 1
         emailTextField.layer.borderColor = UIColor.black.cgColor
         emailTextField.layer.cornerRadius = 5
+        emailTextField.addDismissButton(target: self, selector: #selector(UIView.endEditing))
         
         pwTextField.layer.borderWidth = 1
         pwTextField.layer.borderColor = UIColor.black.cgColor
         pwTextField.layer.cornerRadius = 5
+        pwTextField.addDismissButton(target: self, selector: #selector(UIView.endEditing))
         
         emailTextField.delegate = self
         pwTextField.delegate = self

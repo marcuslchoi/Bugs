@@ -16,6 +16,7 @@
 		9B5D81F72461C16200B6AF11 /* CreateIssueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5D81F52461C16200B6AF11 /* CreateIssueTableViewCell.swift */; };
 		9B5D81F82461C16200B6AF11 /* CreateIssueTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B5D81F62461C16200B6AF11 /* CreateIssueTableViewCell.xib */; };
 		9B76FEFC246F33F9004027CB /* FirstTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B76FEFB246F33F9004027CB /* FirstTestCase.swift */; };
+		9B76FF002470700B004027CB /* UITextViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B76FEFF2470700A004027CB /* UITextViewExtension.swift */; };
 		9B79F6B324475B5F00BFF9D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B79F6B224475B5F00BFF9D6 /* AppDelegate.swift */; };
 		9B79F6B524475B5F00BFF9D6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B79F6B424475B5F00BFF9D6 /* SceneDelegate.swift */; };
 		9B79F6B724475B5F00BFF9D6 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B79F6B624475B5F00BFF9D6 /* MasterViewController.swift */; };
@@ -70,6 +71,7 @@
 		9B5D81F52461C16200B6AF11 /* CreateIssueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateIssueTableViewCell.swift; sourceTree = "<group>"; };
 		9B5D81F62461C16200B6AF11 /* CreateIssueTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateIssueTableViewCell.xib; sourceTree = "<group>"; };
 		9B76FEFB246F33F9004027CB /* FirstTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTestCase.swift; sourceTree = "<group>"; };
+		9B76FEFF2470700A004027CB /* UITextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewExtension.swift; sourceTree = "<group>"; };
 		9B79F6AF24475B5F00BFF9D6 /* BugTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BugTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B79F6B224475B5F00BFF9D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B79F6B424475B5F00BFF9D6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 				9B79F6BA24475B5F00BFF9D6 /* Main.storyboard */,
 				9B5D81F52461C16200B6AF11 /* CreateIssueTableViewCell.swift */,
 				9B5D81F62461C16200B6AF11 /* CreateIssueTableViewCell.xib */,
+				9B76FEFF2470700A004027CB /* UITextViewExtension.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -525,6 +528,7 @@
 				9B9E69A7244E5E4D000256E2 /* DbManager.swift in Sources */,
 				9B79F6B524475B5F00BFF9D6 /* SceneDelegate.swift in Sources */,
 				9B79F6B724475B5F00BFF9D6 /* MasterViewController.swift in Sources */,
+				9B76FF002470700B004027CB /* UITextViewExtension.swift in Sources */,
 				9B79F6F4244AB5E800BFF9D6 /* Project.swift in Sources */,
 				9B79F6B924475B5F00BFF9D6 /* DetailViewController.swift in Sources */,
 			);

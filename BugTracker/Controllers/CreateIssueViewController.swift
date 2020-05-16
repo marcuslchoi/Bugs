@@ -114,11 +114,13 @@ class CreateIssueViewController: UIViewController {
         descriptionTextView.layer.borderWidth = 1
         descriptionTextView.layer.borderColor = UIColor.black.cgColor
         descriptionTextView.layer.cornerRadius = 5
+        descriptionTextView.addDismissButton(target: self, selector: #selector(UIView.endEditing))
 
         titleTextField.layer.borderWidth = 1
         titleTextField.layer.borderColor = UIColor.black.cgColor
         titleTextField.layer.cornerRadius = 5
         titleTextField.delegate = self
+        titleTextField.addDismissButton(target: self, selector: #selector(UIView.endEditing))
     }
     
     private func showPicker(tag: Int)

@@ -42,10 +42,12 @@ class CreateProjectViewController: UIViewController {
         projectNameTextField.layer.borderColor = UIColor.black.cgColor
         projectNameTextField.layer.cornerRadius = 5
         projectNameTextField.delegate = self
+        projectNameTextField.addDismissButton(target: self, selector: #selector(UIView.endEditing))
         
         myRoleTextField.layer.borderWidth = 1
         myRoleTextField.layer.borderColor = UIColor.black.cgColor
         myRoleTextField.layer.cornerRadius = 5
+        //note: don't add a dismiss button to myRoleTextField, causes conflict with picker
     }
     
     private func setupPicker()
@@ -57,14 +59,15 @@ class CreateProjectViewController: UIViewController {
 
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
-        toolBar.backgroundColor = .systemGreen
+        toolBar.backgroundColor = .white
         toolBar.isTranslucent = true
         //toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
         toolBar.sizeToFit()
 
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(self.donePicker))
+        let flexButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.donePicker))
 
-        toolBar.setItems([doneButton], animated: false)
+        toolBar.setItems([flexButton, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
 
         myRoleTextField.inputView = userRolePicker

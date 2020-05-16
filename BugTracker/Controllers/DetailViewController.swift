@@ -64,13 +64,13 @@ class DetailViewController: UIViewController {
         setAssigneeRolesData()
         stylizeTextBoxes()
         setDescHeightOnLoad()
-        //note this causes auto dismiss on tapping table view
         tapToDismiss()
     }
     
     private func tapToDismiss()
     {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        //fix for auto dismiss on tapping table view
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
@@ -90,11 +90,13 @@ class DetailViewController: UIViewController {
         titleTextField.layer.borderColor = UIColor.black.cgColor
         titleTextField.layer.cornerRadius = 5
         titleTextField.delegate = self
+        titleTextField.addDismissButton(target: self, selector: #selector(UIView.endEditing))
         
         descriptionTextView.layer.borderWidth = 1
         descriptionTextView.layer.borderColor = UIColor.black.cgColor
         descriptionTextView.layer.cornerRadius = 5
         descriptionTextView.delegate = self
+        descriptionTextView.addDismissButton(target: self, selector: #selector(UIView.endEditing))
     }
     
     override func viewWillAppear(_ animated: Bool) {

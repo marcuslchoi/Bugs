@@ -136,11 +136,13 @@ class ProjectSettingsViewController: UIViewController {
         descriptionTextView.layer.borderWidth = 1
         descriptionTextView.layer.borderColor = UIColor.black.cgColor
         descriptionTextView.layer.cornerRadius = 5
+        descriptionTextView.addDismissButton(target: self, selector: #selector(UIView.endEditing))
         
         addUserTextField.layer.borderWidth = 1
         addUserTextField.layer.borderColor = UIColor.black.cgColor
         addUserTextField.layer.cornerRadius = 5
         addUserTextField.delegate = self
+        addUserTextField.addDismissButton(target: self, selector: #selector(UIView.endEditing))
     }
     
     @IBAction func pickerDoneButtonPress(_ sender: Any)
