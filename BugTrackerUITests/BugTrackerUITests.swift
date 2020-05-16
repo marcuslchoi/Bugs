@@ -23,11 +23,22 @@ class BugTrackerUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() {
+    func test_Login() {
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
         app.launch()
-
+        let errorLabel = app.staticTexts["loginErrorLabel"]
+        let emailField = app.textFields["loginEmailTextField"]
+        let passField = app.secureTextFields["loginPasswordTextField"]
+        let loginButton = app.buttons["loginButton"]
+        
+        emailField.tap()
+        emailField.typeText("1@2.com")
+        passField.tap()
+        passField.typeText("1234")
+        loginButton.tap()
+        XCTAssert(errorLabel.label != "")
+        
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }

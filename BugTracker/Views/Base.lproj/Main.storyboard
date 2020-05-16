@@ -215,7 +215,7 @@
             <objects>
                 <viewController id="R0e-bD-KaJ" customClass="CreateIssueViewController" customModule="BugTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nwg-Nz-V87">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7jn-SX-GMn">
@@ -528,6 +528,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pAq-2P-Pfa">
                                                 <rect key="frame" x="0.0" y="173.5" width="414" height="60"/>
                                                 <color key="backgroundColor" name="BrandBlue"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="loginButton"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="Au8-qz-s3y"/>
                                                 </constraints>
@@ -541,6 +542,7 @@
                                             </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yk8-HH-KOO">
                                                 <rect key="frame" x="125" y="23.5" width="269" height="34"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="loginEmailTextField"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -555,11 +557,13 @@
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1yg-oy-vAB">
                                                 <rect key="frame" x="125" y="74" width="269" height="34"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="loginPasswordTextField"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="error text" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="UEQ-Rf-Z9w">
                                                 <rect key="frame" x="0.0" y="743.5" width="414" height="20.5"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="loginErrorLabel"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1030,7 +1034,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XRP-X8-e02">
-                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="projectCell" textLabel="Oft-FT-Emi" detailTextLabel="XAN-aJ-Cno" style="IBUITableViewCellStyleSubtitle" id="cmY-Fi-WU7">
@@ -1107,9 +1111,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="sso-7G-z9q"/>
+        <segue reference="IOA-Tq-53f"/>
         <segue reference="Nyu-W1-yTb"/>
-        <segue reference="Xp2-ds-dqD"/>
+        <segue reference="Frd-WK-SBK"/>
         <segue reference="6S0-TO-JiA"/>
         <segue reference="EJg-Cm-vt8"/>
         <segue reference="Lzr-E3-lzb"/>
