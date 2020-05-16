@@ -46,7 +46,61 @@ class ProjectSettingsViewController: UIViewController {
         stylizeTextBoxes()
         setDescHeightOnLoad()
         tapToDismiss()
+        setupKeyboardListeners()
+    }
+    
+    @objc func keyboardWillChange(notification: Notification)
+    {
+        //get keyboard frame
+        guard let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else
+        {
+            return
+        }
         
+        var txtY:CGFloat = 0
+        if addUserTextField.isEditing
+        {
+            txtY = addUserTextField.frame.maxY
+        }
+        else if descriptionTextView.isFirstResponder
+        {
+            txtY = descriptionTextView.frame.maxY
+        }
+        
+        let keyboardH = keyboardFrame.height
+        let viewH = view.frame.height
+        let shift = txtY - viewH + keyboardH
+        
+        if notification.name == UIResponder.keyboardWillShowNotification || notification.name == UIResponder.keyboardWillChangeFrameNotification
+        {
+            //the text field is hidden, need to shift it up
+            if shift > 0
+            {
+                view.frame.origin.y = -shift
+            }
+        }
+        else
+        {
+            view.frame.origin.y = 0
+        }
+        //print(notification.name)
+    }
+    
+    private func setupKeyboardListeners()
+    {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
+    //remove keyboard listeners
+    deinit
+    {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
     @objc
