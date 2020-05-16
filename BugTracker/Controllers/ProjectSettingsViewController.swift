@@ -118,6 +118,12 @@ class ProjectSettingsViewController: UIViewController {
         }
     }
     
+    @objc private func onSave()
+    {
+        setOkButtonNormalUI()
+        dismiss(animated: true, completion: nil)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         dbManager.projectSettingsManagerDelegate = self
@@ -291,7 +297,7 @@ extension ProjectSettingsViewController: ProjectSettingsManagerDelegate
             okButton.backgroundColor = .green
             okButton.setTitleColor(.black, for: .normal)
             okButton.setTitle("Saved!", for: .normal)
-            let timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(setOkButtonNormalUI), userInfo: nil, repeats: false)
+            let timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(onSave), userInfo: nil, repeats: false)
         }
         else //finish button pressed (ok button)
         {
