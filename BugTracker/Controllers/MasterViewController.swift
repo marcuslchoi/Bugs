@@ -191,6 +191,8 @@ class MasterViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "issueCell", for: indexPath)
+        //make cell text wrap around
+        cell.textLabel?.numberOfLines = 0
 
         let issue: Issue
         if isFiltering
