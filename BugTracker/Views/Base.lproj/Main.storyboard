@@ -197,6 +197,7 @@
                         <outlet property="assigneePickerView" destination="85h-Q8-Vz9" id="tBr-6L-nAM"/>
                         <outlet property="descriptionTextView" destination="2cM-80-plc" id="zzR-RN-RKj"/>
                         <outlet property="descriptionTextViewHeight" destination="D4R-oh-l6R" id="IM0-aC-sa6"/>
+                        <outlet property="descriptionView" destination="EsN-qh-i45" id="SnU-A9-AyW"/>
                         <outlet property="dueDatePicker" destination="zkr-hL-tzU" id="XQa-h1-UiW"/>
                         <outlet property="pickersContainerView" destination="XXT-Y1-XaW" id="BM6-8f-g0Y"/>
                         <outlet property="reporterLabel" destination="r2W-r4-CCO" id="rqF-Ix-0Xd"/>
@@ -215,7 +216,7 @@
             <objects>
                 <viewController id="R0e-bD-KaJ" customClass="CreateIssueViewController" customModule="BugTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nwg-Nz-V87">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7jn-SX-GMn">

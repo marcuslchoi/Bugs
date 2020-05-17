@@ -12,6 +12,9 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     
     @IBOutlet weak var descriptionTextView: UITextView!
+    //the container for desc text view
+    @IBOutlet weak var descriptionView: UIView!
+    
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var pickersContainerView: UIView!
@@ -65,6 +68,60 @@ class DetailViewController: UIViewController {
         stylizeTextBoxes()
         setDescHeightOnLoad()
         tapToDismiss()
+        setupKeyboardListeners()
+    }
+    
+    //MARK: - keyboard listeners
+    //so that the view will move up if keyboard is blocking a text box
+    private func setupKeyboardListeners()
+    {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
+    @objc func keyboardWillChange(notification: Notification)
+    {
+        //get keyboard frame
+        guard let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else
+        {
+            return
+        }
+        
+        var txtY:CGFloat = 0
+        if descriptionTextView.isFirstResponder
+        {
+            txtY = descriptionView.frame.maxY
+        }
+        
+        let keyboardH = keyboardFrame.height
+        let viewH = view.frame.height
+        let keyboardTopY = viewH - keyboardH
+        let shift = txtY - keyboardTopY
+        
+        if notification.name == UIResponder.keyboardWillShowNotification || notification.name == UIResponder.keyboardWillChangeFrameNotification
+        {
+            //the text box is hidden, need to shift it up
+            if shift > 0
+            {
+                view.frame.origin.y = -shift
+            }
+        }
+        else
+        {
+            view.frame.origin.y = 0
+        }
+        //print(notification.name)
+    }
+    
+    //remove keyboard listeners
+    deinit
+    {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
     private func tapToDismiss()

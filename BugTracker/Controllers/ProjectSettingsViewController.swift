@@ -49,6 +49,17 @@ class ProjectSettingsViewController: UIViewController {
         setupKeyboardListeners()
     }
     
+    //MARK: - keyboard listeners
+    //so that the view will move up if keyboard is blocking a text box
+    private func setupKeyboardListeners()
+    {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
     @objc func keyboardWillChange(notification: Notification)
     {
         //get keyboard frame
@@ -73,7 +84,7 @@ class ProjectSettingsViewController: UIViewController {
         
         if notification.name == UIResponder.keyboardWillShowNotification || notification.name == UIResponder.keyboardWillChangeFrameNotification
         {
-            //the text field is hidden, need to shift it up
+            //the text box is hidden, need to shift it up
             if shift > 0
             {
                 view.frame.origin.y = -shift
@@ -84,15 +95,6 @@ class ProjectSettingsViewController: UIViewController {
             view.frame.origin.y = 0
         }
         //print(notification.name)
-    }
-    
-    private func setupKeyboardListeners()
-    {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
     //remove keyboard listeners
@@ -118,6 +120,7 @@ class ProjectSettingsViewController: UIViewController {
         }
     }
     
+    //saving when came from issues
     @objc private func onSave()
     {
         setOkButtonNormalUI()
