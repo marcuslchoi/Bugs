@@ -306,6 +306,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstItem="AvT-BJ-sgz" firstAttribute="centerY" secondItem="rSW-Jf-XaK" secondAttribute="centerY" id="0TL-H5-n4z"/>
                                     <constraint firstItem="rSW-Jf-XaK" firstAttribute="top" secondItem="PDc-MC-Lzd" secondAttribute="bottom" id="DwT-tY-Dpz"/>
